@@ -155,25 +155,6 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Determine if given switch already added.
-		/// </summary>
-		public bool HasSwitch(Switch switchObject)
-		{
-			bool hasSwitch = false;
-
-			if (switchObject != null)
-			{
-				hasSwitch = m_switches.Contains(switchObject) ||
-					m_indicesByName.ContainsKey(switchObject.Name);
-
-				if (switchObject.HasLongName)
-					hasSwitch |= m_indicesByLongName.ContainsKey(switchObject.LongName);
-			}
-
-			return hasSwitch;
-		}
-
-		/// <summary>
 		/// Determine if switch with given name already added.
 		/// </summary>
 		public bool HasSwitch(string name)
@@ -257,7 +238,7 @@ namespace CSharpCLI.Argument
 			if (item == null)
 				return;
 
-			if (!HasSwitch(item))
+			if (!Contains(item))
 			{
 				int newIndex = Count;
 
@@ -285,7 +266,18 @@ namespace CSharpCLI.Argument
 		/// </summary>
 		public bool Contains(Switch item)
 		{
-			return m_switches.Contains(item);
+			bool contains = false;
+
+			if (item != null)
+			{
+				contains = m_switches.Contains(item) ||
+					m_indicesByName.ContainsKey(item.Name);
+
+				if (item.HasLongName)
+					contains |= m_indicesByLongName.ContainsKey(item.LongName);
+			}
+
+			return contains;
 		}
 
 		/// <summary>
