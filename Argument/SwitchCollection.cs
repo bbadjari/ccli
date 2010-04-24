@@ -65,33 +65,63 @@ namespace CSharpCLI.Argument
 		// Methods
 
 		/// <summary>
-		/// Add switch with given name.
+		/// Add switch to collection with given name.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
 		public void Add(string name)
 		{
 			Add(new Switch(name));
 		}
 
 		/// <summary>
-		/// Add switch with given name and description.
+		/// Add switch to collection with given name and description.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
 		public void Add(string name, string description)
 		{
 			Add(new Switch(name, description));
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name and description.
+		/// Add switch to collection with given name, long name and description.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
 		public void Add(string name, string longName, string description)
 		{
 			Add(new Switch(name, longName, description));
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description and whether
-		/// it is required.
+		/// Add switch to collection with given name, long name, description
+		/// and whether it is required.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			bool isRequired)
 		{
@@ -99,9 +129,24 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description, whether
-		/// it has arguments and whether it is required.
+		/// Add switch to collection with given name, long name, description,
+		/// whether it has arguments and whether it is required.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			bool hasArguments, bool isRequired)
 		{
@@ -110,9 +155,24 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description, number of
-		/// expected arguments and whether it is required.
+		/// Add switch to collection with given name, long name, description,
+		/// number of expected arguments and whether it is required.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			int numberArguments, bool isRequired)
 		{
@@ -121,10 +181,28 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description, whether
-		/// it has arguments, whether it is required and name of
+		/// Add switch to collection with given name, long name, description,
+		/// whether it has arguments, whether it is required and name of
 		/// expected arguments.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentName">
+		/// String representing name of arguments expected to follow switch.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			bool hasArguments, bool isRequired, string argumentName)
 		{
@@ -133,9 +211,24 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description, whether it is
-		/// required and name of expected argument.
+		/// Add switch to collection with given name, long name, description,
+		/// whether it is required and name of expected argument.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentName">
+		/// String representing name of single argument expected to follow switch.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			bool isRequired, string argumentName)
 		{
@@ -144,9 +237,25 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch with given name, long name, description, whether it is
-		/// required and names of expected arguments.
+		/// Add switch to collection with given name, long name, description,
+		/// whether it is required and names of expected arguments.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentNames">
+		/// Array of strings representing names of arguments expected to follow
+		/// switch.
+		/// </param>
 		public void Add(string name, string longName, string description,
 			bool isRequired, string[] argumentNames)
 		{
@@ -155,8 +264,14 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Determine if switch with given name already added.
+		/// Determine if switch with given name already added to collection.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		/// True if collection contains switch with given name, false otherwise.
+		/// </returns>
 		public bool HasSwitch(string name)
 		{
 			return m_indicesByName.ContainsKey(name) || m_indicesByLongName.ContainsKey(name);
@@ -168,6 +283,17 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch with given name from collection.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <value>
+		///		<para>
+		///		Switch object representing switch with given name.
+		///		</para>
+		///		<para>
+		///		Null if switch with given name not in collection.
+		///		</para>
+		/// </value>
 		public Switch this[string name]
 		{
 			get
@@ -191,6 +317,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get all switches in collection sorted by name.
 		/// </summary>
+		/// <value>
+		/// List of switches in collection sorted by name.
+		/// </value>
 		public IList<Switch> SortedSwitches
 		{
 			get
@@ -206,6 +335,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get all switches in collection.
 		/// </summary>
+		/// <value>
+		/// List of switches in collection.
+		/// </value>
 		public IList<Switch> Switches
 		{
 			get { return m_switches; }
@@ -217,6 +349,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get number of switches in collection.
 		/// </summary>
+		/// <value>
+		/// Integer representing number of switches in collection.
+		/// </value>
 		public int Count
 		{
 			get { return m_switches.Count; }
@@ -225,6 +360,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if collection is read-only.
 		/// </summary>
+		/// <value>
+		/// True if collection is read-only, false otherwise.
+		/// </value>
 		public bool IsReadOnly
 		{
 			get { return false; }
@@ -233,6 +371,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Add given switch to collection.
 		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch to add to collection.
+		/// </param>
 		public void Add(Switch item)
 		{
 			if (item == null)
@@ -264,6 +405,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if given switch contained in collection.
 		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch to find in collection.
+		/// </param>
+		/// <returns>
+		/// True if collection contains given switch, false otherwise.
+		/// </returns>
 		public bool Contains(Switch item)
 		{
 			bool contains = false;
@@ -283,6 +430,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Copy collection to given array, starting at given index.
 		/// </summary>
+		/// <param name="array">
+		/// Array of Switch objects to copy collection to.
+		/// </param>
+		/// <param name="arrayIndex">
+		/// Integer representing index to start copying to in given array.
+		/// </param>
 		public void CopyTo(Switch[] array, int arrayIndex)
 		{
 			m_switches.CopyTo(array, arrayIndex);
@@ -290,9 +443,13 @@ namespace CSharpCLI.Argument
 
 		/// <summary>
 		/// Remove first occurrence of given switch from collection.
-		/// 
-		/// Return whether switch successfully removed from collection.
 		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch to remove from collection.
+		/// </param>
+		/// <returns>
+		/// Return whether switch successfully removed from collection.
+		/// </returns>
 		public bool Remove(Switch item)
 		{
 			return m_switches.Remove(item);
@@ -304,6 +461,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get enumerator to use to iterate through collection.
 		/// </summary>
+		/// <returns>
+		/// Enumerator to use to iterate through collection.
+		/// </returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return m_switches.GetEnumerator();
@@ -315,6 +475,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get enumerator to use to iterate through collection.
 		/// </summary>
+		/// <returns>
+		/// Enumerator to use to iterate through collection.
+		/// </returns>
 		public IEnumerator<Switch> GetEnumerator()
 		{
 			return m_switches.GetEnumerator();
@@ -326,6 +489,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch from collection at given index.
 		/// </summary>
+		/// <param name="index">
+		/// Integer representing index in collection.
+		/// </param>
+		/// <returns>
+		/// Switch object representing switch at given index in collection.
+		/// </returns>
 		public Switch this[int index]
 		{
 			get { return m_switches[index]; }
@@ -335,6 +504,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get index of given switch in collection.
 		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch in collection.
+		/// </param>
+		/// <returns>
+		/// Integer representing index of given switch in collection.
+		/// </returns>
 		public int IndexOf(Switch item)
 		{
 			return m_switches.IndexOf(item);
@@ -343,6 +518,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Insert given switch at given index in collection.
 		/// </summary>
+		/// <param name="index">
+		/// Integer representing index to insert given switch at in collection.
+		/// </param>
+		/// <param name="item">
+		/// Switch object representing switch to insert in collection.
+		/// </param>
 		public void Insert(int index, Switch item)
 		{
 			m_switches.Insert(index, item);
@@ -351,6 +532,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Remove switch at given index in collection.
 		/// </summary>
+		/// <param name="index">
+		/// Integer representing index to remove switch from in collection.
+		/// </param>
 		public void RemoveAt(int index)
 		{
 			m_switches.RemoveAt(index);

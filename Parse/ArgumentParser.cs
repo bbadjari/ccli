@@ -72,6 +72,13 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Constructor.
 		/// </summary>
+		/// <param name="arguments">
+		/// Array of strings representing command-line arguments.
+		/// </param>
+		/// <param name="switches">
+		/// SwitchCollection representing collection of switches expected to be
+		/// parsed from given command-line arguments.
+		/// </param>
 		public ArgumentParser(string[] arguments, SwitchCollection switches)
 		{
 			m_arguments = arguments;
@@ -85,6 +92,12 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Determine if all switches with given names parsed.
 		/// </summary>
+		/// <param name="names">
+		/// Array of strings representing switch names.
+		/// </param>
+		/// <returns>
+		/// True if all switches with given names parsed, false otherwise.
+		/// </returns>
 		public bool AllParsed(params string[] names)
 		{
 			foreach (string name in names)
@@ -99,16 +112,37 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Determine if any switches with given names parsed.
 		/// </summary>
+		/// <param name="names">
+		/// Array of strings representing switch names.
+		/// </param>
+		/// <returns>
+		/// True if any switches with given names parsed, false otherwise.
+		/// </returns>
 		public bool AnyParsed(params string[] names)
 		{
 			return !NoneParsed(names);
 		}
 
 		/// <summary>
-		/// Get first argument value from switch with given name.
-		/// 
-		/// If switch not parsed, return null.
+		///		<para>
+		///		Get first argument value from switch with given name.
+		///		</para>
+		///		<para>
+		///		If switch not parsed, return null.
+		///		</para>
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		///		<para>
+		///		String representing first argument value from switch with given
+		///		name.
+		///		</para>
+		///		<para>
+		///		Null if switch with given name not parsed.
+		///		</para>
+		/// </returns>
 		public string GetValue(string name)
 		{
 			return GetValue(name, FirstArgument);
@@ -116,9 +150,23 @@ namespace CSharpCLI.Parse
 
 		/// <summary>
 		/// Get argument value from switch with given name and argument number.
-		/// 
-		/// If switch not parsed or invalid argument number, return null.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="argumentNumber">
+		/// Integer representing argument number.
+		/// </param>
+		/// <returns>
+		///		<para>
+		///		String representing argument value from switch with given name
+		///		and argument number.
+		///		</para>
+		///		<para>
+		///		Null if switch with given name not parsed or given argument
+		///		number invalid.
+		///		</para>
+		/// </returns>
 		public string GetValue(string name, int argumentNumber)
 		{
 			string[] values = GetValues(name);
@@ -136,9 +184,19 @@ namespace CSharpCLI.Parse
 
 		/// <summary>
 		/// Get argument values from switch with given name.
-		/// 
-		/// If switch not parsed, return null.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		///		<para>
+		///		Array of strings representing argument values from switch with
+		///		given name.
+		///		</para>
+		///		<para>
+		///		Null if switch with given name not parsed.
+		///		</para>
+		/// </returns>
 		public string[] GetValues(string name)
 		{
 			string[] values = null;
@@ -156,6 +214,12 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Determine if switch with given name parsed.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		/// True if switch with given name parsed, false otherwise.
+		/// </returns>
 		public bool IsParsed(string name)
 		{
 			return m_parsedSwitches.HasSwitch(name);
@@ -164,6 +228,12 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Determine if no switches with given names parsed.
 		/// </summary>
+		/// <param name="names">
+		/// Array of strings representing switch names.
+		/// </param>
+		/// <returns>
+		/// True if no switches with given names parsed, false otherwise.
+		/// </returns>
 		public bool NoneParsed(params string[] names)
 		{
 			foreach (string name in names)
@@ -236,6 +306,12 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Throw ParsingException with given message and switch name.
 		/// </summary>
+		/// <param name="message">
+		/// String representing error message.
+		/// </param>
+		/// <param name="name">
+		/// String representing switch name to use in given error message.
+		/// </param>
 		static void ThrowParsingException(string message, string name)
 		{
 			string formattedMessage = string.Format(CultureInfo.CurrentCulture,
