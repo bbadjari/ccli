@@ -123,6 +123,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for specifying switch name.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
 		public Switch(string name)
 			: this(name, null)
 		{
@@ -131,6 +134,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for specifying switch description.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
 		public Switch(string name, string description)
 			: this(name, null, description, NoArguments, NotRequired)
 		{
@@ -139,6 +148,15 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for specifying switch long name.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
 		public Switch(string name, string longName, string description)
 			: this(name, longName, description, NoArguments, NotRequired)
 		{
@@ -147,6 +165,18 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for specifying whether switch required.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			bool isRequired)
 			: this(name, longName, description, NoArguments, isRequired)
@@ -156,6 +186,21 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for specifying arguments expected to follow switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			bool hasArguments, bool isRequired)
 			: this(name, longName, description, UnknownNumberArguments,
@@ -168,6 +213,21 @@ namespace CSharpCLI.Argument
 		/// Constructor for defining number of arguments expected to
 		/// follow switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			int numberArguments, bool isRequired)
 		{
@@ -185,6 +245,24 @@ namespace CSharpCLI.Argument
 		/// Constructor for specifying arguments with given name expected to
 		/// follow switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentName">
+		/// String representing name of arguments expected to follow switch.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			bool hasArguments, bool isRequired, string argumentName)
 			: this(name, longName, description, hasArguments, isRequired)
@@ -196,6 +274,22 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for defining argument name expected to follow switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentName">
+		/// String representing name of single argument expected to follow
+		/// switch.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			bool isRequired, string argumentName)
 			: this(name, longName, description, isRequired)
@@ -211,6 +305,22 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for defining argument names expected to follow switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		/// <param name="argumentNames">
+		/// Array of strings representing names of arguments expected to follow
+		/// switch.
+		/// </param>
 		public Switch(string name, string longName, string description,
 			bool isRequired, string[] argumentNames)
 			: this(name, longName, description, isRequired)
@@ -234,6 +344,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Add name of argument expected to follow this switch.
 		/// </summary>
+		/// <param name="name">
+		/// String representing argument name.
+		/// </param>
 		public void AddArgumentName(string name)
 		{
 			if (HasEnoughNames)
@@ -246,6 +359,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Add value of argument expected to follow this switch.
 		/// </summary>
+		/// <param name="value">
+		/// String representing argument value.
+		/// </param>
 		public void AddArgumentValue(string value)
 		{
 			if (HasEnoughValues)
@@ -258,6 +374,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get names of arguments following switch.
 		/// </summary>
+		/// <returns>
+		/// Array of strings representing argument names.
+		/// </returns>
 		public string[] GetArgumentNames()
 		{
 			return m_argumentNames.ToArray();
@@ -266,6 +385,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get values of arguments following switch.
 		/// </summary>
+		/// <returns>
+		/// Array of strings representing argument values.
+		/// </returns>
 		public string[] GetArgumentValues()
 		{
 			return m_argumentValues.ToArray();
@@ -274,6 +396,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get given switch name with long prefix.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		/// String representing switch name with long prefix.
+		/// </returns>
 		public static string GetLongPrefixedName(string name)
 		{
 			return GetPrefixedName(name, LongPrefix);
@@ -282,6 +410,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch name given command-line argument, which may include prefix.
 		/// </summary>
+		/// <param name="argument">
+		/// String representing command-line argument.
+		/// </param>
+		/// <returns>
+		/// String representing switch name.
+		/// </returns>
 		public static string GetName(string argument)
 		{
 			foreach (string prefix in Prefixes)
@@ -296,6 +430,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get given switch name with prefix.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <returns>
+		/// String representing switch name with prefix.
+		/// </returns>
 		public static string GetPrefixedName(string name)
 		{
 			return GetPrefixedName(name, Prefix);
@@ -304,6 +444,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if given command-line argument is valid switch.
 		/// </summary>
+		/// <param name="argument">
+		/// String representing command-line argument.
+		/// </param>
+		/// <returns>
+		/// True if valid switch, false otherwise.
+		/// </returns>
 		public static bool IsValid(string argument)
 		{
 			string switchName = GetName(argument);
@@ -322,8 +468,17 @@ namespace CSharpCLI.Argument
 		// Methods
 
 		/// <summary>
-		/// Get given switch name with prefix.
+		/// Get given switch name with given prefix.
 		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="prefix">
+		/// String representing switch prefix.
+		/// </param>
+		/// <returns>
+		/// String representing switch name with given prefix.
+		/// </returns>
 		static string GetPrefixedName(string name, string prefix)
 		{
 			if (HasPrefix(name))
@@ -335,6 +490,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if given number of arguments enough for this switch.
 		/// </summary>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments.
+		/// </param>
+		/// <returns>
+		/// True if given number of arguments enough for switch, false otherwise.
+		/// </returns>
 		bool HasEnoughArguments(int numberArguments)
 		{
 			if (HasArguments)
@@ -356,6 +517,12 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if given argument has prefix.
 		/// </summary>
+		/// <param name="argument">
+		/// String representing command-line argument.
+		/// </param>
+		/// <returns>
+		/// True if given argument has prefix, false otherwise.
+		/// </returns>
 		static bool HasPrefix(string argument)
 		{
 			return argument != GetName(argument);
@@ -367,6 +534,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch description.
 		/// </summary>
+		/// <value>
+		/// String representing switch description.
+		/// </value>
 		public string Description
 		{
 			get { return m_description; }
@@ -375,6 +545,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if arguments expected to follow this switch.
 		/// </summary>
+		/// <value>
+		/// True if arguments expected to follow this switch, false otherwise.
+		/// </value>
 		public bool HasArguments
 		{
 			get { return m_hasArguments; }
@@ -383,6 +556,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if switch has description.
 		/// </summary>
+		/// <value>
+		/// True if switch has description, false otherwise.
+		/// </value>
 		public bool HasDescription
 		{
 			get { return !string.IsNullOrEmpty(Description); }
@@ -391,6 +567,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if enough argument names added to this switch.
 		/// </summary>
+		/// <value>
+		/// True if enough argument names added to this switch, false otherwise.
+		/// </value>
 		public bool HasEnoughNames
 		{
 			get { return HasEnoughArguments(m_argumentNames.Count); }
@@ -399,6 +578,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if enough argument values added to this switch.
 		/// </summary>
+		/// <value>
+		/// True if enough argument values added to this switch, false otherwise.
+		/// </value>
 		public bool HasEnoughValues
 		{
 			get { return HasEnoughArguments(m_argumentValues.Count); }
@@ -407,6 +589,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if switch has long name.
 		/// </summary>
+		/// <value>
+		/// True if switch has long name, false otherwise.
+		/// </value>
 		public bool HasLongName
 		{
 			get { return !string.IsNullOrEmpty(LongName); }
@@ -415,6 +600,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if optional switch.
 		/// </summary>
+		/// <value>
+		/// True if optional switch, false otherwise.
+		/// </value>
 		public bool IsOptional
 		{
 			get { return !IsRequired; }
@@ -423,6 +611,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Determine if required switch.
 		/// </summary>
+		/// <value>
+		/// True if required switch, false otherwise.
+		/// </value>
 		public bool IsRequired
 		{
 			get { return m_isRequired; }
@@ -431,6 +622,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch long name.
 		/// </summary>
+		/// <value>
+		/// String representing switch long name.
+		/// </value>
 		public string LongName
 		{
 			get { return m_longName; }
@@ -439,6 +633,9 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get switch name.
 		/// </summary>
+		/// <value>
+		/// String representing switch name.
+		/// </value>
 		public string Name
 		{
 			get { return m_name; }
@@ -447,6 +644,10 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Get number of arguments expected to follow this switch.
 		/// </summary>
+		/// <value>
+		/// Integer representing number of arguments expected to follow this
+		/// switch.
+		/// </value>
 		public int NumberArguments
 		{
 			get { return m_numberArguments; }

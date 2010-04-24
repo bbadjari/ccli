@@ -137,6 +137,12 @@ namespace CSharpCLI.Help
 		/// Constructor for specifying executable name and switches to be
 		/// printed.
 		/// </summary>
+		/// <param name="executableName">
+		/// String representing executable name.
+		/// </param>
+		/// <param name="switches">
+		/// SwitchCollection representing collection of switches to be printed.
+		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches)
 		{
 			m_executableName = executableName;
@@ -149,6 +155,15 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Constructor for specifying header to be printed.
 		/// </summary>
+		/// <param name="executableName">
+		/// String representing executable name.
+		/// </param>
+		/// <param name="switches">
+		/// SwitchCollection representing collection of switches to be printed.
+		/// </param>
+		/// <param name="header">
+		/// String representing header to be printed.
+		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches,
 			string header)
 			: this(executableName, switches)
@@ -159,6 +174,18 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Constructor for specifying footer to be printed.
 		/// </summary>
+		/// <param name="executableName">
+		/// String representing executable name.
+		/// </param>
+		/// <param name="switches">
+		/// SwitchCollection representing collection of switches to be printed.
+		/// </param>
+		/// <param name="header">
+		/// String representing header to be printed.
+		/// </param>
+		/// <param name="footer">
+		/// String representing footer to be printed.
+		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches,
 			string header, string footer)
 			: this(executableName, switches, header)
@@ -202,6 +229,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Append given string value to output.
 		/// </summary>
+		/// <param name="value">
+		/// String representing value to append to output.
+		/// </param>
 		void Append(string value)
 		{
 			string[] lines = Regex.Split(value, Environment.NewLine);
@@ -218,7 +248,15 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Append given argument names to given output.
 		/// </summary>
-		static void AppendArgumentNames(string[] argumentNames, StringBuilder output)
+		/// <param name="argumentNames">
+		/// Array of strings representing arguments names to append to given
+		/// output.
+		/// </param>
+		/// <param name="output">
+		/// StringBuilder object representing output to append to.
+		/// </param>
+		static void AppendArgumentNames(string[] argumentNames,
+			StringBuilder output)
 		{
 			for (int index = 0; index < argumentNames.Length; index++)
 			{
@@ -243,6 +281,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Append given string value representing single line to output.
 		/// </summary>
+		/// <param name="value">
+		/// String representing single-lined value to append to output.
+		/// </param>
 		void AppendLine(string value)
 		{
 			// Ensure given string value represents single line.
@@ -287,6 +328,12 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Append given switch to given output.
 		/// </summary>
+		/// <param name="switchObject">
+		/// Switch object representing switch to append to given output.
+		/// </param>
+		/// <param name="output">
+		/// StringBuilder object representing output to append to.
+		/// </param>
 		static void AppendSwitch(Switch switchObject, StringBuilder output)
 		{
 			if (switchObject.IsOptional)
@@ -307,8 +354,22 @@ namespace CSharpCLI.Help
 
 		/// <summary>
 		/// Determine if next token in given string starting at given index can
-		/// be appended on new line of output, given maximum amount.
+		/// be appended to new line of output, given maximum amount.
 		/// </summary>
+		/// <param name="value">
+		/// String representing value containing next token.
+		/// </param>
+		/// <param name="startIndex">
+		/// Integer representing index to start at in given value.
+		/// </param>
+		/// <param name="maximumAppendLength">
+		/// Integer representing maximum number of characters that can be
+		/// appended to a new line of output.
+		/// </param>
+		/// <returns>
+		/// True if next token in given value can be appended to new line of
+		/// output, false otherwise.
+		/// </returns>
 		bool CanAppendNextToken(string value, int startIndex, int maximumAppendLength)
 		{
 			int firstSpaceIndex = value.IndexOf(Character.Space, startIndex);
@@ -322,9 +383,16 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Get number of characters in given string to append, depending on
-		/// whether it contains a new line character.
+		/// Get number of characters in given string to append to output,
+		/// depending on whether it contains a new line character.
 		/// </summary>
+		/// <param name="value">
+		/// String representing value to append to output.
+		/// </param>
+		/// <returns>
+		/// Integer representing number of characters in given value to append
+		/// to output.
+		/// </returns>
 		static int GetAppendLength(string value)
 		{
 			int valueLength = value.Length;
@@ -342,6 +410,21 @@ namespace CSharpCLI.Help
 		/// Get number of characters in given string to append to current line
 		/// of output, given length left on current line and maximum length.
 		/// </summary>
+		/// <param name="value">
+		/// String representing value to append to output.
+		/// </param>
+		/// <param name="lineLengthLeft">
+		/// Integer representing number of characters that can be appended to
+		/// current line of output.
+		/// </param>
+		/// <param name="maximumAppendLength">
+		/// Integer representing maximum number of characters that can be
+		/// appended to a line of output.
+		/// </param>
+		/// <returns>
+		/// Integer representing number of characters in given value to append
+		/// to current line of output.
+		/// </returns>
 		int GetAppendLength(string value, int lineLengthLeft, int maximumAppendLength)
 		{
 			int appendLength = Math.Min(GetAppendLength(value), lineLengthLeft);
@@ -367,14 +450,26 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get padding of given length.
 		/// </summary>
+		/// <param name="length">
+		/// Integer representing number of characters in padding.
+		/// </param>
+		/// <returns>
+		/// String representing padding at given length.
+		/// </returns>
 		static string GetPadding(int length)
 		{
-			return new String(Character.Space, length);
+			return new string(Character.Space, length);
 		}
 
 		/// <summary>
 		/// Determine if given string value contains new line characters.
 		/// </summary>
+		/// <param name="value">
+		/// String representing value to inspect.
+		/// </param>
+		/// <returns>
+		/// True if given value contains new line characters, false otherwise.
+		/// </returns>
 		static bool HasNewLine(string value)
 		{
 			return value.Contains(Environment.NewLine);
@@ -507,6 +602,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get length of current line of output.
 		/// </summary>
+		/// <value>
+		/// Integer representing number of characters in current line of output.
+		/// </value>
 		int CurrentLineLength
 		{
 			get
@@ -519,7 +617,7 @@ namespace CSharpCLI.Help
 					StringComparison.Ordinal);
 
 				if (lastNewLineIndex >= 0)
-					currentLineLength -= (lastNewLineIndex + Environment.NewLine.Length);
+					currentLineLength -= lastNewLineIndex + Environment.NewLine.Length;
 
 				return currentLineLength;
 			}
@@ -528,6 +626,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get name of executable to be printed.
 		/// </summary>
+		/// <value>
+		/// String representing executable name to be printed.
+		/// </value>
 		string ExecutableName
 		{
 			get { return m_executableName; }
@@ -536,6 +637,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get footer to be printed.
 		/// </summary>
+		/// <value>
+		/// String representing footer to be printed.
+		/// </value>
 		string Footer
 		{
 			get { return m_footer; }
@@ -544,6 +648,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Determine if footer to be printed given.
 		/// </summary>
+		/// <value>
+		/// True if footer to be printed is specified, false otherwise.
+		/// </value>
 		bool HasFooter
 		{
 			get { return !string.IsNullOrEmpty(Footer); }
@@ -552,6 +659,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Determine if header to be printed given.
 		/// </summary>
+		/// <value>
+		/// True if header to be printed is specified, false otherwise.
+		/// </value>
 		bool HasHeader
 		{
 			get { return !string.IsNullOrEmpty(Header); }
@@ -560,6 +670,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Determine if switches to be printed given.
 		/// </summary>
+		/// <value>
+		/// True if switches to be printed are provided, false otherwise.
+		/// </value>
 		bool HasSwitches
 		{
 			get { return Switches.Count > 0; }
@@ -568,22 +681,32 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get header to be printed.
 		/// </summary>
+		/// <value>
+		/// String representing header to be printed.
+		/// </value>
 		string Header
 		{
 			get { return m_header; }
 		}
 
 		/// <summary>
-		/// Get indentation string to append to each new line of output.
+		/// Get indentation string that starts each new line of output.
 		/// </summary>
+		/// <value>
+		/// String representing indentation that starts each new line of output.
+		/// </value>
 		string Indentation
 		{
 			get { return GetPadding(NumberIndentCharacters); }
 		}
 
 		/// <summary>
-		/// Get/set number of characters to indent each new line by.
+		/// Get/set number of characters to indent each new line of output by.
 		/// </summary>
+		/// <value>
+		/// Integer representing number of characters to indent new line of
+		/// output by.
+		/// </value>
 		int NumberIndentCharacters
 		{
 			get { return m_numberIndentCharacters; }
@@ -593,6 +716,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get help output to be printed.
 		/// </summary>
+		/// <value>
+		/// StringBuilder object representing output to be printed.
+		/// </value>
 		StringBuilder Output
 		{
 			get { return m_output; }
@@ -601,6 +727,9 @@ namespace CSharpCLI.Help
 		/// <summary>
 		/// Get switches to be printed.
 		/// </summary>
+		/// <value>
+		/// List of switches to be printed.
+		/// </value>
 		IList<Switch> Switches
 		{
 			get { return m_switches; }

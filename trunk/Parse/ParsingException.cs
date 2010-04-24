@@ -47,6 +47,9 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Constructor specifying error message.
 		/// </summary>
+		/// <param name="message">
+		/// String representing error message.
+		/// </param>
 		public ParsingException(string message)
 			: base(message)
 		{
@@ -55,6 +58,12 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Constructor specifying error message and inner exception.
 		/// </summary>
+		/// <param name="message">
+		/// String representing error message.
+		/// </param>
+		/// <param name="innerException">
+		/// Exception representing inner exception.
+		/// </param>
 		public ParsingException(string message, Exception innerException)
 			: base(message, innerException)
 		{
@@ -63,7 +72,15 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Constructor specifying serialization data.
 		/// </summary>
-		protected ParsingException(SerializationInfo info, StreamingContext context)
+		/// <param name="info">
+		/// SerializationInfo representing serialized exception data.
+		/// </param>
+		/// <param name="context">
+		/// StreamingContext representing contextual data about exception
+		/// source/destination.
+		/// </param>
+		protected ParsingException(SerializationInfo info,
+			StreamingContext context)
 			: base(info, context)
 		{
 		}
