@@ -34,7 +34,7 @@ namespace CSharpCLI.Argument
 	/// <summary>
 	/// Compares Switch objects.
 	/// </summary>
-	public class SwitchComparer : IComparer<Switch>
+	class SwitchComparer : IComparer<Switch>
 	{
 		/// <summary>
 		/// Compare given Switch objects by name.
