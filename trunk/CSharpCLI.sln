@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpCLI", "CSharpCLI.csproj", "{CF0906D5-4394-4F37-BF32-1D54FB49C14B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpCLI", "CSharpCLI\CSharpCLI.csproj", "{CF0906D5-4394-4F37-BF32-1D54FB49C14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
