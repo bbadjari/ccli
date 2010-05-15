@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CSharpCLI.Argument
 {
@@ -141,7 +142,7 @@ namespace CSharpCLI.Argument
 		/// String representing switch description.
 		/// </param>
 		public Switch(string name, string description)
-			: this(name, null, description, NoArguments, NotRequired)
+			: this(name, null, description)
 		{
 		}
 
@@ -158,7 +159,7 @@ namespace CSharpCLI.Argument
 		/// String representing switch description.
 		/// </param>
 		public Switch(string name, string longName, string description)
-			: this(name, longName, description, NoArguments, NotRequired)
+			: this(name, longName, description, NotRequired)
 		{
 		}
 
@@ -231,6 +232,8 @@ namespace CSharpCLI.Argument
 		public Switch(string name, string longName, string description,
 			int numberArguments, bool isRequired)
 		{
+			Debug.Assert(!string.IsNullOrEmpty(name));
+
 			m_argumentNames = new List<string>();
 			m_argumentValues = new List<string>();
 			m_description = description;
@@ -418,10 +421,13 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public static string GetName(string argument)
 		{
-			foreach (string prefix in Prefixes)
+			if (!string.IsNullOrEmpty(argument))
 			{
-				if (argument.StartsWith(prefix, StringComparison.Ordinal))
-					return argument.Substring(prefix.Length);
+				foreach (string prefix in Prefixes)
+				{
+					if (argument.StartsWith(prefix, StringComparison.Ordinal))
+						return argument.Substring(prefix.Length);
+				}
 			}
 
 			return argument;
@@ -481,7 +487,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		static string GetPrefixedName(string name, string prefix)
 		{
-			if (HasPrefix(name))
+			if (string.IsNullOrEmpty(name) || HasPrefix(name))
 				return name;
 
 			return prefix + name;
@@ -498,20 +504,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		bool HasEnoughArguments(int numberArguments)
 		{
-			if (HasArguments)
-			{
-				if (NumberArguments == numberArguments)
-				{
-					return true;
-				}
-				else if (NumberArguments == UnknownNumberArguments &&
-					numberArguments > 0)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return HasArguments && (NumberArguments == numberArguments);
 		}
 
 		/// <summary>
