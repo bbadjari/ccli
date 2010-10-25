@@ -25,6 +25,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using CSharpCLI.Argument;
 using NUnit.Framework;
 
@@ -40,7 +41,12 @@ namespace CSharpCLI.Test.Argument
 		/// Switch test description.
 		/// </summary>
 		const string Description = "Test switch.";
-		
+
+		/// <summary>
+		/// Empty switch name.
+		/// </summary>
+		const string EmptyName = "";
+
 		/// <summary>
 		/// Switch has arguments.
 		/// </summary>
@@ -75,6 +81,11 @@ namespace CSharpCLI.Test.Argument
 		/// No switch arguments.
 		/// </summary>
 		const int NoArguments = 0;
+
+		/// <summary>
+		/// No switch name.
+		/// </summary>
+		const string NoName = null;
 
 		/// <summary>
 		/// One switch argument.
@@ -215,6 +226,16 @@ namespace CSharpCLI.Test.Argument
 
 			Assert.IsTrue(switchObject.HasDescription);
 			Assert.IsTrue(switchObject.IsOptional);
+		}
+
+		/// <summary>
+		/// Test constructor specifying name with empty name.
+		/// </summary>
+		[Test]
+		public void WithEmptyName()
+		{
+			Assert.Throws(typeof(ArgumentException),
+				delegate { new Switch(EmptyName); });
 		}
 
 		/// <summary>
@@ -362,6 +383,16 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsNull(switchObject.LongName);
 
 			Assert.IsTrue(switchObject.IsOptional);
+		}
+
+		/// <summary>
+		/// Test constructor specifying name with no name.
+		/// </summary>
+		[Test]
+		public void WithNoName()
+		{
+			Assert.Throws(typeof(ArgumentException),
+				delegate { new Switch(NoName); });
 		}
 
 		/// <summary>
@@ -524,10 +555,8 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void GetLongPrefixedName()
 		{
-			const string EmptyName = "";
 			const string NameWithLongPrefix = Switch.LongPrefix + Name;
 			const string NameWithPrefix = Switch.Prefix + Name;
-			const string NoName = null;
 
 			Assert.AreEqual(Switch.GetLongPrefixedName(EmptyName), EmptyName);
 			Assert.AreEqual(Switch.GetLongPrefixedName(NameWithLongPrefix), NameWithLongPrefix);
@@ -569,10 +598,8 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void GetPrefixedName()
 		{
-			const string EmptyName = "";
 			const string NameWithLongPrefix = Switch.LongPrefix + Name;
 			const string NameWithPrefix = Switch.Prefix + Name;
-			const string NoName = null;
 
 			Assert.AreEqual(Switch.GetPrefixedName(EmptyName), EmptyName);
 			Assert.AreEqual(Switch.GetPrefixedName(Name), NameWithPrefix);
