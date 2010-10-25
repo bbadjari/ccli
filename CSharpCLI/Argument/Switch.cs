@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace CSharpCLI.Argument
 {
@@ -47,6 +46,14 @@ namespace CSharpCLI.Argument
 		public const string Prefix = "-";
 
 		////////////////////////////////////////////////////////////////////////
+
+		/// <summary>
+		/// Error messages.
+		/// </summary>
+		static class Messages
+		{
+			public const string InvalidName = "Invalid switch name.";
+		}
 
 		/// <summary>
 		/// No arguments expected to follow switch.
@@ -232,7 +239,8 @@ namespace CSharpCLI.Argument
 		public Switch(string name, string longName, string description,
 			int numberArguments, bool isRequired)
 		{
-			Debug.Assert(!string.IsNullOrEmpty(name));
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentException(Messages.InvalidName);
 
 			m_argumentNames = new List<string>();
 			m_argumentValues = new List<string>();
