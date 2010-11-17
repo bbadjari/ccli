@@ -62,7 +62,7 @@ namespace CSharpCLI.Argument
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Methods
+		// Public Methods
 
 		/// <summary>
 		/// Add switch to collection with given name.
@@ -278,6 +278,76 @@ namespace CSharpCLI.Argument
 		}
 
 		////////////////////////////////////////////////////////////////////////
+		// Methods
+
+		/// <summary>
+		/// Add indices to given switch in collection, by name.
+		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch to index by name.
+		/// </param>
+		/// <param name="index">
+		/// Integer representing index to switch in collection.
+		/// </param>
+		void AddIndices(Switch item, int index)
+		{
+			m_indicesByName.Add(item.Name, index);
+
+			if (item.HasLongName)
+				m_indicesByLongName.Add(item.LongName, index);
+
+			ReorderIndices(++index, true);
+		}
+
+		/// <summary>
+		/// Remove indices to given switch in collection, by name.
+		/// </summary>
+		/// <param name="item">
+		/// Switch object representing switch whose indices to remove.
+		/// </param>
+		void RemoveIndices(Switch item)
+		{
+			int index = m_indicesByName[item.Name];
+
+			m_indicesByName.Remove(item.Name);
+
+			if (item.HasLongName)
+				m_indicesByLongName.Remove(item.LongName);
+
+			ReorderIndices(index, false);
+		}
+
+		/// <summary>
+		/// Reorder indices to switch names in collection, starting at given
+		/// index and in given order.
+		/// </summary>
+		/// <param name="index">
+		/// Integer representing index to start reordering at.
+		/// </param>
+		/// <param name="ascending">
+		/// True if reordering indices in ascending order, false if in
+		/// descending order.
+		/// </param>
+		void ReorderIndices(int index, bool ascending)
+		{
+			const int IndexOffset = 1;
+
+			int offset = ascending ? IndexOffset : -IndexOffset;
+
+			while (index < Count)
+			{
+				Switch item = Switches[index];
+
+				m_indicesByName[item.Name] += offset;
+
+				if (item.HasLongName)
+					m_indicesByLongName[item.LongName] += offset;
+
+				index++;
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////
 		// Properties
 
 		/// <summary>
@@ -385,10 +455,7 @@ namespace CSharpCLI.Argument
 
 				m_switches.Add(item);
 
-				m_indicesByName.Add(item.Name, newIndex);
-
-				if (item.HasLongName)
-					m_indicesByLongName.Add(item.LongName, newIndex);
+				AddIndices(item, newIndex);
 			}
 		}
 
@@ -452,7 +519,16 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public bool Remove(Switch item)
 		{
-			return m_switches.Remove(item);
+			bool removed = false;
+
+			if (item != null && Contains(item))
+			{
+				removed = m_switches.Remove(item);
+
+				RemoveIndices(item);
+			}
+
+			return removed;
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -473,10 +549,10 @@ namespace CSharpCLI.Argument
 		// IEnumerable<T>
 
 		/// <summary>
-		/// Get enumerator to use to iterate through collection.
+		/// Get typed enumerator to use to iterate through collection.
 		/// </summary>
 		/// <returns>
-		/// Enumerator to use to iterate through collection.
+		/// Typed enumerator to use to iterate through collection.
 		/// </returns>
 		public IEnumerator<Switch> GetEnumerator()
 		{
@@ -487,7 +563,8 @@ namespace CSharpCLI.Argument
 		// IList<T>
 
 		/// <summary>
-		/// Get switch from collection at given index.
+		/// Get switch from collection or set switch in collection at given
+		/// index.
 		/// </summary>
 		/// <param name="index">
 		/// Integer representing index in collection.
@@ -497,8 +574,8 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public Switch this[int index]
 		{
-			get { return m_switches[index]; }
-			set { m_switches[index] = value; }
+			get { return Switches[index]; }
+			set { Insert(index, value); }
 		}
 
 		/// <summary>
@@ -526,7 +603,15 @@ namespace CSharpCLI.Argument
 		/// </param>
 		public void Insert(int index, Switch item)
 		{
-			m_switches.Insert(index, item);
+			if (item == null)
+				return;
+
+			if (!Contains(item))
+			{
+				m_switches.Insert(index, item);
+
+				AddIndices(item, index);
+			}
 		}
 
 		/// <summary>
@@ -537,7 +622,11 @@ namespace CSharpCLI.Argument
 		/// </param>
 		public void RemoveAt(int index)
 		{
+			Switch item = Switches[index];
+
 			m_switches.RemoveAt(index);
+
+			RemoveIndices(item);
 		}
 	}
 }
