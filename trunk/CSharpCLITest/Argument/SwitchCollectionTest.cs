@@ -465,6 +465,48 @@ namespace CSharpCLI.Test.Argument
 		}
 
 		/// <summary>
+		/// Test Add() method defining negative number of arguments expected to
+		/// follow switch.
+		/// </summary>
+		[Test]
+		public void AddWithNegativeNumberArguments()
+		{
+			const int NegativeNumberArguments = -3;
+
+			m_switches.Add(Name, LongName, Description, NegativeNumberArguments,
+				IsRequired);
+
+			Assert.AreEqual(m_switches.Count, OneSwitch);
+
+			Assert.IsTrue(m_switches.HasSwitch(Name));
+			Assert.IsTrue(m_switches.HasSwitch(LongName));
+
+			Switch switchObject = m_switches[Name];
+
+			Assert.AreEqual(switchObject.Description, Description);
+			Assert.AreEqual(switchObject.GetArgumentNames(), NoArgumentNames);
+			Assert.AreEqual(switchObject.GetArgumentValues(), NoArgumentValues);
+			Assert.AreEqual(switchObject.LongName, LongName);
+			Assert.AreEqual(switchObject.Name, Name);
+			Assert.AreEqual(switchObject.NumberArguments, NoArguments);
+
+			Assert.AreNotEqual(switchObject.NumberArguments, NegativeNumberArguments);
+
+			Assert.IsFalse(switchObject.HasArguments);
+			Assert.IsFalse(switchObject.HasEnoughNames);
+			Assert.IsFalse(switchObject.HasEnoughValues);
+			Assert.IsFalse(switchObject.IsOptional);
+
+			Assert.IsNotNull(switchObject.Description);
+			Assert.IsNotNull(switchObject.LongName);
+			Assert.IsNotNull(switchObject.Name);
+
+			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.HasLongName);
+			Assert.IsTrue(switchObject.IsRequired);
+		}
+
+		/// <summary>
 		/// Test Add() method defining switch name with no name.
 		/// </summary>
 		[Test]
@@ -552,6 +594,43 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsTrue(switchObject.HasDescription);
 			Assert.IsTrue(switchObject.HasLongName);
 			Assert.IsTrue(switchObject.IsRequired);
+		}
+
+		/// <summary>
+		/// Test Add() method defining same switch name and long name.
+		/// </summary>
+		[Test]
+		public void AddWithSameNames()
+		{
+			m_switches.Add(Name, Name, Description);
+
+			Assert.AreEqual(m_switches.Count, OneSwitch);
+
+			Assert.IsTrue(m_switches.HasSwitch(Name));
+
+			Switch switchObject = m_switches[Name];
+
+			Assert.AreEqual(switchObject.Description, Description);
+			Assert.AreEqual(switchObject.GetArgumentNames(), NoArgumentNames);
+			Assert.AreEqual(switchObject.GetArgumentValues(), NoArgumentValues);
+			Assert.AreEqual(switchObject.Name, Name);
+			Assert.AreEqual(switchObject.NumberArguments, NoArguments);
+
+			Assert.AreNotEqual(switchObject.LongName, Name);
+
+			Assert.IsFalse(switchObject.HasArguments);
+			Assert.IsFalse(switchObject.HasEnoughNames);
+			Assert.IsFalse(switchObject.HasEnoughValues);
+			Assert.IsFalse(switchObject.HasLongName);
+			Assert.IsFalse(switchObject.IsRequired);
+
+			Assert.IsNotNull(switchObject.Description);
+			Assert.IsNotNull(switchObject.Name);
+
+			Assert.IsNull(switchObject.LongName);
+
+			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.IsOptional);
 		}
 
 		/// <summary>

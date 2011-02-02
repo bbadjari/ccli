@@ -318,7 +318,7 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsFalse(switchObject.HasEnoughNames);
 			Assert.IsFalse(switchObject.HasEnoughValues);
 			Assert.IsFalse(switchObject.IsOptional);
-			
+
 			Assert.IsNotNull(switchObject.Description);
 			Assert.IsNotNull(switchObject.LongName);
 			Assert.IsNotNull(switchObject.Name);
@@ -383,6 +383,41 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsNull(switchObject.LongName);
 
 			Assert.IsTrue(switchObject.IsOptional);
+		}
+
+		/// <summary>
+		/// Test constructor defining negative number of arguments expected to
+		/// follow switch.
+		/// </summary>
+		[Test]
+		public void WithNegativeNumberArguments()
+		{
+			const int NegativeNumberArguments = -3;
+
+			Switch switchObject = new Switch(Name, LongName, Description,
+				NegativeNumberArguments, IsRequired);
+
+			Assert.AreEqual(switchObject.Description, Description);
+			Assert.AreEqual(switchObject.GetArgumentNames(), NoArgumentNames);
+			Assert.AreEqual(switchObject.GetArgumentValues(), NoArgumentValues);
+			Assert.AreEqual(switchObject.LongName, LongName);
+			Assert.AreEqual(switchObject.Name, Name);
+			Assert.AreEqual(switchObject.NumberArguments, NoArguments);
+
+			Assert.AreNotEqual(switchObject.NumberArguments, NegativeNumberArguments);
+
+			Assert.IsFalse(switchObject.HasArguments);
+			Assert.IsFalse(switchObject.HasEnoughNames);
+			Assert.IsFalse(switchObject.HasEnoughValues);
+			Assert.IsFalse(switchObject.IsOptional);
+
+			Assert.IsNotNull(switchObject.Description);
+			Assert.IsNotNull(switchObject.LongName);
+			Assert.IsNotNull(switchObject.Name);
+
+			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.HasLongName);
+			Assert.IsTrue(switchObject.IsRequired);
 		}
 
 		/// <summary>
@@ -457,6 +492,37 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsTrue(switchObject.HasDescription);
 			Assert.IsTrue(switchObject.HasLongName);
 			Assert.IsTrue(switchObject.IsRequired);
+		}
+
+		/// <summary>
+		/// Test constructor specifying same name and long name.
+		/// </summary>
+		[Test]
+		public void WithSameNames()
+		{
+			Switch switchObject = new Switch(Name, Name, Description);
+
+			Assert.AreEqual(switchObject.Description, Description);
+			Assert.AreEqual(switchObject.GetArgumentNames(), NoArgumentNames);
+			Assert.AreEqual(switchObject.GetArgumentValues(), NoArgumentValues);
+			Assert.AreEqual(switchObject.Name, Name);
+			Assert.AreEqual(switchObject.NumberArguments, NoArguments);
+
+			Assert.AreNotEqual(switchObject.LongName, Name);
+
+			Assert.IsFalse(switchObject.HasArguments);
+			Assert.IsFalse(switchObject.HasEnoughNames);
+			Assert.IsFalse(switchObject.HasEnoughValues);
+			Assert.IsFalse(switchObject.HasLongName);
+			Assert.IsFalse(switchObject.IsRequired);
+
+			Assert.IsNotNull(switchObject.Description);
+			Assert.IsNotNull(switchObject.Name);
+
+			Assert.IsNull(switchObject.LongName);
+
+			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.IsOptional);
 		}
 
 		////////////////////////////////////////////////////////////////////////
