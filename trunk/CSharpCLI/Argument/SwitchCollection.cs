@@ -76,6 +76,21 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
+		/// Add switches to collection with given names.
+		/// </summary>
+		/// <param name="names">
+		/// Array of strings representing switch names.
+		/// </param>
+		public void Add(string[] names)
+		{
+			if (names != null)
+			{
+				foreach (string name in names)
+					Add(new Switch(name));
+			}
+		}
+
+		/// <summary>
 		/// Add switch to collection with given name and description.
 		/// </summary>
 		/// <param name="name">
