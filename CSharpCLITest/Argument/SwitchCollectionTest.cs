@@ -280,8 +280,7 @@ namespace CSharpCLI.Test.Argument
 		{
 			const string EmptyName = "";
 
-			Assert.Throws(typeof(ArgumentException),
-				delegate { m_switches.Add(EmptyName); });
+			Assert.Throws<ArgumentException>(delegate { m_switches.Add(EmptyName); });
 		}
 
 		/// <summary>
@@ -608,8 +607,7 @@ namespace CSharpCLI.Test.Argument
 		{
 			const string NoName = null;
 
-			Assert.Throws(typeof(ArgumentException),
-				delegate { m_switches.Add(NoName); });
+			Assert.Throws<ArgumentException>(delegate { m_switches.Add(NoName); });
 		}
 
 		/// <summary>

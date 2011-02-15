@@ -234,8 +234,7 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void WithEmptyName()
 		{
-			Assert.Throws(typeof(ArgumentException),
-				delegate { new Switch(EmptyName); });
+			Assert.Throws<ArgumentException>(delegate { new Switch(EmptyName); });
 		}
 
 		/// <summary>
@@ -426,8 +425,7 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void WithNoName()
 		{
-			Assert.Throws(typeof(ArgumentException),
-				delegate { new Switch(NoName); });
+			Assert.Throws<ArgumentException>(delegate { new Switch(NoName); });
 		}
 
 		/// <summary>
