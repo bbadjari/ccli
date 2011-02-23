@@ -45,6 +45,11 @@ namespace CSharpCLI.Test.Argument
 		const string Description = "Test switch.";
 
 		/// <summary>
+		/// Empty switch name.
+		/// </summary>
+		const string EmptyName = "";
+
+		/// <summary>
 		/// Switch has arguments.
 		/// </summary>
 		const bool HasArguments = true;
@@ -78,6 +83,11 @@ namespace CSharpCLI.Test.Argument
 		/// No switch arguments.
 		/// </summary>
 		const int NoArguments = 0;
+
+		/// <summary>
+		/// No switch name.
+		/// </summary>
+		const string NoName = null;
 
 		/// <summary>
 		/// No switches.
@@ -278,8 +288,6 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void AddWithEmptyName()
 		{
-			const string EmptyName = "";
-
 			Assert.Throws<ArgumentException>(delegate { m_switches.Add(EmptyName); });
 		}
 
@@ -605,8 +613,6 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void AddWithNoName()
 		{
-			const string NoName = null;
-
 			Assert.Throws<ArgumentException>(delegate { m_switches.Add(NoName); });
 		}
 
@@ -865,6 +871,9 @@ namespace CSharpCLI.Test.Argument
 			m_switches.Add(new Switch(Name, LongName, Description));
 
 			Assert.AreEqual(m_switches.Count, OneSwitch);
+
+			Assert.IsFalse(m_switches.HasSwitch(EmptyName));
+			Assert.IsFalse(m_switches.HasSwitch(NoName));
 
 			Assert.IsTrue(m_switches.HasSwitch(Name));
 			Assert.IsTrue(m_switches.HasSwitch(LongName));
