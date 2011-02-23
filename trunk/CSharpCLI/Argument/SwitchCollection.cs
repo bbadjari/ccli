@@ -289,6 +289,9 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public bool HasSwitch(string name)
 		{
+			if (string.IsNullOrEmpty(name))
+				return false;
+
 			return m_indicesByName.ContainsKey(name) || m_indicesByLongName.ContainsKey(name);
 		}
 
