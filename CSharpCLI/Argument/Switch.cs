@@ -363,7 +363,7 @@ namespace CSharpCLI.Argument
 			if (HasEnoughNames)
 				return;
 
-			if (name != null && name.Length > 0)
+			if (!string.IsNullOrEmpty(name))
 				m_argumentNames.Add(name);
 		}
 
@@ -378,7 +378,7 @@ namespace CSharpCLI.Argument
 			if (HasEnoughValues)
 				return;
 
-			if (value != null && value.Length > 0)
+			if (!string.IsNullOrEmpty(value))
 				m_argumentValues.Add(value);
 		}
 
