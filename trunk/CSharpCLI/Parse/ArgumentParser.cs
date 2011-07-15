@@ -81,6 +81,9 @@ namespace CSharpCLI.Parse
 		/// </param>
 		public ArgumentParser(string[] arguments, SwitchCollection switches)
 		{
+			if (arguments == null || switches == null)
+				throw new ArgumentNullException();
+
 			m_arguments = arguments;
 			m_parsedSwitches = new SwitchCollection();
 			m_switches = switches;
@@ -100,6 +103,9 @@ namespace CSharpCLI.Parse
 		/// </returns>
 		public bool AllParsed(params string[] names)
 		{
+			if (names == null || names.Length == 0)
+				return false;
+
 			foreach (string name in names)
 			{
 				if (!IsParsed(name))
@@ -120,6 +126,9 @@ namespace CSharpCLI.Parse
 		/// </returns>
 		public bool AnyParsed(params string[] names)
 		{
+			if (names == null || names.Length == 0)
+				return false;
+
 			return !NoneParsed(names);
 		}
 
@@ -175,8 +184,8 @@ namespace CSharpCLI.Parse
 
 			if (values != null)
 			{
-				if (argumentNumber > 0 && argumentNumber <= values.Length)
-					value = values[argumentNumber - 1];
+				if (argumentNumber >= FirstArgument && argumentNumber <= values.Length)
+					value = values[argumentNumber - FirstArgument];
 			}
 
 			return value;
@@ -236,6 +245,9 @@ namespace CSharpCLI.Parse
 		/// </returns>
 		public bool NoneParsed(params string[] names)
 		{
+			if (names == null || names.Length == 0)
+				return false;
+
 			foreach (string name in names)
 			{
 				if (IsParsed(name))
