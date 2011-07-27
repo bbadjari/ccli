@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Argument\SwitchCollectionTest.cs" />
     <Compile Include="Argument\SwitchTest.cs" />
+    <Compile Include="Help\HelpPrinterTest.cs" />
     <Compile Include="Parse\ArgumentParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

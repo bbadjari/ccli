@@ -145,11 +145,13 @@ namespace CSharpCLI.Help
 		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches)
 		{
-			m_executableName = executableName;
-			m_switches = new List<Switch>();
+			if (string.IsNullOrEmpty(executableName) || switches == null)
+				throw new ArgumentNullException();
 
-			if (switches != null)
-				m_switches.AddRange(switches.SortedSwitches);
+			m_executableName = executableName;
+
+			m_switches = new List<Switch>();
+			m_switches.AddRange(switches.SortedSwitches);
 		}
 
 		/// <summary>
@@ -207,6 +209,9 @@ namespace CSharpCLI.Help
 
 			if (HasSwitches)
 			{
+				if (HasHeader)
+					AppendLines();
+
 				PrintUsage();
 
 				AppendLines();
@@ -215,6 +220,10 @@ namespace CSharpCLI.Help
 
 				if (HasFooter)
 					AppendLines();
+			}
+			else if (HasHeader && HasFooter)
+			{
+				AppendLines();
 			}
 
 			PrintFooter();
@@ -565,11 +574,7 @@ namespace CSharpCLI.Help
 			NumberIndentCharacters = NoIndentCharacters;
 
 			if (HasHeader)
-			{
 				Append(Header);
-
-				AppendLines();
-			}
 		}
 
 		/// <summary>
