@@ -66,6 +66,11 @@ namespace CSharpCLI.Test.Help
 		const bool IsRequired = true;
 
 		/// <summary>
+		/// No switch description.
+		/// </summary>
+		const string NoDescription = null;
+
+		/// <summary>
 		/// No footer value.
 		/// </summary>
 		const string NoFooter = null;
@@ -216,7 +221,7 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine(GetFooter());
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -233,7 +238,7 @@ namespace CSharpCLI.Test.Help
 
 			expectedOutput.AppendLine(EmptyFooter);
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -250,7 +255,7 @@ namespace CSharpCLI.Test.Help
 
 			expectedOutput.AppendLine(EmptyHeader);
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -267,7 +272,7 @@ namespace CSharpCLI.Test.Help
 
 			expectedOutput.AppendLine(GetFooter());
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -284,7 +289,7 @@ namespace CSharpCLI.Test.Help
 
 			expectedOutput.AppendLine(GetHeader());
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -306,7 +311,7 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine("It is printed at the bottom of the help screen.");
 			expectedOutput.AppendLine("------------------------------------------------------------------------------");
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -328,7 +333,7 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine("It is printed at the top of the help screen.");
 			expectedOutput.AppendLine("------------------------------------------------------------------------------");
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -357,7 +362,37 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine("It is printed at the bottom of the help screen.");
 			expectedOutput.AppendLine("------------------------------------------------------------------------------");
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
+		/// Test Print() method with switches having no descriptions.
+		/// </summary>
+		[Test]
+		public void PrintNoDescriptions()
+		{
+			const string LongName1 = "switch1";
+			const string LongName2 = "switch2";
+			const string Name1 = "s1";
+			const string Name2 = "s2";
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name1, LongName1, NoDescription);
+			switches.Add(Name2, LongName2, NoDescription, IsRequired);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine("-s1, --switch1");
+			expectedOutput.AppendLine("-s2, --switch2");
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -389,7 +424,7 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine("-s1, --switch1   " + Description1);
 			expectedOutput.AppendLine("-s2, --switch2   " + Description2);
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -408,7 +443,7 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine(GetFooter());
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		/// <summary>
@@ -425,7 +460,7 @@ namespace CSharpCLI.Test.Help
 
 			expectedOutput.AppendLine(string.Empty);
 
-			Assert.AreEqual(Output, expectedOutput.ToString());
+			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
 
 		////////////////////////////////////////////////////////////////////////
