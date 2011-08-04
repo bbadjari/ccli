@@ -695,5 +695,209 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsTrue(Switch.IsValid(ArgumentWithLongPrefix));
 			Assert.IsTrue(Switch.IsValid(ArgumentWithPrefix));
 		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Properties
+
+		/// <summary>
+		/// Test Description property.
+		/// </summary>
+		[Test]
+		public void DescriptionProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsNull(switchObject.Description);
+
+			switchObject = new Switch(Name, Description);
+
+			Assert.AreEqual(Description, switchObject.Description);
+		}
+
+		/// <summary>
+		/// Test HasArguments property.
+		/// </summary>
+		[Test]
+		public void HasArgumentsProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasArguments);
+
+			switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired);
+
+			Assert.IsTrue(switchObject.HasArguments);
+		}
+
+		/// <summary>
+		/// Test HasDescription property.
+		/// </summary>
+		[Test]
+		public void HasDescriptionProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasDescription);
+
+			switchObject = new Switch(Name, Description);
+
+			Assert.IsTrue(switchObject.HasDescription);
+		}
+
+		/// <summary>
+		/// Test HasEnoughNames property.
+		/// </summary>
+		[Test]
+		public void HasEnoughNamesProperty()
+		{
+			const string ArgumentName1 = "arg1";
+			const string ArgumentName2 = "arg2";
+			const string ArgumentName3 = "arg3";
+			const int NumberArguments = 3;
+
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasEnoughNames);
+
+			switchObject = new Switch(Name, LongName, Description,
+				NumberArguments, IsRequired);
+
+			Assert.IsFalse(switchObject.HasEnoughNames);
+
+			switchObject.AddArgumentName(ArgumentName1);
+
+			Assert.IsFalse(switchObject.HasEnoughNames);
+
+			switchObject.AddArgumentName(ArgumentName2);
+
+			Assert.IsFalse(switchObject.HasEnoughNames);
+
+			switchObject.AddArgumentName(ArgumentName3);
+
+			Assert.IsTrue(switchObject.HasEnoughNames);
+		}
+
+		/// <summary>
+		/// Test HasEnoughValues property.
+		/// </summary>
+		[Test]
+		public void HasEnoughValuesProperty()
+		{
+			const int NumberArguments = 3;
+			const string Value1 = "arg1";
+			const string Value2 = "arg2";
+			const string Value3 = "arg3";
+
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject = new Switch(Name, LongName, Description,
+				NumberArguments, IsRequired);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject.AddArgumentValue(Value1);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject.AddArgumentValue(Value2);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject.AddArgumentValue(Value3);
+
+			Assert.IsTrue(switchObject.HasEnoughValues);
+		}
+
+		/// <summary>
+		/// Test HasLongName property.
+		/// </summary>
+		[Test]
+		public void HasLongNameProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasLongName);
+
+			switchObject = new Switch(Name, LongName, Description);
+
+			Assert.IsTrue(switchObject.HasLongName);
+		}
+
+		/// <summary>
+		/// Test IsOptional property.
+		/// </summary>
+		[Test]
+		public void IsOptionalProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsTrue(switchObject.IsOptional);
+
+			switchObject = new Switch(Name, LongName, Description, IsRequired);
+
+			Assert.IsFalse(switchObject.IsOptional);
+		}
+
+		/// <summary>
+		/// Test IsRequired property.
+		/// </summary>
+		[Test]
+		public void IsRequiredProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.IsRequired);
+
+			switchObject = new Switch(Name, LongName, Description, IsRequired);
+
+			Assert.IsTrue(switchObject.IsRequired);
+		}
+
+		/// <summary>
+		/// Test LongName property.
+		/// </summary>
+		[Test]
+		public void LongNameProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsNull(switchObject.LongName);
+
+			switchObject = new Switch(Name, LongName, Description);
+
+			Assert.AreEqual(LongName, switchObject.LongName);
+		}
+
+		/// <summary>
+		/// Test Name property.
+		/// </summary>
+		[Test]
+		public void NameProperty()
+		{
+			Switch switchObject = new Switch(Name);
+
+			Assert.AreEqual(Name, switchObject.Name);
+		}
+
+		/// <summary>
+		/// Test NumberArguments property.
+		/// </summary>
+		[Test]
+		public void NumberArgumentsProperty()
+		{
+			const int NumberArguments = 3;
+
+			Switch switchObject = new Switch(Name);
+
+			Assert.AreEqual(NoArguments, switchObject.NumberArguments);
+
+			switchObject = new Switch(Name, LongName, Description,
+				NumberArguments, IsRequired);
+
+			Assert.AreEqual(NumberArguments, switchObject.NumberArguments);
+		}
 	}
 }
