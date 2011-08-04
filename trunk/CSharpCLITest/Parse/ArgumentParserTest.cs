@@ -300,8 +300,8 @@ namespace CSharpCLI.Test.Parse
 
 			parser.Parse();
 
-			Assert.AreEqual(parser.GetValue(Name1), Value1);
-			Assert.AreEqual(parser.GetValue(Name2), Value2);
+			Assert.AreEqual(Value1, parser.GetValue(Name1));
+			Assert.AreEqual(Value2, parser.GetValue(Name2));
 
 			Assert.IsNull(parser.GetValue(EmptyName));
 			Assert.IsNull(parser.GetValue(NoName));
@@ -345,8 +345,8 @@ namespace CSharpCLI.Test.Parse
 
 			parser.Parse();
 
-			Assert.AreEqual(parser.GetValue(Name1, Argument1), Value1);
-			Assert.AreEqual(parser.GetValue(Name2, Argument1), Value2);
+			Assert.AreEqual(Value1, parser.GetValue(Name1, Argument1));
+			Assert.AreEqual(Value2, parser.GetValue(Name2, Argument1));
 
 			Assert.IsNull(parser.GetValue(EmptyName, Argument1));
 			Assert.IsNull(parser.GetValue(NoName, Argument1));
@@ -395,7 +395,7 @@ namespace CSharpCLI.Test.Parse
 
 			parser.Parse();
 
-			Assert.AreEqual(parser.GetValue(Name, Argument1), Value);
+			Assert.AreEqual(Value, parser.GetValue(Name, Argument1));
 
 			Assert.IsNull(parser.GetValue(EmptyName, Argument0));
 			Assert.IsNull(parser.GetValue(EmptyName, Argument1));
@@ -447,8 +447,8 @@ namespace CSharpCLI.Test.Parse
 
 			parser.Parse();
 
-			Assert.AreEqual(parser.GetValues(Name1), new string[] { Value1, Value2 });
-			Assert.AreEqual(parser.GetValues(Name2), new string[] { Value3, Value4 });
+			Assert.AreEqual(new string[] { Value1, Value2 }, parser.GetValues(Name1));
+			Assert.AreEqual(new string[] { Value3, Value4 }, parser.GetValues(Name2));
 
 			Assert.IsNull(parser.GetValues(EmptyName));
 			Assert.IsNull(parser.GetValues(NoName));
@@ -756,7 +756,7 @@ namespace CSharpCLI.Test.Parse
 
 			parser.Parse();
 
-			Assert.AreEqual(parser.GetValues(Name1), values);
+			Assert.AreEqual(values, parser.GetValues(Name1));
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
@@ -801,9 +801,9 @@ namespace CSharpCLI.Test.Parse
 			// No exceptions should be thrown. Excess arguments should be ignored.
 			Assert.DoesNotThrow(delegate { parser.Parse(); });
 
-			Assert.AreEqual(parser.GetValues(Name1), enoughValues);
+			Assert.AreEqual(enoughValues, parser.GetValues(Name1));
 
-			Assert.AreNotEqual(parser.GetValues(Name1), excessValues);
+			Assert.AreNotEqual(excessValues, parser.GetValues(Name1));
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
