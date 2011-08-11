@@ -1,0 +1,22 @@
+﻿Releases
+========
+
+1.1.1 (1.1.1.0) - August 10, 2011
+---------------------------------
+
+- Fixed `HasEnoughNames` and `HasEnoughValues` properties in `Switch` class to correctly handle unknown number of arguments. Modified unit tests to test for this.
+- Fixed some existing unit tests that test `Switch.HasEnoughNames` property.
+- Added `HasAllNames` and `HasAllValues` properties to `Switch` class. Added unit tests to test these properties.
+- Added `NumberArgumentNames` and `NumberArgumentValues` properties to `Switch` class. Added unit tests to test these properties.
+
+1.1 (1.1.0.0) - August 3, 2011
+------------------------------
+
+- Added NUnit unit tests (over 100) for `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes.
+- Corrections and improvements made to `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes as a result of unit testing.
+- Upgraded solution and projects to use Visual C# Express 2010 and .NET Framework 4.0.
+
+1.0 (1.0.0.0) - April 19, 2010
+------------------------------
+
+- Initial release.
