@@ -231,7 +231,6 @@ namespace CSharpCLI.Test.Argument
 			Assert.AreEqual(Name, switchObject.Name);
 			Assert.AreEqual(UnknownNumberArguments, switchObject.NumberArguments);
 
-			Assert.IsFalse(switchObject.HasEnoughNames);
 			Assert.IsFalse(switchObject.HasEnoughValues);
 			Assert.IsFalse(switchObject.IsOptional);
 
@@ -241,6 +240,7 @@ namespace CSharpCLI.Test.Argument
 
 			Assert.IsTrue(switchObject.HasArguments);
 			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.HasEnoughNames);
 			Assert.IsTrue(switchObject.HasLongName);
 			Assert.IsTrue(switchObject.IsRequired);
 		}
