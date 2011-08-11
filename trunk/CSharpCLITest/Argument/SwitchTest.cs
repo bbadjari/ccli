@@ -185,7 +185,6 @@ namespace CSharpCLI.Test.Argument
 			Assert.AreEqual(Name, switchObject.Name);
 			Assert.AreEqual(UnknownNumberArguments, switchObject.NumberArguments);
 
-			Assert.IsFalse(switchObject.HasEnoughNames);
 			Assert.IsFalse(switchObject.HasEnoughValues);
 			Assert.IsFalse(switchObject.IsOptional);
 
@@ -195,6 +194,7 @@ namespace CSharpCLI.Test.Argument
 
 			Assert.IsTrue(switchObject.HasArguments);
 			Assert.IsTrue(switchObject.HasDescription);
+			Assert.IsTrue(switchObject.HasEnoughNames);
 			Assert.IsTrue(switchObject.HasLongName);
 			Assert.IsTrue(switchObject.IsRequired);
 		}
@@ -549,10 +549,10 @@ namespace CSharpCLI.Test.Argument
 			Assert.AreEqual(NoArgumentValues, switchObject.GetArgumentValues());
 			Assert.AreEqual(UnknownNumberArguments, switchObject.NumberArguments);
 
-			Assert.IsFalse(switchObject.HasEnoughNames);
 			Assert.IsFalse(switchObject.HasEnoughValues);
 
 			Assert.IsTrue(switchObject.HasArguments);
+			Assert.IsTrue(switchObject.HasEnoughNames);
 
 			// Add second argument name.
 
@@ -562,10 +562,10 @@ namespace CSharpCLI.Test.Argument
 			Assert.AreEqual(NoArgumentValues, switchObject.GetArgumentValues());
 			Assert.AreEqual(UnknownNumberArguments, switchObject.NumberArguments);
 
-			Assert.IsFalse(switchObject.HasEnoughNames);
 			Assert.IsFalse(switchObject.HasEnoughValues);
 
 			Assert.IsTrue(switchObject.HasArguments);
+			Assert.IsTrue(switchObject.HasEnoughNames);
 		}
 
 		/// <summary>
@@ -715,6 +715,123 @@ namespace CSharpCLI.Test.Argument
 		}
 
 		/// <summary>
+		/// Test HasAllNames property.
+		/// </summary>
+		[Test]
+		public void HasAllNamesProperty()
+		{
+			const string ArgumentName1 = "arg1";
+			const string ArgumentName2 = "arg2";
+			const string ArgumentName3 = "arg3";
+			const string ArgumentName4 = "arg4";
+			const int NumberArguments = 3;
+
+			// Test when number of arguments known.
+
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+
+			switchObject = new Switch(Name, LongName, Description,
+				NumberArguments, IsRequired);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+
+			switchObject.AddArgumentName(ArgumentName1);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+
+			switchObject.AddArgumentName(ArgumentName2);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+
+			switchObject.AddArgumentName(ArgumentName3);
+
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentNames);
+
+			Assert.IsTrue(switchObject.HasAllNames);
+
+			// Add extra argument name, exceeding necessary number.
+
+			switchObject.AddArgumentName(ArgumentName4);
+
+			// Extra argument name should not be added.
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentNames);
+
+			Assert.IsTrue(switchObject.HasAllNames);
+
+			// Test when number of arguments unknown.
+
+			switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired, ArgumentName1);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+
+			switchObject.AddArgumentName(ArgumentName2);
+
+			Assert.IsFalse(switchObject.HasAllNames);
+		}
+
+		/// <summary>
+		/// Test HasAllValues property.
+		/// </summary>
+		[Test]
+		public void HasAllValuesProperty()
+		{
+			const string ArgumentName = "args";
+			const int NumberArguments = 3;
+			const string Value1 = "arg1";
+			const string Value2 = "arg2";
+			const string Value3 = "arg3";
+			const string Value4 = "arg4";
+
+			// Test when number of arguments known.
+
+			Switch switchObject = new Switch(Name);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject = new Switch(Name, LongName, Description,
+				NumberArguments, IsRequired);
+
+			Assert.IsFalse(switchObject.HasAllValues);
+
+			switchObject.AddArgumentValue(Value1);
+
+			Assert.IsFalse(switchObject.HasAllValues);
+
+			switchObject.AddArgumentValue(Value2);
+
+			Assert.IsFalse(switchObject.HasAllValues);
+
+			switchObject.AddArgumentValue(Value3);
+
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentValues);
+
+			Assert.IsTrue(switchObject.HasAllValues);
+
+			// Add extra argument value, exceeding necessary number.
+
+			switchObject.AddArgumentValue(Value4);
+
+			// Extra argument value should not be added.
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentValues);
+
+			Assert.IsTrue(switchObject.HasAllValues);
+
+			// Test when number of arguments unknown.
+
+			switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired, ArgumentName);
+
+			Assert.IsFalse(switchObject.HasAllValues);
+
+			switchObject.AddArgumentValue(Value1);
+
+			Assert.IsFalse(switchObject.HasAllValues);
+		}
+
+		/// <summary>
 		/// Test HasArguments property.
 		/// </summary>
 		[Test]
@@ -754,7 +871,10 @@ namespace CSharpCLI.Test.Argument
 			const string ArgumentName1 = "arg1";
 			const string ArgumentName2 = "arg2";
 			const string ArgumentName3 = "arg3";
+			const string ArgumentName4 = "arg4";
 			const int NumberArguments = 3;
+
+			// Test when number of arguments known.
 
 			Switch switchObject = new Switch(Name);
 
@@ -775,6 +895,24 @@ namespace CSharpCLI.Test.Argument
 
 			switchObject.AddArgumentName(ArgumentName3);
 
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentNames);
+
+			Assert.IsTrue(switchObject.HasEnoughNames);
+
+			// Add extra argument name, exceeding necessary number.
+
+			switchObject.AddArgumentName(ArgumentName4);
+
+			// Extra argument name should not be added.
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentNames);
+
+			Assert.IsTrue(switchObject.HasEnoughNames);
+
+			// Test when number of arguments unknown.
+
+			switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired, ArgumentName1);
+
 			Assert.IsTrue(switchObject.HasEnoughNames);
 		}
 
@@ -784,10 +922,14 @@ namespace CSharpCLI.Test.Argument
 		[Test]
 		public void HasEnoughValuesProperty()
 		{
+			const string ArgumentName = "args";
 			const int NumberArguments = 3;
 			const string Value1 = "arg1";
 			const string Value2 = "arg2";
 			const string Value3 = "arg3";
+			const string Value4 = "arg4";
+
+			// Test when number of arguments known.
 
 			Switch switchObject = new Switch(Name);
 
@@ -807,6 +949,28 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsFalse(switchObject.HasEnoughValues);
 
 			switchObject.AddArgumentValue(Value3);
+
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentValues);
+
+			Assert.IsTrue(switchObject.HasEnoughValues);
+
+			// Add extra argument value, exceeding necessary number.
+
+			switchObject.AddArgumentValue(Value4);
+
+			// Extra argument value should not be added.
+			Assert.AreEqual(NumberArguments, switchObject.NumberArgumentValues);
+
+			Assert.IsTrue(switchObject.HasEnoughValues);
+
+			// Test when number of arguments unknown.
+
+			switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired, ArgumentName);
+
+			Assert.IsFalse(switchObject.HasEnoughValues);
+
+			switchObject.AddArgumentValue(Value1);
 
 			Assert.IsTrue(switchObject.HasEnoughValues);
 		}
@@ -880,6 +1044,56 @@ namespace CSharpCLI.Test.Argument
 			Switch switchObject = new Switch(Name);
 
 			Assert.AreEqual(Name, switchObject.Name);
+		}
+
+		/// <summary>
+		/// Test NumberArgumentNames property.
+		/// </summary>
+		[Test]
+		public void NumberArgumentNames()
+		{
+			string[] argumentNames = new string[] { "arg1", "arg2", "arg3" };
+
+			Switch switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired);
+
+			int numberArgumentNames = 0;
+
+			Assert.AreEqual(numberArgumentNames, switchObject.NumberArgumentNames);
+
+			foreach (string argumentName in argumentNames)
+			{
+				switchObject.AddArgumentName(argumentName);
+
+				numberArgumentNames++;
+
+				Assert.AreEqual(numberArgumentNames, switchObject.NumberArgumentNames);
+			}
+		}
+
+		/// <summary>
+		/// Test NumberArgumentValues property.
+		/// </summary>
+		[Test]
+		public void NumberArgumentValues()
+		{
+			string[] argumentValues = new string[] { "arg1", "arg2", "arg3" };
+
+			Switch switchObject = new Switch(Name, LongName, Description,
+				HasArguments, IsRequired);
+
+			int numberArgumentValues = 0;
+
+			Assert.AreEqual(numberArgumentValues, switchObject.NumberArgumentValues);
+
+			foreach (string argumentValue in argumentValues)
+			{
+				switchObject.AddArgumentValue(argumentValue);
+
+				numberArgumentValues++;
+
+				Assert.AreEqual(numberArgumentValues, switchObject.NumberArgumentValues);
+			}
 		}
 
 		/// <summary>

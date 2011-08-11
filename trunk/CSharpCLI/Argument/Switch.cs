@@ -344,7 +344,7 @@ namespace CSharpCLI.Argument
 						m_argumentNames.Add(argumentName);
 				}
 
-				m_numberArguments = m_argumentNames.Count;
+				m_numberArguments = NumberArgumentNames;
 				m_hasArguments = NumberArguments > NoArguments;
 			}
 		}
@@ -360,7 +360,7 @@ namespace CSharpCLI.Argument
 		/// </param>
 		public void AddArgumentName(string name)
 		{
-			if (HasEnoughNames)
+			if (HasAllNames)
 				return;
 
 			if (!string.IsNullOrEmpty(name))
@@ -375,7 +375,7 @@ namespace CSharpCLI.Argument
 		/// </param>
 		public void AddArgumentValue(string value)
 		{
-			if (HasEnoughValues)
+			if (HasAllValues)
 				return;
 
 			if (!string.IsNullOrEmpty(value))
@@ -502,6 +502,22 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
+		/// Determine if given number of arguments represents all those for
+		/// this switch.
+		/// </summary>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments.
+		/// </param>
+		/// <returns>
+		/// True if given number of arguments represents all those for switch,
+		/// false otherwise.
+		/// </returns>
+		bool HasAllArguments(int numberArguments)
+		{
+			return HasArguments && (NumberArguments == numberArguments);
+		}
+
+		/// <summary>
 		/// Determine if given number of arguments enough for this switch.
 		/// </summary>
 		/// <param name="numberArguments">
@@ -512,7 +528,17 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		bool HasEnoughArguments(int numberArguments)
 		{
-			return HasArguments && (NumberArguments == numberArguments);
+			if (HasArguments)
+			{
+				if (NumberArguments <= numberArguments)
+					return true;
+
+				// Determine if at least one argument if number of arguments unknown.
+				if (NumberArguments == UnknownNumberArguments && numberArguments > 0)
+					return true;
+			}
+
+			return false;
 		}
 
 		/// <summary>
@@ -541,6 +567,28 @@ namespace CSharpCLI.Argument
 		public string Description
 		{
 			get { return m_description; }
+		}
+
+		/// <summary>
+		/// Determine if all argument names added to this switch.
+		/// </summary>
+		/// <value>
+		/// True if all argument names added to this switch, false otherwise.
+		/// </value>
+		public bool HasAllNames
+		{
+			get { return HasAllArguments(NumberArgumentNames); }
+		}
+
+		/// <summary>
+		/// Determine if all argument values added to this switch.
+		/// </summary>
+		/// <value>
+		/// True if all argument values added to this switch, false otherwise.
+		/// </value>
+		public bool HasAllValues
+		{
+			get { return HasAllArguments(NumberArgumentValues); }
 		}
 
 		/// <summary>
@@ -573,7 +621,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public bool HasEnoughNames
 		{
-			get { return HasEnoughArguments(m_argumentNames.Count); }
+			get { return HasEnoughArguments(NumberArgumentNames); }
 		}
 
 		/// <summary>
@@ -584,7 +632,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public bool HasEnoughValues
 		{
-			get { return HasEnoughArguments(m_argumentValues.Count); }
+			get { return HasEnoughArguments(NumberArgumentValues); }
 		}
 
 		/// <summary>
@@ -640,6 +688,28 @@ namespace CSharpCLI.Argument
 		public string Name
 		{
 			get { return m_name; }
+		}
+
+		/// <summary>
+		/// Get number of argument names added to this switch.
+		/// </summary>
+		/// <value>
+		/// Integer representing number of argument names added to this switch.
+		/// </value>
+		public int NumberArgumentNames
+		{
+			get { return m_argumentNames.Count; }
+		}
+
+		/// <summary>
+		/// Get number of argument values added to this switch.
+		/// </summary>
+		/// <value>
+		/// Integer representing number of argument values added to this switch.
+		/// </value>
+		public int NumberArgumentValues
+		{
+			get { return m_argumentValues.Count; }
 		}
 
 		/// <summary>
