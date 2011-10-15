@@ -118,7 +118,7 @@ The latest release of this software can be obtained from: <http://sourceforge.ne
 - Corrections and improvements made to `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes as a result of unit testing.
 - Upgraded solution and projects to use Visual C# Express 2010 and .NET Framework 4.0.
 
-### 1.0 (1.0.0.0) - April 19, 2010 ###
+### 1.0 (1.0.0.0) - April 23, 2010 ###
 
 - Initial release.
 
