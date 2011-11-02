@@ -14,7 +14,7 @@
 
 - Added NUnit unit tests (over 100) for `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes.
 - Corrections and improvements made to `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes as a result of unit testing.
-- Upgraded solution and projects to use Visual C# Express 2010 and .NET Framework 4.0.
+- Upgraded solution and projects to use Visual C# 2010 Express and .NET Framework 4.0.
 
 1.0 (1.0.0.0) - April 23, 2010
 ------------------------------
