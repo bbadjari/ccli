@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="C# CLI" default="build" basedir="..\">
+	<description>NAnt build file for the C# CLI library.</description>
+
+	<property name="release.directory" value="CSharpCLITest\bin\Release\" readonly="true" />
+	<property name="assembly.file.path" value="${release.directory}CSharpCLI.dll" readonly="true" />
+	<property name="version" value="${assemblyname::get-version(assemblyname::get-assembly-name(assembly.file.path))}" dynamic="true" readonly="true" />
+
+	<target name="build" description="Build solution in 'Release' configuration.">
+		<solution configuration="Release" solutionfile="CSharpCLI.sln" />
+	</target>
+
+	<target name="package.binary" depends="build" description="Package binary files for release.">
+		<zip zipfile="ccli_${version}_bin.zip">
+			<fileset basedir="${release.directory}">
+				<include name="*" />
+				<include name="..\..\..\Documentation\*.mkd" />
+				<exclude name="*.pdb" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="package.source" description="Package source files for release.">
+		<zip zipfile="ccli_${version}_src.zip">
+			<fileset>
+				<include name="Build\*.build" />
+				<include name="CSharpCLI\Argument\*.cs" />
+				<include name="CSharpCLI\Help\*.cs" />
+				<include name="CSharpCLI\Parse\*.cs" />
+				<include name="CSharpCLI\Properties\*.cs" />
+				<include name="CSharpCLI\*.csproj" />
+				<include name="CSharpCLITest\Argument\*.cs" />
+				<include name="CSharpCLITest\Help\*.cs" />
+				<include name="CSharpCLITest\Parse\*.cs" />
+				<include name="CSharpCLITest\Properties\*.cs" />
+				<include name="CSharpCLITest\References\NUnit\*.dll" />
+				<include name="CSharpCLITest\*.csproj" />
+				<include name="Documentation\*.mkd" />
+				<include name="CSharpCLI.sln" />
+			</fileset>
+		</zip>
+	</target>
+</project>
