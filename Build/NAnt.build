@@ -31,13 +31,13 @@
 				<include name="CSharpCLI\Help\*.cs" />
 				<include name="CSharpCLI\Parse\*.cs" />
 				<include name="CSharpCLI\Properties\*.cs" />
-				<include name="CSharpCLI\*.csproj" />
+				<include name="CSharpCLI\CSharpCLI.csproj" />
 				<include name="CSharpCLITest\Argument\*.cs" />
 				<include name="CSharpCLITest\Help\*.cs" />
 				<include name="CSharpCLITest\Parse\*.cs" />
 				<include name="CSharpCLITest\Properties\*.cs" />
 				<include name="CSharpCLITest\References\NUnit\*.dll" />
-				<include name="CSharpCLITest\*.csproj" />
+				<include name="CSharpCLITest\CSharpCLITest.csproj" />
 				<include name="Documentation\*.mkd" />
 				<include name="CSharpCLI.sln" />
 			</fileset>
