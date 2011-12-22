@@ -225,7 +225,7 @@ namespace CSharpCLI.Test.Argument
 			Switch switchObject = m_switches[Name];
 
 			Assert.AreEqual(Description, switchObject.Description);
-			Assert.AreEqual( new string[] { ArgumentName }, switchObject.GetArgumentNames());
+			Assert.AreEqual(new string[] { ArgumentName }, switchObject.GetArgumentNames());
 			Assert.AreEqual(NoArgumentValues, switchObject.GetArgumentValues());
 			Assert.AreEqual(LongName, switchObject.LongName);
 			Assert.AreEqual(Name, switchObject.Name);
