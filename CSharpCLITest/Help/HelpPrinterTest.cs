@@ -469,9 +469,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get footer test value.
 		/// </summary>
-		/// <value>
+		/// <returns>
 		/// String representing footer test value.
-		/// </value>
+		/// </returns>
 		string GetFooter()
 		{
 			StringBuilder footer = new StringBuilder();
@@ -487,9 +487,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get header test value.
 		/// </summary>
-		/// <value>
+		/// <returns>
 		/// String representing header test value.
-		/// </value>
+		/// </returns>
 		string GetHeader()
 		{
 			StringBuilder header = new StringBuilder();
@@ -505,9 +505,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get long footer test value.
 		/// </summary>
-		/// <value>
+		/// <returns>
 		/// String representing long footer test value.
-		/// </value>
+		/// </returns>
 		string GetLongFooter()
 		{
 			StringBuilder footer = new StringBuilder();
@@ -524,9 +524,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get long header test value.
 		/// </summary>
-		/// <value>
+		/// <returns>
 		/// String representing long header test value.
-		/// </value>
+		/// </returns>
 		string GetLongHeader()
 		{
 			StringBuilder header = new StringBuilder();
