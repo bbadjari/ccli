@@ -469,6 +469,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get footer test value.
 		/// </summary>
+		/// <value>
+		/// String representing footer test value.
+		/// </value>
 		string GetFooter()
 		{
 			StringBuilder footer = new StringBuilder();
@@ -484,6 +487,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get header test value.
 		/// </summary>
+		/// <value>
+		/// String representing header test value.
+		/// </value>
 		string GetHeader()
 		{
 			StringBuilder header = new StringBuilder();
@@ -499,6 +505,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get long footer test value.
 		/// </summary>
+		/// <value>
+		/// String representing long footer test value.
+		/// </value>
 		string GetLongFooter()
 		{
 			StringBuilder footer = new StringBuilder();
@@ -515,6 +524,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get long header test value.
 		/// </summary>
+		/// <value>
+		/// String representing long header test value.
+		/// </value>
 		string GetLongHeader()
 		{
 			StringBuilder header = new StringBuilder();
@@ -534,6 +546,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get SwitchCollection with no switches.
 		/// </summary>
+		/// <value>
+		/// SwitchCollection representing empty collection of switches.
+		/// </value>
 		SwitchCollection NoSwitches
 		{
 			get { return m_noSwitches; }
@@ -542,6 +557,9 @@ namespace CSharpCLI.Test.Help
 		/// <summary>
 		/// Get current HelpPrinter output.
 		/// </summary>
+		/// <value>
+		/// String representing output of current HelpPrinter instance.
+		/// </value>
 		string Output
 		{
 			get { return m_output.ToString(); }
