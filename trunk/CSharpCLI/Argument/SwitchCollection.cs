@@ -374,14 +374,14 @@ namespace CSharpCLI.Argument
 		/// <param name="name">
 		/// String representing switch name.
 		/// </param>
-		/// <value>
+		/// <returns>
 		///		<para>
 		///		Switch object representing switch with given name.
 		///		</para>
 		///		<para>
 		///		Null if switch with given name not in collection.
 		///		</para>
-		/// </value>
+		/// </returns>
 		public Switch this[string name]
 		{
 			get
