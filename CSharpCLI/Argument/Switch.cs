@@ -126,18 +126,7 @@ namespace CSharpCLI.Argument
 		int m_numberArguments;
 
 		////////////////////////////////////////////////////////////////////////
-		// Constructors
-
-		/// <summary>
-		/// Constructor for specifying switch name.
-		/// </summary>
-		/// <param name="name">
-		/// String representing switch name.
-		/// </param>
-		public Switch(string name)
-			: this(name, null)
-		{
-		}
+		// Constructors - Printable
 
 		/// <summary>
 		/// Constructor for specifying switch description.
@@ -220,6 +209,28 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Constructor for defining number of arguments expected to
 		/// follow switch.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		public Switch(string name, string longName, string description,
+			int numberArguments)
+			: this(name, longName, description, numberArguments, NotRequired)
+		{
+		}
+
+		/// <summary>
+		/// Constructor for defining number of arguments expected to
+		/// follow switch and whether switch required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -347,6 +358,84 @@ namespace CSharpCLI.Argument
 				m_numberArguments = NumberArgumentNames;
 				m_hasArguments = NumberArguments > NoArguments;
 			}
+		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Constructors - Non-Printable
+
+		/// <summary>
+		/// Constructor for specifying switch name.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		public Switch(string name)
+			: this(name, null)
+		{
+		}
+
+		/// <summary>
+		/// Constructor for specifying whether switch required.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public Switch(string name, bool isRequired)
+			: this(name, null, null, NoArguments, isRequired)
+		{
+		}
+
+		/// <summary>
+		/// Constructor for specifying arguments expected to follow switch.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public Switch(string name, bool hasArguments, bool isRequired)
+			: this(name, null, null, UnknownNumberArguments, isRequired)
+		{
+		}
+
+		/// <summary>
+		/// Constructor for defining number of arguments expected to
+		/// follow switch.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		public Switch(string name, int numberArguments)
+			: this(name, null, null, numberArguments, NotRequired)
+		{
+		}
+
+		/// <summary>
+		/// Constructor for defining number of arguments expected to
+		/// follow switch and whether switch required.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public Switch(string name, int numberArguments, bool isRequired)
+			: this(name, null, null, numberArguments, isRequired)
+		{
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -644,6 +733,17 @@ namespace CSharpCLI.Argument
 		public bool HasLongName
 		{
 			get { return !string.IsNullOrEmpty(LongName); }
+		}
+
+		/// <summary>
+		/// Determine if non-printable switch (no long name or description).
+		/// </summary>
+		/// <value>
+		/// True if non-printable switch, false otherwise.
+		/// </value>
+		public bool IsNonPrintable
+		{
+			get { return !HasLongName && !HasDescription; }
 		}
 
 		/// <summary>

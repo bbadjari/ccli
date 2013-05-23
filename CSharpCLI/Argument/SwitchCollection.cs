@@ -62,33 +62,7 @@ namespace CSharpCLI.Argument
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Methods
-
-		/// <summary>
-		/// Add switch to collection with given name.
-		/// </summary>
-		/// <param name="name">
-		/// String representing switch name.
-		/// </param>
-		public void Add(string name)
-		{
-			Add(new Switch(name));
-		}
-
-		/// <summary>
-		/// Add switches to collection with given names.
-		/// </summary>
-		/// <param name="names">
-		/// Array of strings representing switch names.
-		/// </param>
-		public void Add(string[] names)
-		{
-			if (names != null)
-			{
-				foreach (string name in names)
-					Add(new Switch(name));
-			}
-		}
+		// Public Methods - Printable
 
 		/// <summary>
 		/// Add switch to collection with given name and description.
@@ -167,6 +141,28 @@ namespace CSharpCLI.Argument
 		{
 			Add(new Switch(name, longName, description, hasArguments,
 				isRequired));
+		}
+
+		/// <summary>
+		/// Add switch to collection with given name, long name, description,
+		/// and number of expected arguments.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="longName">
+		/// String representing switch long name.
+		/// </param>
+		/// <param name="description">
+		/// String representing switch description.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		public void Add(string name, string longName, string description,
+			int numberArguments)
+		{
+			Add(new Switch(name, longName, description, numberArguments));
 		}
 
 		/// <summary>
@@ -277,6 +273,102 @@ namespace CSharpCLI.Argument
 			Add(new Switch(name, longName, description, isRequired,
 				argumentNames));
 		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Public Methods - Non-Printable
+
+		/// <summary>
+		/// Add switch to collection with given name.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		public void Add(string name)
+		{
+			Add(new Switch(name));
+		}
+
+		/// <summary>
+		/// Add switches to collection with given names.
+		/// </summary>
+		/// <param name="names">
+		/// Array of strings representing switch names.
+		/// </param>
+		public void Add(string[] names)
+		{
+			if (names != null)
+			{
+				foreach (string name in names)
+					Add(new Switch(name));
+			}
+		}
+
+		/// <summary>
+		/// Add switch to collection with given name and whether it is required.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public void Add(string name, bool isRequired)
+		{
+			Add(new Switch(name, isRequired));
+		}
+
+		/// <summary>
+		/// Add switch to collection with given name, whether it has arguments
+		/// and whether it is required.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="hasArguments">
+		/// True if arguments expected to follow switch, false otherwise.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public void Add(string name, bool hasArguments, bool isRequired)
+		{
+			Add(new Switch(name, hasArguments, isRequired));
+		}
+
+		/// <summary>
+		/// Add switch to collection with given name and number of expected arguments.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		public void Add(string name, int numberArguments)
+		{
+			Add(new Switch(name, numberArguments));
+		}
+
+		/// <summary>
+		/// Add switch to collection with given name, number of expected arguments
+		/// and whether it is required.
+		/// </summary>
+		/// <param name="name">
+		/// String representing switch name.
+		/// </param>
+		/// <param name="numberArguments">
+		/// Integer representing number of arguments expected to follow switch.
+		/// </param>
+		/// <param name="isRequired">
+		/// True if required switch, false otherwise.
+		/// </param>
+		public void Add(string name, int numberArguments, bool isRequired)
+		{
+			Add(new Switch(name, numberArguments, isRequired));
+		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Public Methods
 
 		/// <summary>
 		/// Determine if switch with given name already added to collection.

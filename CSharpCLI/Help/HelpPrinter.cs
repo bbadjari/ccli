@@ -214,8 +214,6 @@ namespace CSharpCLI.Help
 
 				PrintUsage();
 
-				AppendLines();
-
 				PrintDescriptions();
 
 				if (HasFooter)
@@ -505,6 +503,10 @@ namespace CSharpCLI.Help
 
 			foreach (Switch switchObject in Switches)
 			{
+				// Skip non-printable switches.
+				if (switchObject.IsNonPrintable)
+					continue;
+
 				StringBuilder nameArgument = new StringBuilder();
 
 				nameArgument.Append(Switch.GetPrefixedName(switchObject.Name));
@@ -528,17 +530,23 @@ namespace CSharpCLI.Help
 				namesArguments.Add(nameArgument.ToString());
 			}
 
+			// Determine if no descriptions to print.
+			if (longestLength == 0)
+				return;
+
 			NumberIndentCharacters = longestLength + DescriptionSpacing;
+
+			AppendLines();
 
 			for (int index = 0; index < Switches.Count; index++)
 			{
 				StringBuilder output = new StringBuilder();
 
-				Switch switchObject = Switches[index];
-
 				string nameArgument = namesArguments[index];
 
 				output.Append(nameArgument);
+
+				Switch switchObject = Switches[index];
 
 				if (switchObject.HasDescription)
 				{
