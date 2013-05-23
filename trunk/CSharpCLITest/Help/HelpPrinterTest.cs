@@ -80,6 +80,11 @@ namespace CSharpCLI.Test.Help
 		/// </summary>
 		const string NoHeader = null;
 
+		/// <summary>
+		/// No switch long name.
+		/// </summary>
+		const string NoLongName = null;
+
 		////////////////////////////////////////////////////////////////////////
 
 		/// <summary>
@@ -428,6 +433,36 @@ namespace CSharpCLI.Test.Help
 		}
 
 		/// <summary>
+		/// Test Print() method with switches having no long names.
+		/// </summary>
+		[Test]
+		public void PrintNoLongNames()
+		{
+			const string Description1 = "First switch.";
+			const string Description2 = "Second switch. This switch is required.";
+			const string Name1 = "s1";
+			const string Name2 = "s2";
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name1, NoLongName, Description1);
+			switches.Add(Name2, NoLongName, Description2, IsRequired);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine("-s1   " + Description1);
+			expectedOutput.AppendLine("-s2   " + Description2);
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
 		/// Test Print() method with no switches to print (only header and footer).
 		/// </summary>
 		[Test]
@@ -442,6 +477,31 @@ namespace CSharpCLI.Test.Help
 			expectedOutput.AppendLine(GetHeader());
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine(GetFooter());
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
+		/// Test Print() method with non-printable switches (i.e. switches with no long names or descriptions).
+		/// </summary>
+		[Test]
+		public void PrintNonPrintable()
+		{
+			const string Name1 = "s1";
+			const string Name2 = "s2";
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name1);
+			switches.Add(Name2, IsRequired);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
 
 			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
