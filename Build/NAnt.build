@@ -3,7 +3,7 @@
 	<description>NAnt build file for the C# CLI library.</description>
 
 	<property name="package.directory" value="." overwrite="false" />
-	<property name="release.directory" value="CSharpCLITest\bin\Release\" readonly="true" />
+	<property name="release.directory" value="CSharpCLI.Test\bin\Release\" readonly="true" />
 	<property name="assembly.file.path" value="${release.directory}\CSharpCLI.dll" readonly="true" />
 	<property name="version" value="${assemblyname::get-version(assemblyname::get-assembly-name(assembly.file.path))}" dynamic="true" readonly="true" />
 
@@ -32,12 +32,12 @@
 				<include name="CSharpCLI\Parse\*.cs" />
 				<include name="CSharpCLI\Properties\*.cs" />
 				<include name="CSharpCLI\CSharpCLI.csproj" />
-				<include name="CSharpCLITest\Argument\*.cs" />
-				<include name="CSharpCLITest\Help\*.cs" />
-				<include name="CSharpCLITest\Parse\*.cs" />
-				<include name="CSharpCLITest\Properties\*.cs" />
-				<include name="CSharpCLITest\References\NUnit\*.dll" />
-				<include name="CSharpCLITest\CSharpCLITest.csproj" />
+				<include name="CSharpCLI.Test\Argument\*.cs" />
+				<include name="CSharpCLI.Test\Help\*.cs" />
+				<include name="CSharpCLI.Test\Parse\*.cs" />
+				<include name="CSharpCLI.Test\Properties\*.cs" />
+				<include name="CSharpCLI.Test\References\NUnit\*.dll" />
+				<include name="CSharpCLI.Test\CSharpCLI.Test.csproj" />
 				<include name="Documentation\*.mkd" />
 				<include name="CSharpCLI.sln" />
 			</fileset>
