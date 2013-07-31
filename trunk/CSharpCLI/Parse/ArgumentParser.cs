@@ -331,5 +331,19 @@ namespace CSharpCLI.Parse
 
 			throw new ParsingException(formattedMessage);
 		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Public Properties
+
+		/// <summary>
+		/// Get number of switches parsed.
+		/// </summary>
+		/// <value>
+		/// Integer representing number of switches parsed.
+		/// </value>
+		public int NumberSwitchesParsed
+		{
+			get { return m_parsedSwitches.Count; }
+		}
 	}
 }

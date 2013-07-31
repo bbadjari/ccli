@@ -83,6 +83,11 @@ namespace CSharpCLI.Test.Parse
 		/// </summary>
 		static readonly string[] NoNames = null;
 
+		/// <summary>
+		/// No switches.
+		/// </summary>
+		const int NoSwitches = 0;
+
 		////////////////////////////////////////////////////////////////////////
 
 		/// <summary>
@@ -908,6 +913,42 @@ namespace CSharpCLI.Test.Parse
 			Assert.IsFalse(parser.IsParsed(UndefinedName));
 
 			Assert.IsTrue(parser.IsParsed(Name1));
+		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Properties
+
+		/// <summary>
+		/// Test NumberSwitchesParsed property.
+		/// </summary>
+		[Test]
+		public void NumberSwitchesParsedProperty()
+		{
+			const string Name1 = "arg1";
+			const string Name2 = "arg2";
+
+			string[] arguments = new string[]
+			{
+				Switch.GetPrefixedName(Name1),
+				Switch.GetPrefixedName(Name2)
+			};
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name1);
+			switches.Add(Name2);
+
+			ArgumentParser parser = new ArgumentParser(arguments, switches);
+
+			Assert.AreEqual(NoSwitches, parser.NumberSwitchesParsed);
+			Assert.AreEqual(NoSwitches, m_emptyParser.NumberSwitchesParsed);
+
+			parser.Parse();
+
+			Assert.AreEqual(switches.Count, parser.NumberSwitchesParsed);
+
+			Assert.IsTrue(parser.IsParsed(Name1));
+			Assert.IsTrue(parser.IsParsed(Name2));
 		}
 	}
 }
