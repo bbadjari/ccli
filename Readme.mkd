@@ -1,0 +1,134 @@
+﻿C# CLI
+======
+
+Overview
+--------
+
+C# CLI is a software library written in C# for use with command-line interface (CLI) applications, providing a simple approach for .NET applications to use when interacting with users through the Windows Command Processor (a.k.a. the Command Prompt).
+
+CLI applications interact with users by accepting arguments (i.e. commands) they provide to the applications through the command-line. Every CLI application should inform the user what commands are available to them and must interpret any provided command-line arguments to determine what commands the user expects the application to execute for them. Though no easy task, the C# CLI library defines a simple mechanism for accomplishing this with minimal programming effort.
+
+Features
+--------
+
+- Defining switches (i.e. commands) available to users.
+- Parsing command-line arguments and extracting defined switches from them.
+- Printing a help screen that describes available commands to users.
+
+Requirements
+------------
+
+C# CLI requires that the .NET Framework 4.0 is installed.
+
+Usage
+-----
+
+C# CLI is a library designed to be used in .NET applications as a referenced .NET assembly.
+
+### Classes ###
+
+The following is a description of all of the classes one needs to be familiar with in order to use this library:
+
+`Switch`
+
+- Represents a switch (i.e. pre-defined command) provided to a CLI application as a command-line argument.
+- Switches have names (e.g. "p") and optionally long names (e.g. "password") and descriptions (e.g. "User password.").
+- Switches can be required (i.e. must be provided as a command-line argument) or optional.
+- Switches can be followed by arguments that supply additional information (e.g. a password to use). The number of arguments that follow a switch can be either pre-defined or unknown.
+- Switches are prefixed with special characters (either "-" or "--") that distinguish them from other command-line arguments.
+
+`SwitchCollection`
+
+- Represents a managed collection of switches (i.e. `Switch` objects).
+- Implements the generic `ICollection`, `IEnumerable` and `IList` interfaces.
+- Switches can be added, inserted or removed to/from a collection.
+- Ensures that no two switches in a collection have the same name.
+- Switches can be retrieved from a collection in the order they were added/inserted or in sorted order by name.
+
+`ArgumentParser`
+
+- Parses command-line arguments provided to a CLI application.
+- Extracts defined switches (i.e. those given in a `SwitchCollection` object) from parsed command-line arguments.
+- Used to determine which switches have been parsed.
+- Ensures that no undefined switches are parsed.
+- Ensures that each defined switch is only parsed once.
+- Ensures that switches having a pre-defined number of arguments have all of their arguments parsed.
+- Ensures that required switches are parsed.
+
+`HelpPrinter`
+
+- Prints usage information (i.e. a help screen) for a CLI application based on a given collection of switches (i.e. a `SwitchCollection` object).
+- Prints descriptions for all given switches that have them.
+- Prints a header and/or footer for the help screen if provided.
+
+### Example ###
+
+The following is a simple example of using the above-mentioned classes in the `Main()` method of a CLI application:
+
+    static void Main(string[] arguments)
+    {
+        try
+        {
+            // Define switches.
+
+            Switch s = new Switch("foo", "Description of switch 'foo'.");
+
+            SwitchCollection switches = new SwitchCollection();
+
+            switches.Add(s);
+            switches.Add("bar");
+
+            // Parse command-line arguments.
+
+            ArgumentParser parser = new ArgumentParser(arguments, switches);
+
+            parser.Parse();
+
+            // Print help screen if necessary.
+            if (!parser.IsParsed("foo"))
+            {
+                HelpPrinter printer = new HelpPrinter("CLI Application", switches);
+
+                printer.Print();
+            }
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.Message);
+        }
+    }
+
+A more practical example of using the C# CLI library can be obtained from: <https://github.com/bbadjari/stylecopcli>
+
+Releases
+--------
+
+The latest release of this software can be obtained from: <https://github.com/bbadjari/ccli>
+
+### 1.1.1 (1.1.1.0) - August 10, 2011 ###
+
+- Fixed `HasEnoughNames` and `HasEnoughValues` properties in `Switch` class to correctly handle unknown number of arguments. Modified unit tests to test for this.
+- Fixed some existing unit tests that test `Switch.HasEnoughNames` property.
+- Added `HasAllNames` and `HasAllValues` properties to `Switch` class. Added unit tests to test these properties.
+- Added `NumberArgumentNames` and `NumberArgumentValues` properties to `Switch` class. Added unit tests to test these properties.
+
+### 1.1 (1.1.0.0) - August 3, 2011 ###
+
+- Added NUnit unit tests (over 100) for `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes.
+- Corrections and improvements made to `Switch`, `SwitchCollection`, `ArgumentParser` and `HelpPrinter` classes as a result of unit testing.
+- Upgraded solution and projects to use Visual C# 2010 Express and .NET Framework 4.0.
+
+### 1.0 (1.0.0.0) - April 23, 2010 ###
+
+- Initial release.
+
+Copyright & License
+-------------------
+
+Copyright (c) 2010-2011 Bernard Badjari
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
