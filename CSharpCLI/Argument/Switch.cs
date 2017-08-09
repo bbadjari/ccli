@@ -401,7 +401,7 @@ namespace CSharpCLI.Argument
 		/// True if required switch, false otherwise.
 		/// </param>
 		public Switch(string name, bool hasArguments, bool isRequired)
-			: this(name, null, null, UnknownNumberArguments, isRequired)
+			: this(name, null, null, (hasArguments ? UnknownNumberArguments : NoArguments), isRequired)
 		{
 		}
 
