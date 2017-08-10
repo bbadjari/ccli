@@ -17,7 +17,7 @@
 		<zip zipfile="${package.directory}\ccli_${version}_bin.zip">
 			<fileset basedir="${release.directory}">
 				<include name="*" />
-				<include name="..\..\..\Documentation\*.mkd" />
+				<include name="..\..\..\Readme.mkd" />
 				<exclude name="*.pdb" />
 			</fileset>
 		</zip>
@@ -38,8 +38,8 @@
 				<include name="CSharpCLI.Test\Properties\*.cs" />
 				<include name="CSharpCLI.Test\References\NUnit\*.dll" />
 				<include name="CSharpCLI.Test\CSharpCLI.Test.csproj" />
-				<include name="Documentation\*.mkd" />
 				<include name="CSharpCLI.sln" />
+				<include name="Readme.mkd" />
 			</fileset>
 		</zip>
 	</target>
