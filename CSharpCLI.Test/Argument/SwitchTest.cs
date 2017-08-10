@@ -53,6 +53,11 @@ namespace CSharpCLI.Test.Argument
 		const bool HasArguments = true;
 
 		/// <summary>
+		/// Switch has no arguments.
+		/// </summary>
+		const bool HasNoArguments = false;
+
+		/// <summary>
 		/// Switch required.
 		/// </summary>
 		const bool IsRequired = true;
@@ -301,6 +306,35 @@ namespace CSharpCLI.Test.Argument
 			Assert.IsNull(switchObject.LongName);
 
 			Assert.IsTrue(switchObject.HasArguments);
+			Assert.IsTrue(switchObject.IsRequired);
+		}
+
+		/// <summary>
+		/// Test constructor specifying no arguments expected to follow
+		/// non-printable switch.
+		/// </summary>
+		[Test]
+		public void WithHasNoArgumentsNonPrintable()
+		{
+			Switch switchObject = new Switch(Name, HasNoArguments, IsRequired);
+
+			Assert.AreEqual(NoArgumentNames, switchObject.GetArgumentNames());
+			Assert.AreEqual(NoArgumentValues, switchObject.GetArgumentValues());
+			Assert.AreEqual(Name, switchObject.Name);
+			Assert.AreEqual(NoArguments, switchObject.NumberArguments);
+
+			Assert.IsFalse(switchObject.HasArguments);
+			Assert.IsFalse(switchObject.HasDescription);
+			Assert.IsFalse(switchObject.HasEnoughNames);
+			Assert.IsFalse(switchObject.HasEnoughValues);
+			Assert.IsFalse(switchObject.HasLongName);
+			Assert.IsFalse(switchObject.IsOptional);
+
+			Assert.IsNotNull(switchObject.Name);
+
+			Assert.IsNull(switchObject.Description);
+			Assert.IsNull(switchObject.LongName);
+
 			Assert.IsTrue(switchObject.IsRequired);
 		}
 
