@@ -100,7 +100,7 @@ namespace CSharpCLI.Tests.Help
 		/// <summary>
 		/// Initialization.
 		/// </summary>
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void Initialize()
 		{
 			m_noSwitches = new SwitchCollection();
