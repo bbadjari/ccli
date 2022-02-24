@@ -39,7 +39,7 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// Error messages.
 		/// </summary>
-		static class Messages
+		private static class Messages
 		{
 			public const string RequiredSwitchMissing = "Required switch '{0}' not found.";
 			public const string SwitchAlreadyParsed = "Switch '{0}' already parsed.";
@@ -50,24 +50,10 @@ namespace CSharpCLI.Parse
 		/// <summary>
 		/// First argument number.
 		/// </summary>
-		const int FirstArgument = 1;
+		private const int FirstArgument = 1;
 
 		////////////////////////////////////////////////////////////////////////
-
-		/// <summary>
-		/// Command-line arguments to parse.
-		/// </summary>
-		string[] m_arguments;
-
-		/// <summary>
-		/// Switches parsed from command-line arguments, accessed by their name.
-		/// </summary>
-		SwitchCollection m_parsedSwitches;
-
-		/// <summary>
-		/// Expected switches to parse from command-line arguments.
-		/// </summary>
-		SwitchCollection m_switches;
+		// Constructors
 
 		/// <summary>
 		/// Constructor.
@@ -84,13 +70,13 @@ namespace CSharpCLI.Parse
 			if (arguments == null || switches == null)
 				throw new ArgumentNullException();
 
-			m_arguments = arguments;
-			m_parsedSwitches = new SwitchCollection();
-			m_switches = switches;
+			Arguments = arguments;
+			ParsedSwitches = new SwitchCollection();
+			Switches = switches;
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Methods
+		// Methods
 
 		/// <summary>
 		/// Determine if all switches with given names parsed.
@@ -212,7 +198,7 @@ namespace CSharpCLI.Parse
 
 			if (IsParsed(name))
 			{
-				Switch parsedSwitch = m_parsedSwitches[name];
+				Switch parsedSwitch = ParsedSwitches[name];
 
 				values = parsedSwitch.GetArgumentValues();
 			}
@@ -231,7 +217,7 @@ namespace CSharpCLI.Parse
 		/// </returns>
 		public bool IsParsed(string name)
 		{
-			return m_parsedSwitches.HasSwitch(name);
+			return ParsedSwitches.HasSwitch(name);
 		}
 
 		/// <summary>
@@ -262,31 +248,31 @@ namespace CSharpCLI.Parse
 		/// </summary>
 		public void Parse()
 		{
-			m_parsedSwitches.Clear();
+			ParsedSwitches.Clear();
 
-			for (int index = 0; index < m_arguments.Length; index++)
+			for (int index = 0; index < Arguments.Length; index++)
 			{
-				string argument = m_arguments[index];
+				string argument = Arguments[index];
 
 				if (Switch.IsValid(argument))
 				{
 					string switchName = Switch.GetName(argument);
 
-					if (!m_switches.HasSwitch(switchName))
+					if (!Switches.HasSwitch(switchName))
 						ThrowParsingException(Messages.UndefinedSwitch, switchName);
 
 					if (IsParsed(switchName))
 						ThrowParsingException(Messages.SwitchAlreadyParsed, switchName);
 
-					Switch parsedSwitch = m_switches[switchName];
+					Switch parsedSwitch = Switches[switchName];
 
-					m_parsedSwitches.Add(parsedSwitch);
+					ParsedSwitches.Add(parsedSwitch);
 
 					if (parsedSwitch.HasArguments)
 					{
-						for (index++; index < m_arguments.Length; index++)
+						for (index++; index < Arguments.Length; index++)
 						{
-							string argumentValue = m_arguments[index];
+							string argumentValue = Arguments[index];
 
 							if (Switch.IsValid(argumentValue))
 							{
@@ -305,15 +291,12 @@ namespace CSharpCLI.Parse
 				}
 			}
 
-			foreach (Switch currentSwitch in m_switches.Switches)
+			foreach (Switch currentSwitch in Switches.Switches)
 			{
 				if (currentSwitch.IsRequired && !IsParsed(currentSwitch.Name))
 					ThrowParsingException(Messages.RequiredSwitchMissing, currentSwitch.Name);
 			}
 		}
-
-		////////////////////////////////////////////////////////////////////////
-		// Methods
 
 		/// <summary>
 		/// Throw ParsingException with given message and switch name.
@@ -324,7 +307,7 @@ namespace CSharpCLI.Parse
 		/// <param name="name">
 		/// String representing switch name to use in given error message.
 		/// </param>
-		static void ThrowParsingException(string message, string name)
+		private static void ThrowParsingException(string message, string name)
 		{
 			string formattedMessage = string.Format(CultureInfo.CurrentCulture,
 				message, name);
@@ -333,7 +316,7 @@ namespace CSharpCLI.Parse
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Properties
+		// Properties
 
 		/// <summary>
 		/// Get number of switches parsed.
@@ -343,7 +326,31 @@ namespace CSharpCLI.Parse
 		/// </value>
 		public int NumberSwitchesParsed
 		{
-			get { return m_parsedSwitches.Count; }
+			get { return ParsedSwitches.Count; }
 		}
+
+		/// <summary>
+		/// Get/set command-line arguments to parse.
+		/// </summary>
+		/// <value>
+		/// Array of strings representing command-line arguments to parse.
+		/// </value>
+		private string[] Arguments { get; set; }
+
+		/// <summary>
+		/// Get/set switches parsed from command-line arguments, accessed by their name.
+		/// </summary>
+		/// <value>
+		/// SwitchCollection representing switches parsed from command-line arguments.
+		/// </value>
+		private SwitchCollection ParsedSwitches { get; set; }
+
+		/// <summary>
+		/// Get/set expected switches to parse from command-line arguments.
+		/// </summary>
+		/// <value>
+		/// SwitchCollection representing expected switches to parse from command-line arguments.
+		/// </value>
+		private SwitchCollection Switches { get; set; }
 	}
 }

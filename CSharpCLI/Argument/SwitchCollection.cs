@@ -25,7 +25,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -39,30 +38,33 @@ namespace CSharpCLI.Argument
 		/// <summary>
 		/// Indices to switches in collection, accessed by long name.
 		/// </summary>
-		Dictionary<string, int> m_indicesByLongName;
+		private Dictionary<string, int> indicesByLongName;
 
 		/// <summary>
 		/// Indices to switches in collection, accessed by name.
 		/// </summary>
-		Dictionary<string, int> m_indicesByName;
+		private Dictionary<string, int> indicesByName;
 
 		/// <summary>
 		/// Switches in collection.
 		/// </summary>
-		List<Switch> m_switches;
+		private List<Switch> switches;
+
+		////////////////////////////////////////////////////////////////////////
+		// Constructors
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		public SwitchCollection()
 		{
-			m_indicesByLongName = new Dictionary<string, int>();
-			m_indicesByName = new Dictionary<string, int>();
-			m_switches = new List<Switch>();
+			indicesByLongName = new Dictionary<string, int>();
+			indicesByName = new Dictionary<string, int>();
+			switches = new List<Switch>();
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Methods - Printable
+		// Methods - Printable
 
 		/// <summary>
 		/// Add switch to collection with given name and description.
@@ -275,7 +277,7 @@ namespace CSharpCLI.Argument
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Methods - Non-Printable
+		// Methods - Non-Printable
 
 		/// <summary>
 		/// Add switch to collection with given name.
@@ -368,7 +370,7 @@ namespace CSharpCLI.Argument
 		}
 
 		////////////////////////////////////////////////////////////////////////
-		// Public Methods
+		// Methods
 
 		/// <summary>
 		/// Determine if switch with given name already added to collection.
@@ -384,11 +386,8 @@ namespace CSharpCLI.Argument
 			if (string.IsNullOrEmpty(name))
 				return false;
 
-			return m_indicesByName.ContainsKey(name) || m_indicesByLongName.ContainsKey(name);
+			return indicesByName.ContainsKey(name) || indicesByLongName.ContainsKey(name);
 		}
-
-		////////////////////////////////////////////////////////////////////////
-		// Methods
 
 		/// <summary>
 		/// Add indices to given switch in collection, by name.
@@ -399,12 +398,12 @@ namespace CSharpCLI.Argument
 		/// <param name="index">
 		/// Integer representing index to switch in collection.
 		/// </param>
-		void AddIndices(Switch item, int index)
+		private void AddIndices(Switch item, int index)
 		{
-			m_indicesByName.Add(item.Name, index);
+			indicesByName.Add(item.Name, index);
 
 			if (item.HasLongName)
-				m_indicesByLongName.Add(item.LongName, index);
+				indicesByLongName.Add(item.LongName, index);
 
 			ReorderIndices(++index, true);
 		}
@@ -415,14 +414,14 @@ namespace CSharpCLI.Argument
 		/// <param name="item">
 		/// Switch object representing switch whose indices to remove.
 		/// </param>
-		void RemoveIndices(Switch item)
+		private void RemoveIndices(Switch item)
 		{
-			int index = m_indicesByName[item.Name];
+			int index = indicesByName[item.Name];
 
-			m_indicesByName.Remove(item.Name);
+			indicesByName.Remove(item.Name);
 
 			if (item.HasLongName)
-				m_indicesByLongName.Remove(item.LongName);
+				indicesByLongName.Remove(item.LongName);
 
 			ReorderIndices(index, false);
 		}
@@ -438,7 +437,7 @@ namespace CSharpCLI.Argument
 		/// True if reordering indices in ascending order, false if in
 		/// descending order.
 		/// </param>
-		void ReorderIndices(int index, bool ascending)
+		private void ReorderIndices(int index, bool ascending)
 		{
 			const int IndexOffset = 1;
 
@@ -448,10 +447,10 @@ namespace CSharpCLI.Argument
 			{
 				Switch item = Switches[index];
 
-				m_indicesByName[item.Name] += offset;
+				indicesByName[item.Name] += offset;
 
 				if (item.HasLongName)
-					m_indicesByLongName[item.LongName] += offset;
+					indicesByLongName[item.LongName] += offset;
 
 				index++;
 			}
@@ -482,10 +481,10 @@ namespace CSharpCLI.Argument
 				{
 					int index;
 
-					if (m_indicesByName.ContainsKey(name))
-						index = m_indicesByName[name];
+					if (indicesByName.ContainsKey(name))
+						index = indicesByName[name];
 					else
-						index = m_indicesByLongName[name];
+						index = indicesByLongName[name];
 
 					return Switches[index];
 				}
@@ -520,7 +519,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public IList<Switch> Switches
 		{
-			get { return m_switches; }
+			get { return switches; }
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -534,7 +533,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public int Count
 		{
-			get { return m_switches.Count; }
+			get { return switches.Count; }
 		}
 
 		/// <summary>
@@ -563,7 +562,7 @@ namespace CSharpCLI.Argument
 			{
 				int newIndex = Count;
 
-				m_switches.Add(item);
+				switches.Add(item);
 
 				AddIndices(item, newIndex);
 			}
@@ -574,9 +573,9 @@ namespace CSharpCLI.Argument
 		/// </summary>
 		public void Clear()
 		{
-			m_indicesByLongName.Clear();
-			m_indicesByName.Clear();
-			m_switches.Clear();
+			indicesByLongName.Clear();
+			indicesByName.Clear();
+			switches.Clear();
 		}
 
 		/// <summary>
@@ -594,11 +593,11 @@ namespace CSharpCLI.Argument
 
 			if (item != null)
 			{
-				contains = m_switches.Contains(item) ||
-					m_indicesByName.ContainsKey(item.Name);
+				contains = switches.Contains(item) ||
+					indicesByName.ContainsKey(item.Name);
 
 				if (item.HasLongName)
-					contains |= m_indicesByLongName.ContainsKey(item.LongName);
+					contains |= indicesByLongName.ContainsKey(item.LongName);
 			}
 
 			return contains;
@@ -615,7 +614,7 @@ namespace CSharpCLI.Argument
 		/// </param>
 		public void CopyTo(Switch[] array, int arrayIndex)
 		{
-			m_switches.CopyTo(array, arrayIndex);
+			switches.CopyTo(array, arrayIndex);
 		}
 
 		/// <summary>
@@ -633,7 +632,7 @@ namespace CSharpCLI.Argument
 
 			if (item != null && Contains(item))
 			{
-				removed = m_switches.Remove(item);
+				removed = switches.Remove(item);
 
 				RemoveIndices(item);
 			}
@@ -652,7 +651,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return m_switches.GetEnumerator();
+			return switches.GetEnumerator();
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -666,7 +665,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public IEnumerator<Switch> GetEnumerator()
 		{
-			return m_switches.GetEnumerator();
+			return switches.GetEnumerator();
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -699,7 +698,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public int IndexOf(Switch item)
 		{
-			return m_switches.IndexOf(item);
+			return switches.IndexOf(item);
 		}
 
 		/// <summary>
@@ -718,7 +717,7 @@ namespace CSharpCLI.Argument
 
 			if (!Contains(item))
 			{
-				m_switches.Insert(index, item);
+				switches.Insert(index, item);
 
 				AddIndices(item, index);
 			}
@@ -734,7 +733,7 @@ namespace CSharpCLI.Argument
 		{
 			Switch item = Switches[index];
 
-			m_switches.RemoveAt(index);
+			switches.RemoveAt(index);
 
 			RemoveIndices(item);
 		}

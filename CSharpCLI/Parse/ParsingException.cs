@@ -36,6 +36,9 @@ namespace CSharpCLI.Parse
 	[Serializable]
 	public class ParsingException : Exception
 	{
+		////////////////////////////////////////////////////////////////////////
+		// Constructors
+
 		/// <summary>
 		/// Constructor.
 		/// </summary>

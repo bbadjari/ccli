@@ -25,7 +25,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -34,8 +33,11 @@ namespace CSharpCLI.Argument
 	/// <summary>
 	/// Compares Switch objects.
 	/// </summary>
-	class SwitchComparer : IComparer<Switch>
+	internal class SwitchComparer : IComparer<Switch>
 	{
+		////////////////////////////////////////////////////////////////////////
+		// Methods
+
 		/// <summary>
 		/// Compare given Switch objects by name.
 		/// </summary>
