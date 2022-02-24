@@ -31,7 +31,7 @@ using System.Collections.Generic;
 using CSharpCLI.Argument;
 using NUnit.Framework;
 
-namespace CSharpCLI.Test.Argument
+namespace CSharpCLI.Tests.Argument
 {
 	/// <summary>
 	/// NUnit unit tests for SwitchCollection class.

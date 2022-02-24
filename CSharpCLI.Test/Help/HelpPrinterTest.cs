@@ -32,7 +32,7 @@ using CSharpCLI.Argument;
 using CSharpCLI.Help;
 using NUnit.Framework;
 
-namespace CSharpCLI.Test.Help
+namespace CSharpCLI.Tests.Help
 {
 	/// <summary>
 	/// NUnit unit tests for HelpPrinter class.

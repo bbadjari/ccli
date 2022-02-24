@@ -32,11 +32,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("C# CLI Test")]
+[assembly: AssemblyTitle("C# CLI Tests")]
 [assembly: AssemblyDescription("NUnit unit tests for the C# CLI library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bernard Badjari")]
-[assembly: AssemblyProduct("C# CLI Test")]
+[assembly: AssemblyProduct("C# CLI Tests")]
 [assembly: AssemblyCopyright("Copyright © 2010-2011 Bernard Badjari")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

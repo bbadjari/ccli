@@ -30,7 +30,7 @@ using CSharpCLI.Argument;
 using CSharpCLI.Parse;
 using NUnit.Framework;
 
-namespace CSharpCLI.Test.Parse
+namespace CSharpCLI.Tests.Parse
 {
 	/// <summary>
 	/// NUnit unit tests for ArgumentParser class.
