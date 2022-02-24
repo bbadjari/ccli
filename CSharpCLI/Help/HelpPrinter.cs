@@ -117,7 +117,7 @@ namespace CSharpCLI.Help
 		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches)
 		{
-			if (string.IsNullOrEmpty(executableName) || switches == null)
+			if (string.IsNullOrWhiteSpace(executableName) || switches == null)
 				throw new ArgumentNullException();
 
 			ExecutableName = executableName;
@@ -629,7 +629,7 @@ namespace CSharpCLI.Help
 		/// </value>
 		private bool HasFooter
 		{
-			get { return !string.IsNullOrEmpty(Footer); }
+			get { return !string.IsNullOrWhiteSpace(Footer); }
 		}
 
 		/// <summary>
@@ -640,7 +640,7 @@ namespace CSharpCLI.Help
 		/// </value>
 		private bool HasHeader
 		{
-			get { return !string.IsNullOrEmpty(Header); }
+			get { return !string.IsNullOrWhiteSpace(Header); }
 		}
 
 		/// <summary>

@@ -212,7 +212,7 @@ namespace CSharpCLI.Argument
 		public Switch(string name, string longName, string description,
 			int numberArguments, bool isRequired)
 		{
-			if (string.IsNullOrEmpty(name))
+			if (string.IsNullOrWhiteSpace(name))
 				throw new ArgumentException(Messages.InvalidName);
 
 			argumentNames = new List<string>();
@@ -414,7 +414,7 @@ namespace CSharpCLI.Argument
 			if (HasAllNames)
 				return;
 
-			if (!string.IsNullOrEmpty(name))
+			if (!string.IsNullOrWhiteSpace(name))
 				argumentNames.Add(name);
 		}
 
@@ -429,7 +429,7 @@ namespace CSharpCLI.Argument
 			if (HasAllValues)
 				return;
 
-			if (!string.IsNullOrEmpty(value))
+			if (!string.IsNullOrWhiteSpace(value))
 				argumentValues.Add(value);
 		}
 
@@ -480,7 +480,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public static string GetName(string argument)
 		{
-			if (!string.IsNullOrEmpty(argument))
+			if (!string.IsNullOrWhiteSpace(argument))
 			{
 				foreach (string prefix in Prefixes)
 				{
@@ -543,7 +543,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		private static string GetPrefixedName(string name, string prefix)
 		{
-			if (string.IsNullOrEmpty(name) || HasPrefix(name))
+			if (string.IsNullOrWhiteSpace(name) || HasPrefix(name))
 				return name;
 
 			return prefix + name;
@@ -652,7 +652,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public bool HasDescription
 		{
-			get { return !string.IsNullOrEmpty(Description); }
+			get { return !string.IsNullOrWhiteSpace(Description); }
 		}
 
 		/// <summary>
@@ -685,7 +685,7 @@ namespace CSharpCLI.Argument
 		/// </value>
 		public bool HasLongName
 		{
-			get { return !string.IsNullOrEmpty(LongName); }
+			get { return !string.IsNullOrWhiteSpace(LongName); }
 		}
 
 		/// <summary>

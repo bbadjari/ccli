@@ -383,7 +383,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public bool HasSwitch(string name)
 		{
-			if (string.IsNullOrEmpty(name))
+			if (string.IsNullOrWhiteSpace(name))
 				return false;
 
 			return indicesByName.ContainsKey(name) || indicesByLongName.ContainsKey(name);
