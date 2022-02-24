@@ -117,8 +117,11 @@ namespace CSharpCLI.Help
 		/// </param>
 		public HelpPrinter(string executableName, SwitchCollection switches)
 		{
-			if (string.IsNullOrWhiteSpace(executableName) || switches == null)
-				throw new ArgumentNullException();
+			if (string.IsNullOrWhiteSpace(executableName))
+				throw new ArgumentNullException(nameof(executableName));
+
+			if (switches == null)
+				throw new ArgumentNullException(nameof(switches));
 
 			ExecutableName = executableName;
 

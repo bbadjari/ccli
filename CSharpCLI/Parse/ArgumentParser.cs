@@ -67,8 +67,11 @@ namespace CSharpCLI.Parse
 		/// </param>
 		public ArgumentParser(string[] arguments, SwitchCollection switches)
 		{
-			if (arguments == null || switches == null)
-				throw new ArgumentNullException();
+			if (arguments == null)
+				throw new ArgumentNullException(nameof(arguments));
+
+			if (switches == null)
+				throw new ArgumentNullException(nameof(switches));
 
 			Arguments = arguments;
 			ParsedSwitches = new SwitchCollection();
