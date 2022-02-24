@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Generic;
+using CSharpCLI.Properties;
 
 namespace CSharpCLI.Argument
 {
@@ -44,14 +45,6 @@ namespace CSharpCLI.Argument
 		/// Prefix that identifies command-line argument as switch.
 		/// </summary>
 		public const string Prefix = "-";
-
-		/// <summary>
-		/// Error messages.
-		/// </summary>
-		private static class Messages
-		{
-			public const string InvalidName = "Invalid switch name.";
-		}
 
 		/// <summary>
 		/// No arguments expected to follow switch.
@@ -213,7 +206,7 @@ namespace CSharpCLI.Argument
 			int numberArguments, bool isRequired)
 		{
 			if (string.IsNullOrWhiteSpace(name))
-				throw new ArgumentException(Messages.InvalidName);
+				throw new ArgumentException(ExceptionMessages.InvalidSwitchName);
 
 			argumentNames = new List<string>();
 			argumentValues = new List<string>();
