@@ -37,10 +37,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Argument\SwitchCollectionTest.cs" />
-    <Compile Include="Argument\SwitchTest.cs" />
-    <Compile Include="Help\HelpPrinterTest.cs" />
-    <Compile Include="Parse\ArgumentParserTest.cs" />
+    <Compile Include="Argument\SwitchCollectionTests.cs" />
+    <Compile Include="Argument\SwitchTests.cs" />
+    <Compile Include="Help\HelpPrinterTests.cs" />
+    <Compile Include="Parse\ArgumentParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
