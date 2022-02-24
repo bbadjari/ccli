@@ -120,4 +120,16 @@
   <data name="InvalidSwitchName" xml:space="preserve">
     <value>Invalid switch name.</value>
   </data>
+  <data name="RequiredSwitchMissing" xml:space="preserve">
+    <value>Required switch '{0}' not found.</value>
+  </data>
+  <data name="SwitchAlreadyParsed" xml:space="preserve">
+    <value>Switch '{0}' already parsed.</value>
+  </data>
+  <data name="SwitchMissingArgument" xml:space="preserve">
+    <value>Missing argument for switch '{0}'.</value>
+  </data>
+  <data name="UndefinedSwitch" xml:space="preserve">
+    <value>Switch '{0}' undefined.</value>
+  </data>
 </root>

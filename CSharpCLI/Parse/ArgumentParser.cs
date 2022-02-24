@@ -28,6 +28,7 @@
 using System;
 using System.Globalization;
 using CSharpCLI.Argument;
+using CSharpCLI.Properties;
 
 namespace CSharpCLI.Parse
 {
@@ -36,17 +37,6 @@ namespace CSharpCLI.Parse
 	/// </summary>
 	public class ArgumentParser
 	{
-		/// <summary>
-		/// Error messages.
-		/// </summary>
-		private static class Messages
-		{
-			public const string RequiredSwitchMissing = "Required switch '{0}' not found.";
-			public const string SwitchAlreadyParsed = "Switch '{0}' already parsed.";
-			public const string SwitchMissingArgument = "Missing argument for switch '{0}'.";
-			public const string UndefinedSwitch = "Switch '{0}' undefined.";
-		}
-
 		/// <summary>
 		/// First argument number.
 		/// </summary>
@@ -262,10 +252,10 @@ namespace CSharpCLI.Parse
 					string switchName = Switch.GetName(argument);
 
 					if (!Switches.HasSwitch(switchName))
-						ThrowParsingException(Messages.UndefinedSwitch, switchName);
+						ThrowParsingException(ExceptionMessages.UndefinedSwitch, switchName);
 
 					if (IsParsed(switchName))
-						ThrowParsingException(Messages.SwitchAlreadyParsed, switchName);
+						ThrowParsingException(ExceptionMessages.SwitchAlreadyParsed, switchName);
 
 					Switch parsedSwitch = Switches[switchName];
 
@@ -289,7 +279,7 @@ namespace CSharpCLI.Parse
 						}
 
 						if (!parsedSwitch.HasEnoughValues)
-							ThrowParsingException(Messages.SwitchMissingArgument, switchName);
+							ThrowParsingException(ExceptionMessages.SwitchMissingArgument, switchName);
 					}
 				}
 			}
@@ -297,7 +287,7 @@ namespace CSharpCLI.Parse
 			foreach (Switch currentSwitch in Switches.Switches)
 			{
 				if (currentSwitch.IsRequired && !IsParsed(currentSwitch.Name))
-					ThrowParsingException(Messages.RequiredSwitchMissing, currentSwitch.Name);
+					ThrowParsingException(ExceptionMessages.RequiredSwitchMissing, currentSwitch.Name);
 			}
 		}
 

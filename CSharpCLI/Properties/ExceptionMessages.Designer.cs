@@ -68,5 +68,41 @@ namespace CSharpCLI.Properties {
                 return ResourceManager.GetString("InvalidSwitchName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required switch &apos;{0}&apos; not found..
+        /// </summary>
+        internal static string RequiredSwitchMissing {
+            get {
+                return ResourceManager.GetString("RequiredSwitchMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch &apos;{0}&apos; already parsed..
+        /// </summary>
+        internal static string SwitchAlreadyParsed {
+            get {
+                return ResourceManager.GetString("SwitchAlreadyParsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing argument for switch &apos;{0}&apos;..
+        /// </summary>
+        internal static string SwitchMissingArgument {
+            get {
+                return ResourceManager.GetString("SwitchMissingArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch &apos;{0}&apos; undefined..
+        /// </summary>
+        internal static string UndefinedSwitch {
+            get {
+                return ResourceManager.GetString("UndefinedSwitch", resourceCulture);
+            }
+        }
     }
 }
