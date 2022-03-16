@@ -35,7 +35,7 @@ using NUnit.Framework;
 namespace CSharpCLI.Tests.Help
 {
 	/// <summary>
-	/// NUnit unit tests for HelpPrinter class.
+	/// Unit tests for HelpPrinter class.
 	/// </summary>
 	[TestFixture]
 	public class HelpPrinterTests
@@ -43,78 +43,66 @@ namespace CSharpCLI.Tests.Help
 		/// <summary>
 		/// Empty footer value.
 		/// </summary>
-		const string EmptyFooter = "";
+		private const string EmptyFooter = "";
 
 		/// <summary>
 		/// Empty header value.
 		/// </summary>
-		const string EmptyHeader = "";
+		private const string EmptyHeader = "";
 
 		/// <summary>
 		/// Executable test name.
 		/// </summary>
-		const string ExecutableName = "testExecutable";
+		private const string ExecutableName = "testExecutable";
 
 		/// <summary>
 		/// Switch has arguments.
 		/// </summary>
-		const bool HasArguments = true;
+		private const bool HasArguments = true;
 
 		/// <summary>
 		/// Switch required.
 		/// </summary>
-		const bool IsRequired = true;
+		private const bool IsRequired = true;
 
 		/// <summary>
 		/// No switch description.
 		/// </summary>
-		const string NoDescription = null;
+		private const string NoDescription = null;
 
 		/// <summary>
 		/// No footer value.
 		/// </summary>
-		const string NoFooter = null;
+		private const string NoFooter = null;
 
 		/// <summary>
 		/// No header value.
 		/// </summary>
-		const string NoHeader = null;
+		private const string NoHeader = null;
 
 		/// <summary>
 		/// No switch long name.
 		/// </summary>
-		const string NoLongName = null;
+		private const string NoLongName = null;
 
 		////////////////////////////////////////////////////////////////////////
 
-		/// <summary>
-		/// SwitchCollection with no switches to use for tests.
-		/// </summary>
-		SwitchCollection m_noSwitches;
+		private TextWriter output;
+
+		////////////////////////////////////////////////////////////////////////
+		// Helper Methods
 
 		/// <summary>
-		/// Output to use instead of standard output for each test.
-		/// </summary>
-		TextWriter m_output;
-
-		/// <summary>
-		/// Initialization.
-		/// </summary>
-		[OneTimeSetUp]
-		public void Initialize()
-		{
-			m_noSwitches = new SwitchCollection();
-		}
-
-		/// <summary>
-		/// Initialization for each test.
+		/// Called before each test executed.
 		/// </summary>
 		[SetUp]
-		public void InitializeTest()
+		public void BeforeTest()
 		{
-			m_output = new StringWriter();
+			NoSwitches = new SwitchCollection();
 
-			Console.SetOut(m_output);
+			output = new StringWriter();
+
+			Console.SetOut(output);
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -532,7 +520,7 @@ namespace CSharpCLI.Tests.Help
 		/// <returns>
 		/// String representing footer test value.
 		/// </returns>
-		string GetFooter()
+		private string GetFooter()
 		{
 			StringBuilder footer = new StringBuilder();
 
@@ -550,7 +538,7 @@ namespace CSharpCLI.Tests.Help
 		/// <returns>
 		/// String representing header test value.
 		/// </returns>
-		string GetHeader()
+		private string GetHeader()
 		{
 			StringBuilder header = new StringBuilder();
 
@@ -568,7 +556,7 @@ namespace CSharpCLI.Tests.Help
 		/// <returns>
 		/// String representing long footer test value.
 		/// </returns>
-		string GetLongFooter()
+		private string GetLongFooter()
 		{
 			StringBuilder footer = new StringBuilder();
 
@@ -587,7 +575,7 @@ namespace CSharpCLI.Tests.Help
 		/// <returns>
 		/// String representing long header test value.
 		/// </returns>
-		string GetLongHeader()
+		private string GetLongHeader()
 		{
 			StringBuilder header = new StringBuilder();
 
@@ -604,15 +592,12 @@ namespace CSharpCLI.Tests.Help
 		// Helper Properties
 
 		/// <summary>
-		/// Get SwitchCollection with no switches.
+		/// Get/set switch collection with no switches.
 		/// </summary>
 		/// <value>
 		/// SwitchCollection representing empty collection of switches.
 		/// </value>
-		SwitchCollection NoSwitches
-		{
-			get { return m_noSwitches; }
-		}
+		private SwitchCollection NoSwitches { get; set; }
 
 		/// <summary>
 		/// Get current HelpPrinter output.
@@ -620,9 +605,9 @@ namespace CSharpCLI.Tests.Help
 		/// <value>
 		/// String representing output of current HelpPrinter instance.
 		/// </value>
-		string Output
+		private string Output
 		{
-			get { return m_output.ToString(); }
+			get { return output.ToString(); }
 		}
 	}
 }

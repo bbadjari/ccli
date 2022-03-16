@@ -33,7 +33,7 @@ using NUnit.Framework;
 namespace CSharpCLI.Tests.Parse
 {
 	/// <summary>
-	/// NUnit unit tests for ArgumentParser class.
+	/// Unit tests for ArgumentParser class.
 	/// </summary>
 	[TestFixture]
 	public class ArgumentParserTests
@@ -41,69 +41,65 @@ namespace CSharpCLI.Tests.Parse
 		/// <summary>
 		/// Empty switch name.
 		/// </summary>
-		const string EmptyName = "";
+		private const string EmptyName = "";
 
 		/// <summary>
 		/// Empty switch names.
 		/// </summary>
-		static readonly string[] EmptyNames = new string[NoElements];
+		private static readonly string[] EmptyNames = new string[NoElements];
 
 		/// <summary>
 		/// Switch has arguments.
 		/// </summary>
-		const bool HasArguments = true;
+		private const bool HasArguments = true;
 
 		/// <summary>
 		/// Switch required.
 		/// </summary>
-		const bool IsRequired = true;
+		private const bool IsRequired = true;
 
 		/// <summary>
 		/// No switch description.
 		/// </summary>
-		const string NoDescription = null;
+		private const string NoDescription = null;
 
 		/// <summary>
 		/// No array elements.
 		/// </summary>
-		const int NoElements = 0;
+		private const int NoElements = 0;
 
 		/// <summary>
 		/// No switch long name.
 		/// </summary>
-		const string NoLongName = null;
+		private const string NoLongName = null;
 
 		/// <summary>
 		/// No switch name.
 		/// </summary>
-		const string NoName = null;
+		private const string NoName = null;
 
 		/// <summary>
 		/// No switch names.
 		/// </summary>
-		static readonly string[] NoNames = null;
+		private static readonly string[] NoNames = null;
 
 		/// <summary>
 		/// No switches.
 		/// </summary>
-		const int NoSwitches = 0;
+		private const int NoSwitches = 0;
 
 		////////////////////////////////////////////////////////////////////////
+		// Helper Methods
 
 		/// <summary>
-		/// ArgumentParser with no defined arguments and switches to use for tests.
-		/// </summary>
-		ArgumentParser m_emptyParser;
-
-		/// <summary>
-		/// Initialization for each test.
+		/// Called before each test executed.
 		/// </summary>
 		[SetUp]
-		public void Initialize()
+		public void BeforeTest()
 		{
-			m_emptyParser = new ArgumentParser(new string[NoElements], new SwitchCollection());
+			EmptyParser = new ArgumentParser(new string[NoElements], new SwitchCollection());
 
-			m_emptyParser.Parse();
+			EmptyParser.Parse();
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -150,9 +146,9 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsFalse(parser.AllParsed(switchNames1));
 			Assert.IsFalse(parser.AllParsed(switchNames2));
 			Assert.IsFalse(parser.AllParsed(switchNames3));
-			Assert.IsFalse(m_emptyParser.AllParsed(switchNames1));
-			Assert.IsFalse(m_emptyParser.AllParsed(switchNames2));
-			Assert.IsFalse(m_emptyParser.AllParsed(switchNames3));
+			Assert.IsFalse(EmptyParser.AllParsed(switchNames1));
+			Assert.IsFalse(EmptyParser.AllParsed(switchNames2));
+			Assert.IsFalse(EmptyParser.AllParsed(switchNames3));
 
 			parser.Parse();
 
@@ -186,8 +182,8 @@ namespace CSharpCLI.Tests.Parse
 
 			Assert.IsFalse(parser.AllParsed(EmptyNames));
 			Assert.IsFalse(parser.AllParsed(NoNames));
-			Assert.IsFalse(m_emptyParser.AllParsed(EmptyNames));
-			Assert.IsFalse(m_emptyParser.AllParsed(NoNames));
+			Assert.IsFalse(EmptyParser.AllParsed(EmptyNames));
+			Assert.IsFalse(EmptyParser.AllParsed(NoNames));
 
 			parser.Parse();
 
@@ -224,9 +220,9 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsFalse(parser.AnyParsed(switchNames1));
 			Assert.IsFalse(parser.AnyParsed(switchNames2));
 			Assert.IsFalse(parser.AnyParsed(switchNames3));
-			Assert.IsFalse(m_emptyParser.AnyParsed(switchNames1));
-			Assert.IsFalse(m_emptyParser.AnyParsed(switchNames2));
-			Assert.IsFalse(m_emptyParser.AnyParsed(switchNames3));
+			Assert.IsFalse(EmptyParser.AnyParsed(switchNames1));
+			Assert.IsFalse(EmptyParser.AnyParsed(switchNames2));
+			Assert.IsFalse(EmptyParser.AnyParsed(switchNames3));
 
 			parser.Parse();
 
@@ -259,8 +255,8 @@ namespace CSharpCLI.Tests.Parse
 
 			Assert.IsFalse(parser.AnyParsed(EmptyNames));
 			Assert.IsFalse(parser.AnyParsed(NoNames));
-			Assert.IsFalse(m_emptyParser.AnyParsed(EmptyNames));
-			Assert.IsFalse(m_emptyParser.AnyParsed(NoNames));
+			Assert.IsFalse(EmptyParser.AnyParsed(EmptyNames));
+			Assert.IsFalse(EmptyParser.AnyParsed(NoNames));
 
 			parser.Parse();
 
@@ -300,8 +296,8 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsNull(parser.GetValue(Name1));
 			Assert.IsNull(parser.GetValue(Name2));
 			Assert.IsNull(parser.GetValue(NoName));
-			Assert.IsNull(m_emptyParser.GetValue(EmptyName));
-			Assert.IsNull(m_emptyParser.GetValue(NoName));
+			Assert.IsNull(EmptyParser.GetValue(EmptyName));
+			Assert.IsNull(EmptyParser.GetValue(NoName));
 
 			parser.Parse();
 
@@ -345,8 +341,8 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsNull(parser.GetValue(Name1, Argument1));
 			Assert.IsNull(parser.GetValue(Name2, Argument1));
 			Assert.IsNull(parser.GetValue(NoName, Argument1));
-			Assert.IsNull(m_emptyParser.GetValue(EmptyName, Argument1));
-			Assert.IsNull(m_emptyParser.GetValue(NoName, Argument1));
+			Assert.IsNull(EmptyParser.GetValue(EmptyName, Argument1));
+			Assert.IsNull(EmptyParser.GetValue(NoName, Argument1));
 
 			parser.Parse();
 
@@ -391,12 +387,12 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsNull(parser.GetValue(NoName, Argument0));
 			Assert.IsNull(parser.GetValue(NoName, Argument1));
 			Assert.IsNull(parser.GetValue(NoName, Argument2));
-			Assert.IsNull(m_emptyParser.GetValue(EmptyName, Argument0));
-			Assert.IsNull(m_emptyParser.GetValue(EmptyName, Argument1));
-			Assert.IsNull(m_emptyParser.GetValue(EmptyName, Argument2));
-			Assert.IsNull(m_emptyParser.GetValue(NoName, Argument0));
-			Assert.IsNull(m_emptyParser.GetValue(NoName, Argument1));
-			Assert.IsNull(m_emptyParser.GetValue(NoName, Argument2));
+			Assert.IsNull(EmptyParser.GetValue(EmptyName, Argument0));
+			Assert.IsNull(EmptyParser.GetValue(EmptyName, Argument1));
+			Assert.IsNull(EmptyParser.GetValue(EmptyName, Argument2));
+			Assert.IsNull(EmptyParser.GetValue(NoName, Argument0));
+			Assert.IsNull(EmptyParser.GetValue(NoName, Argument1));
+			Assert.IsNull(EmptyParser.GetValue(NoName, Argument2));
 
 			parser.Parse();
 
@@ -445,10 +441,10 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsNull(parser.GetValues(Name1));
 			Assert.IsNull(parser.GetValues(Name2));
 			Assert.IsNull(parser.GetValues(NoName));
-			Assert.IsNull(m_emptyParser.GetValues(EmptyName));
-			Assert.IsNull(m_emptyParser.GetValues(Name1));
-			Assert.IsNull(m_emptyParser.GetValues(Name2));
-			Assert.IsNull(m_emptyParser.GetValues(NoName));
+			Assert.IsNull(EmptyParser.GetValues(EmptyName));
+			Assert.IsNull(EmptyParser.GetValues(Name1));
+			Assert.IsNull(EmptyParser.GetValues(Name2));
+			Assert.IsNull(EmptyParser.GetValues(NoName));
 
 			parser.Parse();
 
@@ -485,10 +481,10 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 			Assert.IsFalse(parser.IsParsed(NoName));
-			Assert.IsFalse(m_emptyParser.IsParsed(EmptyName));
-			Assert.IsFalse(m_emptyParser.IsParsed(Name1));
-			Assert.IsFalse(m_emptyParser.IsParsed(Name2));
-			Assert.IsFalse(m_emptyParser.IsParsed(NoName));
+			Assert.IsFalse(EmptyParser.IsParsed(EmptyName));
+			Assert.IsFalse(EmptyParser.IsParsed(Name1));
+			Assert.IsFalse(EmptyParser.IsParsed(Name2));
+			Assert.IsFalse(EmptyParser.IsParsed(NoName));
 
 			parser.Parse();
 
@@ -534,9 +530,9 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsTrue(parser.NoneParsed(switchNames3));
 			Assert.IsTrue(parser.NoneParsed(switchNames4));
 			Assert.IsTrue(parser.NoneParsed(switchNames5));
-			Assert.IsTrue(m_emptyParser.NoneParsed(switchNames1));
-			Assert.IsTrue(m_emptyParser.NoneParsed(switchNames2));
-			Assert.IsTrue(m_emptyParser.NoneParsed(switchNames3));
+			Assert.IsTrue(EmptyParser.NoneParsed(switchNames1));
+			Assert.IsTrue(EmptyParser.NoneParsed(switchNames2));
+			Assert.IsTrue(EmptyParser.NoneParsed(switchNames3));
 
 			parser.Parse();
 
@@ -572,8 +568,8 @@ namespace CSharpCLI.Tests.Parse
 
 			Assert.IsFalse(parser.NoneParsed(EmptyNames));
 			Assert.IsFalse(parser.NoneParsed(NoNames));
-			Assert.IsFalse(m_emptyParser.NoneParsed(EmptyNames));
-			Assert.IsFalse(m_emptyParser.NoneParsed(NoNames));
+			Assert.IsFalse(EmptyParser.NoneParsed(EmptyNames));
+			Assert.IsFalse(EmptyParser.NoneParsed(NoNames));
 
 			parser.Parse();
 
@@ -607,10 +603,10 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 			Assert.IsFalse(parser.IsParsed(NoName));
-			Assert.IsFalse(m_emptyParser.IsParsed(EmptyName));
-			Assert.IsFalse(m_emptyParser.IsParsed(Name1));
-			Assert.IsFalse(m_emptyParser.IsParsed(Name2));
-			Assert.IsFalse(m_emptyParser.IsParsed(NoName));
+			Assert.IsFalse(EmptyParser.IsParsed(EmptyName));
+			Assert.IsFalse(EmptyParser.IsParsed(Name1));
+			Assert.IsFalse(EmptyParser.IsParsed(Name2));
+			Assert.IsFalse(EmptyParser.IsParsed(NoName));
 
 			parser.Parse();
 
@@ -922,7 +918,7 @@ namespace CSharpCLI.Tests.Parse
 		/// Test NumberSwitchesParsed property.
 		/// </summary>
 		[Test]
-		public void NumberSwitchesParsedProperty()
+		public void NumberSwitchesParsed()
 		{
 			const string Name1 = "arg1";
 			const string Name2 = "arg2";
@@ -941,7 +937,7 @@ namespace CSharpCLI.Tests.Parse
 			ArgumentParser parser = new ArgumentParser(arguments, switches);
 
 			Assert.AreEqual(NoSwitches, parser.NumberSwitchesParsed);
-			Assert.AreEqual(NoSwitches, m_emptyParser.NumberSwitchesParsed);
+			Assert.AreEqual(NoSwitches, EmptyParser.NumberSwitchesParsed);
 
 			parser.Parse();
 
@@ -950,5 +946,16 @@ namespace CSharpCLI.Tests.Parse
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
 		}
+
+		////////////////////////////////////////////////////////////////////////
+		// Helper Properties
+
+		/// <summary>
+		/// Get/set argument parser with no arguments or switches.
+		/// </summary>
+		/// <value>
+		/// ArgumentParser representing empty argument parser.
+		/// </value>
+		private ArgumentParser EmptyParser { get; set; }
 	}
 }
