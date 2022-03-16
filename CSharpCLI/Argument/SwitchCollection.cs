@@ -98,8 +98,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description
-		/// and whether it is required.
+		/// Add switch to collection with given name, long name, description and whether it is required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -120,8 +119,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// whether it has arguments and whether it is required.
+		/// Add switch to collection with given name, long name, description, whether it has arguments and whether it is required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -146,8 +144,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// and number of expected arguments.
+		/// Add switch to collection with given name, long name, description, and number of expected arguments.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -168,8 +165,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// number of expected arguments and whether it is required.
+		/// Add switch to collection with given name, long name, description, number of expected arguments and whether it is required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -194,9 +190,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// whether it has arguments, whether it is required and name of
-		/// expected arguments.
+		/// Add switch to collection with given name, long name, description, whether it has arguments, whether it is required and name of expected arguments.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -224,8 +218,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// whether it is required and name of expected argument.
+		/// Add switch to collection with given name, long name, description, whether it is required and name of expected argument.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -250,8 +243,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, long name, description,
-		/// whether it is required and names of expected arguments.
+		/// Add switch to collection with given name, long name, description, whether it is required and names of expected arguments.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -266,8 +258,7 @@ namespace CSharpCLI.Argument
 		/// True if required switch, false otherwise.
 		/// </param>
 		/// <param name="argumentNames">
-		/// Array of strings representing names of arguments expected to follow
-		/// switch.
+		/// Array of strings representing names of arguments expected to follow switch.
 		/// </param>
 		public void Add(string name, string longName, string description,
 			bool isRequired, string[] argumentNames)
@@ -320,8 +311,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, whether it has arguments
-		/// and whether it is required.
+		/// Add switch to collection with given name, whether it has arguments and whether it is required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -352,8 +342,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Add switch to collection with given name, number of expected arguments
-		/// and whether it is required.
+		/// Add switch to collection with given name, number of expected arguments and whether it is required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -427,15 +416,13 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Reorder indices to switch names in collection, starting at given
-		/// index and in given order.
+		/// Reorder indices to switch names in collection, starting at given index and in given order.
 		/// </summary>
 		/// <param name="index">
 		/// Integer representing index to start reordering at.
 		/// </param>
 		/// <param name="ascending">
-		/// True if reordering indices in ascending order, false if in
-		/// descending order.
+		/// True if reordering indices in ascending order, false if in descending order.
 		/// </param>
 		private void ReorderIndices(int index, bool ascending)
 		{
@@ -672,8 +659,7 @@ namespace CSharpCLI.Argument
 		// IList<T>
 
 		/// <summary>
-		/// Get switch from collection or set switch in collection at given
-		/// index.
+		/// Get switch from collection or set switch in collection at given index.
 		/// </summary>
 		/// <param name="index">
 		/// Integer representing index in collection.
