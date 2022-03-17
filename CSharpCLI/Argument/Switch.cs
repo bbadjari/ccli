@@ -162,8 +162,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Constructor for defining number of arguments expected to
-		/// follow switch.
+		/// Constructor for defining number of arguments expected to follow switch.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -184,8 +183,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Constructor for defining number of arguments expected to
-		/// follow switch and whether switch required.
+		/// Constructor for defining number of arguments expected to follow switch and whether switch required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -219,8 +217,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Constructor for specifying arguments with given name expected to
-		/// follow switch.
+		/// Constructor for specifying arguments with given name expected to follow switch.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -264,8 +261,7 @@ namespace CSharpCLI.Argument
 		/// True if required switch, false otherwise.
 		/// </param>
 		/// <param name="argumentName">
-		/// String representing name of single argument expected to follow
-		/// switch.
+		/// String representing name of single argument expected to follow switch.
 		/// </param>
 		public Switch(string name, string longName, string description,
 			bool isRequired, string argumentName)
@@ -295,8 +291,7 @@ namespace CSharpCLI.Argument
 		/// True if required switch, false otherwise.
 		/// </param>
 		/// <param name="argumentNames">
-		/// Array of strings representing names of arguments expected to follow
-		/// switch.
+		/// Array of strings representing names of arguments expected to follow switch.
 		/// </param>
 		public Switch(string name, string longName, string description,
 			bool isRequired, string[] argumentNames)
@@ -361,8 +356,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Constructor for defining number of arguments expected to
-		/// follow switch.
+		/// Constructor for defining number of arguments expected to follow switch.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -376,8 +370,7 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Constructor for defining number of arguments expected to
-		/// follow switch and whether switch required.
+		/// Constructor for defining number of arguments expected to follow switch and whether switch required.
 		/// </summary>
 		/// <param name="name">
 		/// String representing switch name.
@@ -543,15 +536,13 @@ namespace CSharpCLI.Argument
 		}
 
 		/// <summary>
-		/// Determine if given number of arguments represents all those for
-		/// this switch.
+		/// Determine if given number of arguments represents all those for this switch.
 		/// </summary>
 		/// <param name="numberArguments">
 		/// Integer representing number of arguments.
 		/// </param>
 		/// <returns>
-		/// True if given number of arguments represents all those for switch,
-		/// false otherwise.
+		/// True if given number of arguments represents all those for switch, false otherwise.
 		/// </returns>
 		private bool HasAllArguments(int numberArguments)
 		{
@@ -753,8 +744,7 @@ namespace CSharpCLI.Argument
 		/// Get number of arguments expected to follow this switch.
 		/// </summary>
 		/// <value>
-		/// Integer representing number of arguments expected to follow this
-		/// switch.
+		/// Integer representing number of arguments expected to follow this switch.
 		/// </value>
 		public int NumberArguments { get; private set; }
 	}
