@@ -638,7 +638,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return switches.GetEnumerator();
+			return GetEnumerator();
 		}
 
 		////////////////////////////////////////////////////////////////////////
