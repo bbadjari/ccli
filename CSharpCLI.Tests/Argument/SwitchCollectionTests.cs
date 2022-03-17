@@ -38,74 +38,36 @@ namespace CSharpCLI.Tests.Argument
 	[TestFixture]
 	public class SwitchCollectionTests
 	{
-		/// <summary>
-		/// Switch test description.
-		/// </summary>
 		private const string Description = "Test switch.";
 
-		/// <summary>
-		/// Empty switch name.
-		/// </summary>
 		private const string EmptyName = "";
 
-		/// <summary>
-		/// Switch has arguments.
-		/// </summary>
 		private const bool HasArguments = true;
 
-		/// <summary>
-		/// Switch required.
-		/// </summary>
 		private const bool IsRequired = true;
 
-		/// <summary>
-		/// Switch test long name.
-		/// </summary>
 		private const string LongName = "testSwitch";
 
-		/// <summary>
-		/// Switch test name.
-		/// </summary>
 		private const string Name = "test";
 
-		/// <summary>
-		/// No switch argument names.
-		/// </summary>
 		private static readonly string[] NoArgumentNames = new string[NoArguments];
 
-		/// <summary>
-		/// No switch argument values.
-		/// </summary>
 		private static readonly string[] NoArgumentValues = new string[NoArguments];
 
-		/// <summary>
-		/// No switch arguments.
-		/// </summary>
 		private const int NoArguments = 0;
 
-		/// <summary>
-		/// No switch name.
-		/// </summary>
+		private const string NoDescription = null;
+
 		private const string NoName = null;
 
-		/// <summary>
-		/// No switches.
-		/// </summary>
+		private const Switch NoSwitch = null;
+
 		private const int NoSwitches = 0;
 
-		/// <summary>
-		/// One switch argument.
-		/// </summary>
 		private const int OneArgument = 1;
 
-		/// <summary>
-		/// One switch in collection.
-		/// </summary>
 		private const int OneSwitch = 1;
 
-		/// <summary>
-		/// Switch has unknown number of arguments.
-		/// </summary>
 		private const int UnknownNumberArguments = int.MaxValue;
 
 		////////////////////////////////////////////////////////////////////////
@@ -728,6 +690,17 @@ namespace CSharpCLI.Tests.Argument
 		}
 
 		/// <summary>
+		/// Test Add() method with no Switch object.
+		/// </summary>
+		[Test]
+		public void AddWithNoSwitch()
+		{
+			Switches.Add(NoSwitch);
+
+			Assert.AreEqual(NoSwitches, Switches.Count);
+		}
+
+		/// <summary>
 		/// Test Add() method defining number of arguments expected to follow switch.
 		/// </summary>
 		[Test]
@@ -981,6 +954,15 @@ namespace CSharpCLI.Tests.Argument
 		}
 
 		/// <summary>
+		/// Test Contains() method with no Switch object.
+		/// </summary>
+		[Test]
+		public void ContainsWithNoSwitch()
+		{
+			Assert.IsFalse(Switches.Contains(NoSwitch));
+		}
+
+		/// <summary>
 		/// Test CopyTo() method.
 		/// </summary>
 		[Test]
@@ -1103,6 +1085,62 @@ namespace CSharpCLI.Tests.Argument
 		}
 
 		/// <summary>
+		/// Test Insert() method inserting same Switch object twice at different indices.
+		/// </summary>
+		[Test]
+		public void InsertTwiceDifferentIndices()
+		{
+			const int Index1 = 0;
+			const int Index2 = 1;
+
+			Switch switchObject = new Switch(Name);
+
+			Switches.Insert(Index1, switchObject);
+
+			Assert.AreEqual(OneSwitch, Switches.Count);
+
+			Switches.Insert(Index2, switchObject);
+
+			Assert.AreEqual(OneSwitch, Switches.Count);
+
+			Assert.AreEqual(switchObject, Switches[Index1]);
+		}
+
+		/// <summary>
+		/// Test Insert() method inserting same Switch object twice at same index.
+		/// </summary>
+		[Test]
+		public void InsertTwiceSameIndex()
+		{
+			const int Index = 0;
+
+			Switch switchObject = new Switch(Name);
+
+			Switches.Insert(Index, switchObject);
+
+			Assert.AreEqual(OneSwitch, Switches.Count);
+
+			Switches.Insert(Index, switchObject);
+
+			Assert.AreEqual(OneSwitch, Switches.Count);
+
+			Assert.AreEqual(switchObject, Switches[Index]);
+		}
+
+		/// <summary>
+		/// Test Insert() method with no Switch object.
+		/// </summary>
+		[Test]
+		public void InsertWithNoSwitch()
+		{
+			const int Index = 0;
+
+			Switches.Insert(Index, NoSwitch);
+
+			Assert.AreEqual(NoSwitches, Switches.Count);
+		}
+
+		/// <summary>
 		/// Test Remove() method.
 		/// </summary>
 		[Test]
@@ -1155,6 +1193,59 @@ namespace CSharpCLI.Tests.Argument
 			Assert.IsFalse(Switches.Contains(switch2));
 		}
 
+		/// <summary>
+		/// Test Remove() method using switch with long name.
+		/// </summary>
+		[Test]
+		public void RemoveWithLongName()
+		{
+			Switch switchObject = new Switch(Name, LongName, Description);
+
+			Switches.Add(switchObject);
+
+			Assert.IsTrue(Switches.Contains(switchObject));
+
+			Switches.Remove(switchObject);
+
+			Assert.IsFalse(Switches.Contains(switchObject));
+		}
+
+		/// <summary>
+		/// Test Remove() method with no Switch object.
+		/// </summary>
+		[Test]
+		public void RemoveWithNoSwitch()
+		{
+			Assert.IsFalse(Switches.Remove(NoSwitch));
+		}
+
+		/// <summary>
+		/// Test Remove() method using two switches with long names.
+		/// </summary>
+		[Test]
+		public void RemoveWithTwoLongNames()
+		{
+			const string LongName1 = "switch1";
+			const string LongName2 = "switch2";
+			const string Name1 = "s1";
+			const string Name2 = "s2";
+			const int NumberSwitches = 2;
+
+			Switch switch1 = new Switch(Name1, LongName1, NoDescription);
+			Switch switch2 = new Switch(Name2, LongName2, NoDescription);
+
+			Switches.Add(switch1);
+			Switches.Add(switch2);
+
+			Assert.AreEqual(NumberSwitches, Switches.Count);
+
+			Switches.Remove(switch1);
+
+			Assert.AreEqual(OneSwitch, Switches.Count);
+
+			Assert.IsFalse(Switches.Contains(switch1));
+		}
+
 		////////////////////////////////////////////////////////////////////////
 		// Properties
 
@@ -1188,12 +1279,23 @@ namespace CSharpCLI.Tests.Argument
 			Switch switch1 = new Switch(Name1);
 			Switch switch2 = new Switch(Name2);
 
-			Switches.Insert(Index1, switch1);
-			Switches.Insert(Index2, switch2);
+			Switches[Index1] = switch1;
+			Switches[Index2] = switch2;
 
 			Assert.AreEqual(NumberSwitches, Switches.Count);
 			Assert.AreEqual(switch1, Switches[Index1]);
 			Assert.AreEqual(switch2, Switches[Index2]);
+		}
+
+		/// <summary>
+		/// Test IsReadOnly property.
+		/// </summary>
+		[Test]
+		public void IsReadOnly()
+		{
+			const bool IsNotReadOnly = false;
+
+			Assert.AreEqual(IsNotReadOnly, Switches.IsReadOnly);
 		}
 
 		/// <summary>
@@ -1209,6 +1311,21 @@ namespace CSharpCLI.Tests.Argument
 			Assert.AreEqual(OneSwitch, Switches.Count);
 			Assert.AreEqual(switchObject, Switches[Name]);
 			Assert.AreEqual(switchObject, Switches[LongName]);
+		}
+
+		/// <summary>
+		/// Test indexer on unknown switch name.
+		/// </summary>
+		[Test]
+		public void NameIndexerWithUnknownName()
+		{
+			const string UnknownName = "unknownSwitch";
+
+			Switch switchObject = new Switch(Name);
+
+			Switches.Add(switchObject);
+
+			Assert.IsNull(Switches[UnknownName]);
 		}
 
 		/// <summary>
