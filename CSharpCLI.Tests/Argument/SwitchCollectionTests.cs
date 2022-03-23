@@ -240,7 +240,7 @@ namespace CSharpCLI.Tests.Argument
 		[Test]
 		public void AddWithEmptyName()
 		{
-			Assert.Throws<ArgumentException>(delegate { Switches.Add(EmptyName); });
+			Assert.Throws<ArgumentException>(() => Switches.Add(EmptyName));
 		}
 
 		/// <summary>
@@ -253,7 +253,7 @@ namespace CSharpCLI.Tests.Argument
 
 			string[] emptyNames = new string[NumberSwitches];
 
-			Assert.Throws<ArgumentException>(delegate { Switches.Add(emptyNames); });
+			Assert.Throws<ArgumentException>(() => Switches.Add(emptyNames));
 		}
 
 		/// <summary>
@@ -631,7 +631,7 @@ namespace CSharpCLI.Tests.Argument
 		[Test]
 		public void AddWithNoName()
 		{
-			Assert.Throws<ArgumentException>(delegate { Switches.Add(NoName); });
+			Assert.Throws<ArgumentException>(() => Switches.Add(NoName));
 		}
 
 		/// <summary>
@@ -642,13 +642,13 @@ namespace CSharpCLI.Tests.Argument
 		{
 			string[] nullNames = null;
 
-			Assert.DoesNotThrow(delegate { Switches.Add(nullNames); });
+			Assert.DoesNotThrow(() => Switches.Add(nullNames));
 
 			Assert.AreEqual(NoSwitches, Switches.Count);
 
 			string[] noNames = new string[NoSwitches];
 
-			Assert.DoesNotThrow(delegate { Switches.Add(noNames); });
+			Assert.DoesNotThrow(() => Switches.Add(noNames));
 
 			Assert.AreEqual(NoSwitches, Switches.Count);
 		}
