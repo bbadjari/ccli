@@ -52,8 +52,7 @@ namespace CSharpCLI.Parse
 		/// Array of strings representing command-line arguments.
 		/// </param>
 		/// <param name="switches">
-		/// SwitchCollection representing collection of switches expected to be
-		/// parsed from given command-line arguments.
+		/// SwitchCollection representing collection of switches expected to be parsed from given command-line arguments.
 		/// </param>
 		public ArgumentParser(string[] arguments, SwitchCollection switches)
 		{
@@ -124,8 +123,7 @@ namespace CSharpCLI.Parse
 		/// </param>
 		/// <returns>
 		///		<para>
-		///		String representing first argument value from switch with given
-		///		name.
+		///		String representing first argument value from switch with given name.
 		///		</para>
 		///		<para>
 		///		Null if switch with given name not parsed.
@@ -147,12 +145,10 @@ namespace CSharpCLI.Parse
 		/// </param>
 		/// <returns>
 		///		<para>
-		///		String representing argument value from switch with given name
-		///		and argument number.
+		///		String representing argument value from switch with given name and argument number.
 		///		</para>
 		///		<para>
-		///		Null if switch with given name not parsed or given argument
-		///		number invalid.
+		///		Null if switch with given name not parsed or given argument number invalid.
 		///		</para>
 		/// </returns>
 		public string GetValue(string name, int argumentNumber)
@@ -178,8 +174,7 @@ namespace CSharpCLI.Parse
 		/// </param>
 		/// <returns>
 		///		<para>
-		///		Array of strings representing argument values from switch with
-		///		given name.
+		///		Array of strings representing argument values from switch with given name.
 		///		</para>
 		///		<para>
 		///		Null if switch with given name not parsed.
@@ -302,8 +297,7 @@ namespace CSharpCLI.Parse
 		/// </param>
 		private static void ThrowParsingException(string message, string name)
 		{
-			string formattedMessage = string.Format(CultureInfo.CurrentCulture,
-				message, name);
+			string formattedMessage = string.Format(CultureInfo.CurrentCulture, message, name);
 
 			throw new ParsingException(formattedMessage);
 		}
