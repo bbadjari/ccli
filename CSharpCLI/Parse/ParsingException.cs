@@ -79,11 +79,9 @@ namespace CSharpCLI.Parse
 		/// SerializationInfo representing serialized exception data.
 		/// </param>
 		/// <param name="context">
-		/// StreamingContext representing contextual data about exception
-		/// source/destination.
+		/// StreamingContext representing contextual data about exception source/destination.
 		/// </param>
-		protected ParsingException(SerializationInfo info,
-			StreamingContext context)
+		protected ParsingException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
 		}
