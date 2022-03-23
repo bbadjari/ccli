@@ -38,55 +38,31 @@ namespace CSharpCLI.Tests.Parse
 	[TestFixture]
 	public class ArgumentParserTests
 	{
-		/// <summary>
-		/// Empty switch name.
-		/// </summary>
+		private static readonly string[] EmptyArguments = new string[ZeroElements];
+
 		private const string EmptyName = "";
 
-		/// <summary>
-		/// Empty switch names.
-		/// </summary>
-		private static readonly string[] EmptyNames = new string[NoElements];
+		private static readonly string[] EmptyNames = new string[ZeroElements];
 
-		/// <summary>
-		/// Switch has arguments.
-		/// </summary>
 		private const bool HasArguments = true;
 
-		/// <summary>
-		/// Switch required.
-		/// </summary>
 		private const bool IsRequired = true;
 
-		/// <summary>
-		/// No switch description.
-		/// </summary>
+		private static readonly string[] NoArguments = null;
+
 		private const string NoDescription = null;
 
-		/// <summary>
-		/// No array elements.
-		/// </summary>
-		private const int NoElements = 0;
-
-		/// <summary>
-		/// No switch long name.
-		/// </summary>
 		private const string NoLongName = null;
 
-		/// <summary>
-		/// No switch name.
-		/// </summary>
 		private const string NoName = null;
 
-		/// <summary>
-		/// No switch names.
-		/// </summary>
 		private static readonly string[] NoNames = null;
 
-		/// <summary>
-		/// No switches.
-		/// </summary>
-		private const int NoSwitches = 0;
+		private const SwitchCollection NoSwitches = null;
+
+		private const int ZeroElements = 0;
+
+		private const int ZeroSwitches = 0;
 
 		////////////////////////////////////////////////////////////////////////
 		// Helper Methods
@@ -97,21 +73,32 @@ namespace CSharpCLI.Tests.Parse
 		[SetUp]
 		public void BeforeTest()
 		{
-			EmptyParser = new ArgumentParser(new string[NoElements], new SwitchCollection());
+			EmptyParser = new ArgumentParser(EmptyArguments, new SwitchCollection());
 
 			EmptyParser.Parse();
+
+			Switches = new SwitchCollection();
 		}
 
 		////////////////////////////////////////////////////////////////////////
 		// Constructors
 
 		/// <summary>
-		/// Test constructor with no values for arguments and switches.
+		/// Test constructor with no arguments.
 		/// </summary>
 		[Test]
-		public void WithNoValues()
+		public void WithNoArguments()
 		{
-			Assert.Throws<ArgumentNullException>(delegate { new ArgumentParser(null, null); });
+			Assert.Throws<ArgumentNullException>(() => new ArgumentParser(NoArguments, Switches));
+		}
+
+		/// <summary>
+		/// Test constructor with no switches.
+		/// </summary>
+		[Test]
+		public void WithNoSwitches()
+		{
+			Assert.Throws<ArgumentNullException>(() => new ArgumentParser(EmptyArguments, NoSwitches));
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -137,11 +124,9 @@ namespace CSharpCLI.Tests.Parse
 			string[] switchNames2 = new string[] { Name1, Name2 };
 			string[] switchNames3 = new string[] { Name1, Name2, Name3 };
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(switchNames2);
 
-			switches.Add(switchNames2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.AllParsed(switchNames1));
 			Assert.IsFalse(parser.AllParsed(switchNames2));
@@ -173,12 +158,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.AllParsed(EmptyNames));
 			Assert.IsFalse(parser.AllParsed(NoNames));
@@ -211,11 +194,9 @@ namespace CSharpCLI.Tests.Parse
 			string[] switchNames2 = new string[] { Name1, Name2 };
 			string[] switchNames3 = new string[] { Name1, Name2, Name3 };
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(switchNames2);
 
-			switches.Add(switchNames2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.AnyParsed(switchNames1));
 			Assert.IsFalse(parser.AnyParsed(switchNames2));
@@ -246,12 +227,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.AnyParsed(EmptyNames));
 			Assert.IsFalse(parser.AnyParsed(NoNames));
@@ -285,12 +264,10 @@ namespace CSharpCLI.Tests.Parse
 				Value2
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1, NoLongName, NoDescription, IsRequired, ArgumentName1);
+			Switches.Add(Name2, NoLongName, NoDescription, IsRequired, ArgumentName2);
 
-			switches.Add(Name1, NoLongName, NoDescription, IsRequired, ArgumentName1);
-			switches.Add(Name2, NoLongName, NoDescription, IsRequired, ArgumentName2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsNull(parser.GetValue(EmptyName));
 			Assert.IsNull(parser.GetValue(Name1));
@@ -330,12 +307,10 @@ namespace CSharpCLI.Tests.Parse
 				Value2
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1, NoLongName, NoDescription, IsRequired, ArgumentName1);
+			Switches.Add(Name2, NoLongName, NoDescription, IsRequired, ArgumentName2);
 
-			switches.Add(Name1, NoLongName, NoDescription, IsRequired, ArgumentName1);
-			switches.Add(Name2, NoLongName, NoDescription, IsRequired, ArgumentName2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsNull(parser.GetValue(EmptyName, Argument1));
 			Assert.IsNull(parser.GetValue(Name1, Argument1));
@@ -372,11 +347,9 @@ namespace CSharpCLI.Tests.Parse
 				Value
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name, NoLongName, NoDescription, IsRequired, ArgumentName);
 
-			switches.Add(Name, NoLongName, NoDescription, IsRequired, ArgumentName);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsNull(parser.GetValue(EmptyName, Argument0));
 			Assert.IsNull(parser.GetValue(EmptyName, Argument1));
@@ -430,12 +403,10 @@ namespace CSharpCLI.Tests.Parse
 				Value3, Value4
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1, NoLongName, NoDescription, NumberArguments, IsRequired);
+			Switches.Add(Name2, NoLongName, NoDescription, NumberArguments, IsRequired);
 
-			switches.Add(Name1, NoLongName, NoDescription, NumberArguments, IsRequired);
-			switches.Add(Name2, NoLongName, NoDescription, NumberArguments, IsRequired);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsNull(parser.GetValues(EmptyName));
 			Assert.IsNull(parser.GetValues(Name1));
@@ -470,12 +441,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(EmptyName));
 			Assert.IsFalse(parser.IsParsed(Name1));
@@ -519,11 +488,9 @@ namespace CSharpCLI.Tests.Parse
 			string[] switchNames4 = new string[] { Name2, Name3, Name4 };
 			string[] switchNames5 = new string[] { Name4, Name5 };
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(switchNames2);
 
-			switches.Add(switchNames2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsTrue(parser.NoneParsed(switchNames1));
 			Assert.IsTrue(parser.NoneParsed(switchNames2));
@@ -559,12 +526,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.NoneParsed(EmptyNames));
 			Assert.IsFalse(parser.NoneParsed(NoNames));
@@ -592,12 +557,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(EmptyName));
 			Assert.IsFalse(parser.IsParsed(Name1));
@@ -633,17 +596,15 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name1)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 
-			Assert.Throws<ParsingException>(delegate { parser.Parse(); });
+			Assert.Throws<ParsingException>(() => parser.Parse());
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
@@ -665,19 +626,17 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
+			Switches.Add(Name3, NoLongName, NoDescription, IsRequired);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-			switches.Add(Name3, NoLongName, NoDescription, IsRequired);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 			Assert.IsFalse(parser.IsParsed(Name3));
 
-			Assert.Throws<ParsingException>(delegate { parser.Parse(); });
+			Assert.Throws<ParsingException>(() => parser.Parse());
 
 			Assert.IsFalse(parser.IsParsed(Name3));
 
@@ -702,12 +661,10 @@ namespace CSharpCLI.Tests.Parse
 				ArgumentName2
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(ArgumentName1));
 			Assert.IsFalse(parser.IsParsed(ArgumentName2));
@@ -745,12 +702,10 @@ namespace CSharpCLI.Tests.Parse
 
 			string[] values = new string[] { Value1, Value2 };
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1, NoLongName, NoDescription, IsRequired, argumentNames);
+			Switches.Add(Name2);
 
-			switches.Add(Name1, NoLongName, NoDescription, IsRequired, argumentNames);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
@@ -789,18 +744,16 @@ namespace CSharpCLI.Tests.Parse
 
 			string[] excessValues = new string[] { Value1, Value2, Value3 };
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1, NoLongName, NoDescription, IsRequired, argumentNames);
+			Switches.Add(Name2);
 
-			switches.Add(Name1, NoLongName, NoDescription, IsRequired, argumentNames);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 
 			// No exceptions should be thrown. Excess arguments should be ignored.
-			Assert.DoesNotThrow(delegate { parser.Parse(); });
+			Assert.DoesNotThrow(() => parser.Parse());
 
 			Assert.AreEqual(enoughValues, parser.GetValues(Name1));
 
@@ -825,17 +778,15 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2, NoLongName, NoDescription, HasArguments, !IsRequired);
 
-			switches.Add(Name1);
-			switches.Add(Name2, NoLongName, NoDescription, HasArguments, !IsRequired);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 
-			Assert.Throws<ParsingException>(delegate { parser.Parse(); });
+			Assert.Throws<ParsingException>(() => parser.Parse());
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
@@ -856,12 +807,10 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
@@ -869,7 +818,7 @@ namespace CSharpCLI.Tests.Parse
 			parser.Parse();
 
 			// No exceptions should be thrown on second successive call.
-			Assert.DoesNotThrow(delegate { parser.Parse(); });
+			Assert.DoesNotThrow(() => parser.Parse());
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
@@ -892,18 +841,16 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
-
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
 			Assert.IsFalse(parser.IsParsed(Name1));
 			Assert.IsFalse(parser.IsParsed(Name2));
 			Assert.IsFalse(parser.IsParsed(UndefinedName));
 
-			Assert.Throws<ParsingException>(delegate { parser.Parse(); });
+			Assert.Throws<ParsingException>(() => parser.Parse());
 
 			Assert.IsFalse(parser.IsParsed(Name2));
 			Assert.IsFalse(parser.IsParsed(UndefinedName));
@@ -929,19 +876,17 @@ namespace CSharpCLI.Tests.Parse
 				Switch.GetPrefixedName(Name2)
 			};
 
-			SwitchCollection switches = new SwitchCollection();
+			Switches.Add(Name1);
+			Switches.Add(Name2);
 
-			switches.Add(Name1);
-			switches.Add(Name2);
+			ArgumentParser parser = new ArgumentParser(arguments, Switches);
 
-			ArgumentParser parser = new ArgumentParser(arguments, switches);
-
-			Assert.AreEqual(NoSwitches, parser.NumberSwitchesParsed);
-			Assert.AreEqual(NoSwitches, EmptyParser.NumberSwitchesParsed);
+			Assert.AreEqual(ZeroSwitches, parser.NumberSwitchesParsed);
+			Assert.AreEqual(ZeroSwitches, EmptyParser.NumberSwitchesParsed);
 
 			parser.Parse();
 
-			Assert.AreEqual(switches.Count, parser.NumberSwitchesParsed);
+			Assert.AreEqual(Switches.Count, parser.NumberSwitchesParsed);
 
 			Assert.IsTrue(parser.IsParsed(Name1));
 			Assert.IsTrue(parser.IsParsed(Name2));
@@ -957,5 +902,13 @@ namespace CSharpCLI.Tests.Parse
 		/// ArgumentParser representing empty argument parser.
 		/// </value>
 		private ArgumentParser EmptyParser { get; set; }
+
+		/// <summary>
+		/// Get/set switch collection.
+		/// </summary>
+		/// <value>
+		/// SwitchCollection representing switch collection.
+		/// </value>
+		private SwitchCollection Switches { get; set; }
 	}
 }
