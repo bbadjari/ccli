@@ -112,8 +112,7 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			bool isRequired)
+		public void Add(string name, string longName, string description, bool isRequired)
 		{
 			Add(new Switch(name, longName, description, isRequired));
 		}
@@ -136,11 +135,9 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			bool hasArguments, bool isRequired)
+		public void Add(string name, string longName, string description, bool hasArguments, bool isRequired)
 		{
-			Add(new Switch(name, longName, description, hasArguments,
-				isRequired));
+			Add(new Switch(name, longName, description, hasArguments, isRequired));
 		}
 
 		/// <summary>
@@ -158,8 +155,7 @@ namespace CSharpCLI.Argument
 		/// <param name="numberArguments">
 		/// Integer representing number of arguments expected to follow switch.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			int numberArguments)
+		public void Add(string name, string longName, string description, int numberArguments)
 		{
 			Add(new Switch(name, longName, description, numberArguments));
 		}
@@ -182,11 +178,9 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			int numberArguments, bool isRequired)
+		public void Add(string name, string longName, string description, int numberArguments, bool isRequired)
 		{
-			Add(new Switch(name, longName, description, numberArguments,
-				isRequired));
+			Add(new Switch(name, longName, description, numberArguments, isRequired));
 		}
 
 		/// <summary>
@@ -210,11 +204,9 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentName">
 		/// String representing name of arguments expected to follow switch.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			bool hasArguments, bool isRequired, string argumentName)
+		public void Add(string name, string longName, string description, bool hasArguments, bool isRequired, string argumentName)
 		{
-			Add(new Switch(name, longName, description, hasArguments,
-				isRequired, argumentName));
+			Add(new Switch(name, longName, description, hasArguments, isRequired, argumentName));
 		}
 
 		/// <summary>
@@ -235,11 +227,9 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentName">
 		/// String representing name of single argument expected to follow switch.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			bool isRequired, string argumentName)
+		public void Add(string name, string longName, string description, bool isRequired, string argumentName)
 		{
-			Add(new Switch(name, longName, description, isRequired,
-				argumentName));
+			Add(new Switch(name, longName, description, isRequired, argumentName));
 		}
 
 		/// <summary>
@@ -260,11 +250,9 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentNames">
 		/// Array of strings representing names of arguments expected to follow switch.
 		/// </param>
-		public void Add(string name, string longName, string description,
-			bool isRequired, string[] argumentNames)
+		public void Add(string name, string longName, string description, bool isRequired, string[] argumentNames)
 		{
-			Add(new Switch(name, longName, description, isRequired,
-				argumentNames));
+			Add(new Switch(name, longName, description, isRequired, argumentNames));
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -580,8 +568,7 @@ namespace CSharpCLI.Argument
 
 			if (item != null)
 			{
-				contains = switches.Contains(item) ||
-					indicesByName.ContainsKey(item.Name);
+				contains = switches.Contains(item) || indicesByName.ContainsKey(item.Name);
 
 				if (item.HasLongName)
 					contains |= indicesByLongName.ContainsKey(item.LongName);
