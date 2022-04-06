@@ -129,8 +129,7 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			bool isRequired)
+		public Switch(string name, string longName, string description, bool isRequired)
 			: this(name, longName, description, NoArguments, isRequired)
 		{
 		}
@@ -153,10 +152,8 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			bool hasArguments, bool isRequired)
-			: this(name, longName, description, UnknownNumberArguments,
-				isRequired)
+		public Switch(string name, string longName, string description, bool hasArguments, bool isRequired)
+			: this(name, longName, description, UnknownNumberArguments, isRequired)
 		{
 			HasArguments = hasArguments;
 		}
@@ -176,8 +173,7 @@ namespace CSharpCLI.Argument
 		/// <param name="numberArguments">
 		/// Integer representing number of arguments expected to follow switch.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			int numberArguments)
+		public Switch(string name, string longName, string description, int numberArguments)
 			: this(name, longName, description, numberArguments, NotRequired)
 		{
 		}
@@ -200,8 +196,7 @@ namespace CSharpCLI.Argument
 		/// <param name="isRequired">
 		/// True if required switch, false otherwise.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			int numberArguments, bool isRequired)
+		public Switch(string name, string longName, string description, int numberArguments, bool isRequired)
 		{
 			if (string.IsNullOrWhiteSpace(name))
 				throw new ArgumentException(ExceptionMessages.InvalidSwitchName);
@@ -237,8 +232,7 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentName">
 		/// String representing name of arguments expected to follow switch.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			bool hasArguments, bool isRequired, string argumentName)
+		public Switch(string name, string longName, string description, bool hasArguments, bool isRequired, string argumentName)
 			: this(name, longName, description, hasArguments, isRequired)
 		{
 			if (argumentName != null && HasArguments)
@@ -263,8 +257,7 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentName">
 		/// String representing name of single argument expected to follow switch.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			bool isRequired, string argumentName)
+		public Switch(string name, string longName, string description, bool isRequired, string argumentName)
 			: this(name, longName, description, isRequired)
 		{
 			if (argumentName != null)
@@ -293,8 +286,7 @@ namespace CSharpCLI.Argument
 		/// <param name="argumentNames">
 		/// Array of strings representing names of arguments expected to follow switch.
 		/// </param>
-		public Switch(string name, string longName, string description,
-			bool isRequired, string[] argumentNames)
+		public Switch(string name, string longName, string description, bool isRequired, string[] argumentNames)
 			: this(name, longName, description, isRequired)
 		{
 			if (argumentNames != null)
