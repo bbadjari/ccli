@@ -40,50 +40,29 @@ namespace CSharpCLI.Tests.Help
 	[TestFixture]
 	public class HelpPrinterTests
 	{
-		/// <summary>
-		/// Empty footer value.
-		/// </summary>
+		private const string EmptyExecutableName = "";
+
 		private const string EmptyFooter = "";
 
-		/// <summary>
-		/// Empty header value.
-		/// </summary>
 		private const string EmptyHeader = "";
 
-		/// <summary>
-		/// Executable test name.
-		/// </summary>
 		private const string ExecutableName = "testExecutable";
 
-		/// <summary>
-		/// Switch has arguments.
-		/// </summary>
 		private const bool HasArguments = true;
 
-		/// <summary>
-		/// Switch required.
-		/// </summary>
 		private const bool IsRequired = true;
 
-		/// <summary>
-		/// No switch description.
-		/// </summary>
 		private const string NoDescription = null;
 
-		/// <summary>
-		/// No footer value.
-		/// </summary>
+		private const string NoExecutableName = null;
+
 		private const string NoFooter = null;
 
-		/// <summary>
-		/// No header value.
-		/// </summary>
 		private const string NoHeader = null;
 
-		/// <summary>
-		/// No switch long name.
-		/// </summary>
 		private const string NoLongName = null;
+
+		private const SwitchCollection NoSwitches = null;
 
 		////////////////////////////////////////////////////////////////////////
 
@@ -98,7 +77,7 @@ namespace CSharpCLI.Tests.Help
 		[SetUp]
 		public void BeforeTest()
 		{
-			NoSwitches = new SwitchCollection();
+			EmptySwitches = new SwitchCollection();
 
 			output = new StringWriter();
 
@@ -109,12 +88,21 @@ namespace CSharpCLI.Tests.Help
 		// Constructors
 
 		/// <summary>
+		/// Test constructor with empty executable name.
+		/// </summary>
+		[Test]
+		public void WithEmptyExecutableName()
+		{
+			Assert.Throws<ArgumentException>(() => new HelpPrinter(EmptyExecutableName, EmptySwitches));
+		}
+
+		/// <summary>
 		/// Test constructor with empty footer value.
 		/// </summary>
 		[Test]
 		public void WithEmptyFooter()
 		{
-			Assert.DoesNotThrow(delegate { new HelpPrinter(ExecutableName, NoSwitches, GetHeader(), EmptyFooter); });
+			Assert.DoesNotThrow(() => new HelpPrinter(ExecutableName, EmptySwitches, GetHeader(), EmptyFooter));
 		}
 
 		/// <summary>
@@ -123,16 +111,25 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void WithEmptyHeader()
 		{
-			Assert.DoesNotThrow(delegate { new HelpPrinter(ExecutableName, NoSwitches, EmptyHeader, GetFooter()); });
+			Assert.DoesNotThrow(() => new HelpPrinter(ExecutableName, EmptySwitches, EmptyHeader, GetFooter()));
 		}
 
 		/// <summary>
-		/// Test constructor with empty executable name.
+		/// Test constructor with empty switches.
 		/// </summary>
 		[Test]
-		public void WithEmptyName()
+		public void WithEmptySwitches()
 		{
-			Assert.Throws<ArgumentNullException>(delegate { new HelpPrinter(string.Empty, NoSwitches); });
+			Assert.DoesNotThrow(() => new HelpPrinter(ExecutableName, EmptySwitches));
+		}
+
+		/// <summary>
+		/// Test constructor with no executable name.
+		/// </summary>
+		[Test]
+		public void WithNoExecutableName()
+		{
+			Assert.Throws<ArgumentException>(() => new HelpPrinter(NoExecutableName, EmptySwitches));
 		}
 
 		/// <summary>
@@ -141,7 +138,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void WithNoFooter()
 		{
-			Assert.DoesNotThrow(delegate { new HelpPrinter(ExecutableName, NoSwitches, GetHeader(), NoFooter); });
+			Assert.DoesNotThrow(() => new HelpPrinter(ExecutableName, EmptySwitches, GetHeader(), NoFooter));
 		}
 
 		/// <summary>
@@ -150,25 +147,16 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void WithNoHeader()
 		{
-			Assert.DoesNotThrow(delegate { new HelpPrinter(ExecutableName, NoSwitches, NoHeader); });
+			Assert.DoesNotThrow(() => new HelpPrinter(ExecutableName, EmptySwitches, NoHeader));
 		}
 
 		/// <summary>
-		/// Test constructor with no value for switches.
+		/// Test constructor with no switches.
 		/// </summary>
 		[Test]
 		public void WithNoSwitches()
 		{
-			Assert.DoesNotThrow(delegate { new HelpPrinter(ExecutableName, NoSwitches); });
-		}
-
-		/// <summary>
-		/// Test constructor with no values for executable name and switches.
-		/// </summary>
-		[Test]
-		public void WithNoValues()
-		{
-			Assert.Throws<ArgumentNullException>(delegate { new HelpPrinter(null, null); });
+			Assert.Throws<ArgumentNullException>(() => new HelpPrinter(ExecutableName, NoSwitches));
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -223,7 +211,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintEmptyFooter()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, NoHeader, EmptyFooter);
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, NoHeader, EmptyFooter);
 
 			helpPrinter.Print();
 
@@ -240,7 +228,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintEmptyHeader()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, EmptyHeader);
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, EmptyHeader);
 
 			helpPrinter.Print();
 
@@ -257,7 +245,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintFooter()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, NoHeader, GetFooter());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, NoHeader, GetFooter());
 
 			helpPrinter.Print();
 
@@ -274,7 +262,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintHeader()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, GetHeader());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, GetHeader());
 
 			helpPrinter.Print();
 
@@ -291,7 +279,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintLongFooter()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, NoHeader, GetLongFooter());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, NoHeader, GetLongFooter());
 
 			helpPrinter.Print();
 
@@ -313,7 +301,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintLongHeader()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, GetLongHeader());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, GetLongHeader());
 
 			helpPrinter.Print();
 
@@ -335,7 +323,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintLongHeaderFooter()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, GetLongHeader(), GetLongFooter());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, GetLongHeader(), GetLongFooter());
 
 			helpPrinter.Print();
 
@@ -456,7 +444,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintNoSwitches()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches, GetHeader(), GetFooter());
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches, GetHeader(), GetFooter());
 
 			helpPrinter.Print();
 
@@ -500,7 +488,7 @@ namespace CSharpCLI.Tests.Help
 		[Test]
 		public void PrintNothing()
 		{
-			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, NoSwitches);
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, EmptySwitches);
 
 			helpPrinter.Print();
 
@@ -592,12 +580,12 @@ namespace CSharpCLI.Tests.Help
 		// Helper Properties
 
 		/// <summary>
-		/// Get/set switch collection with no switches.
+		/// Get/set empty collection of switches.
 		/// </summary>
 		/// <value>
 		/// SwitchCollection representing empty collection of switches.
 		/// </value>
-		private SwitchCollection NoSwitches { get; set; }
+		private SwitchCollection EmptySwitches { get; set; }
 
 		/// <summary>
 		/// Get current HelpPrinter output.
