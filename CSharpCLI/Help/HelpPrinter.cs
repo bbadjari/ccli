@@ -34,8 +34,7 @@ using CSharpCLI.Argument;
 namespace CSharpCLI.Help
 {
 	/// <summary>
-	/// Prints switch usage information and descriptions for a collection
-	/// of Switch objects.
+	/// Prints switch usage information and descriptions for a collection of Switch objects.
 	/// </summary>
 	public class HelpPrinter
 	{
@@ -106,8 +105,7 @@ namespace CSharpCLI.Help
 		// Constructors
 
 		/// <summary>
-		/// Constructor for specifying executable name and switches to be
-		/// printed.
+		/// Constructor for specifying executable name and switches to be printed.
 		/// </summary>
 		/// <param name="executableName">
 		/// String representing executable name.
@@ -118,7 +116,7 @@ namespace CSharpCLI.Help
 		public HelpPrinter(string executableName, SwitchCollection switches)
 		{
 			if (string.IsNullOrWhiteSpace(executableName))
-				throw new ArgumentNullException(nameof(executableName));
+				throw new ArgumentException(nameof(executableName));
 
 			if (switches == null)
 				throw new ArgumentNullException(nameof(switches));
@@ -141,8 +139,7 @@ namespace CSharpCLI.Help
 		/// <param name="header">
 		/// String representing header to be printed.
 		/// </param>
-		public HelpPrinter(string executableName, SwitchCollection switches,
-			string header)
+		public HelpPrinter(string executableName, SwitchCollection switches, string header)
 			: this(executableName, switches)
 		{
 			Header = header;
@@ -163,8 +160,7 @@ namespace CSharpCLI.Help
 		/// <param name="footer">
 		/// String representing footer to be printed.
 		/// </param>
-		public HelpPrinter(string executableName, SwitchCollection switches,
-			string header, string footer)
+		public HelpPrinter(string executableName, SwitchCollection switches, string header, string footer)
 			: this(executableName, switches, header)
 		{
 			Footer = footer;
@@ -228,14 +224,12 @@ namespace CSharpCLI.Help
 		/// Append given argument names to given output.
 		/// </summary>
 		/// <param name="argumentNames">
-		/// Array of strings representing arguments names to append to given
-		/// output.
+		/// Array of strings representing arguments names to append to given output.
 		/// </param>
 		/// <param name="output">
 		/// StringBuilder object representing output to append to.
 		/// </param>
-		private static void AppendArgumentNames(string[] argumentNames,
-			StringBuilder output)
+		private static void AppendArgumentNames(string[] argumentNames, StringBuilder output)
 		{
 			for (int index = 0; index < argumentNames.Length; index++)
 			{
@@ -280,8 +274,7 @@ namespace CSharpCLI.Help
 			{
 				int lineLengthLeft = maximumAppendLength - CurrentLineLength;
 
-				int appendLength = GetAppendLength(value, lineLengthLeft,
-					maximumAppendLength);
+				int appendLength = GetAppendLength(value, lineLengthLeft, maximumAppendLength);
 
 				string outputLine = value.Substring(0, appendLength);
 
@@ -332,8 +325,7 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Determine if next token in given string starting at given index can
-		/// be appended to new line of output, given maximum amount.
+		/// Determine if next token in given string starting at given index can be appended to new line of output, given maximum amount.
 		/// </summary>
 		/// <param name="value">
 		/// String representing value containing next token.
@@ -342,12 +334,10 @@ namespace CSharpCLI.Help
 		/// Integer representing index to start at in given value.
 		/// </param>
 		/// <param name="maximumAppendLength">
-		/// Integer representing maximum number of characters that can be
-		/// appended to a new line of output.
+		/// Integer representing maximum number of characters that can be appended to a new line of output.
 		/// </param>
 		/// <returns>
-		/// True if next token in given value can be appended to new line of
-		/// output, false otherwise.
+		/// True if next token in given value can be appended to new line of output, false otherwise.
 		/// </returns>
 		private bool CanAppendNextToken(string value, int startIndex, int maximumAppendLength)
 		{
@@ -362,22 +352,19 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Get number of characters in given string to append to output,
-		/// depending on whether it contains a new line character.
+		/// Get number of characters in given string to append to output, depending on whether it contains a new line character.
 		/// </summary>
 		/// <param name="value">
 		/// String representing value to append to output.
 		/// </param>
 		/// <returns>
-		/// Integer representing number of characters in given value to append
-		/// to output.
+		/// Integer representing number of characters in given value to append to output.
 		/// </returns>
 		private static int GetAppendLength(string value)
 		{
 			int valueLength = value.Length;
 
-			int firstNewLineIndex = value.IndexOf(Environment.NewLine,
-				StringComparison.Ordinal);
+			int firstNewLineIndex = value.IndexOf(Environment.NewLine, StringComparison.Ordinal);
 
 			if (firstNewLineIndex > 0)
 				valueLength = firstNewLineIndex;
@@ -386,23 +373,19 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Get number of characters in given string to append to current line
-		/// of output, given length left on current line and maximum length.
+		/// Get number of characters in given string to append to current line of output, given length left on current line and maximum length.
 		/// </summary>
 		/// <param name="value">
 		/// String representing value to append to output.
 		/// </param>
 		/// <param name="lineLengthLeft">
-		/// Integer representing number of characters that can be appended to
-		/// current line of output.
+		/// Integer representing number of characters that can be appended to current line of output.
 		/// </param>
 		/// <param name="maximumAppendLength">
-		/// Integer representing maximum number of characters that can be
-		/// appended to a line of output.
+		/// Integer representing maximum number of characters that can be appended to a line of output.
 		/// </param>
 		/// <returns>
-		/// Integer representing number of characters in given value to append
-		/// to current line of output.
+		/// Integer representing number of characters in given value to append to current line of output.
 		/// </returns>
 		private int GetAppendLength(string value, int lineLengthLeft, int maximumAppendLength)
 		{
@@ -598,8 +581,7 @@ namespace CSharpCLI.Help
 
 				int currentLineLength = output.Length;
 
-				int lastNewLineIndex = output.LastIndexOf(Environment.NewLine,
-					StringComparison.Ordinal);
+				int lastNewLineIndex = output.LastIndexOf(Environment.NewLine, StringComparison.Ordinal);
 
 				if (lastNewLineIndex >= 0)
 					currentLineLength -= lastNewLineIndex + Environment.NewLine.Length;
@@ -680,8 +662,7 @@ namespace CSharpCLI.Help
 		/// Get/set number of characters to indent each new line of output by.
 		/// </summary>
 		/// <value>
-		/// Integer representing number of characters to indent new line of
-		/// output by.
+		/// Integer representing number of characters to indent new line of output by.
 		/// </value>
 		private int NumberIndentCharacters { get; set; }
 
