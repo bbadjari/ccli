@@ -259,14 +259,6 @@ namespace CSharpCLI.Help
 		/// </param>
 		private void AppendLine(string value)
 		{
-			// Ensure given string value represents single line.
-			if (HasNewLine(value))
-			{
-				Append(value);
-
-				return;
-			}
-
 			// Maximum number of characters to append to line of output.
 			int maximumAppendLength = OutputWidth - Environment.NewLine.Length;
 
