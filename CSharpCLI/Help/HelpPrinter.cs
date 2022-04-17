@@ -416,20 +416,6 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Determine if given string value contains new line characters.
-		/// </summary>
-		/// <param name="value">
-		/// String representing value to inspect.
-		/// </param>
-		/// <returns>
-		/// True if given value contains new line characters, false otherwise.
-		/// </returns>
-		private static bool HasNewLine(string value)
-		{
-			return value.Contains(Environment.NewLine);
-		}
-
-		/// <summary>
 		/// Initialize printer.
 		/// </summary>
 		private void Initialize()
