@@ -64,6 +64,8 @@ namespace CSharpCLI.Tests.Help
 
 		private const SwitchCollection NoSwitches = null;
 
+		private const string UsagePrefix = "Usage: ";
+
 		////////////////////////////////////////////////////////////////////////
 
 		private TextWriter output;
@@ -193,12 +195,51 @@ namespace CSharpCLI.Tests.Help
 
 			expectedOutput.AppendLine(GetHeader());
 			expectedOutput.AppendLine();
-			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2 -s3 <arg>");
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2 -s3 <arg>");
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine("-s1, --switch1         " + Description1);
 			expectedOutput.AppendLine("-s2, --switch2         " + Description2);
 			expectedOutput.AppendLine("-s3, --switch3 <arg>   Third switch. This switch is required and has an ");
 			expectedOutput.AppendLine("                       argument.");
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine(GetFooter());
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
+		/// Test Print() method with switch having argument names.
+		/// </summary>
+		[Test]
+		public void PrintArgumentNames()
+		{
+			const string Description1 = "First switch.";
+			const string Description2 = "Second switch. This switch has argument names.";
+			const string LongName1 = "switch1";
+			const string LongName2 = "switch2";
+			const string Name1 = "s1";
+			const string Name2 = "s2";
+
+			string[] argumentNames = new string[] { "arg1", "arg2", "arg3" };
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name1, LongName1, Description1);
+			switches.Add(Name2, LongName2, Description2, IsRequired, argumentNames);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches, GetHeader(), GetFooter());
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine(GetHeader());
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2 <arg1> <arg2> <arg3>");
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine("-s1, --switch1                        " + Description1);
+			expectedOutput.AppendLine("-s2, --switch2 <arg1> <arg2> <arg3>   Second switch. This switch has argument ");
+			expectedOutput.AppendLine("                                      names.");
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine(GetFooter());
 
@@ -235,6 +276,31 @@ namespace CSharpCLI.Tests.Help
 			StringBuilder expectedOutput = new StringBuilder();
 
 			expectedOutput.AppendLine(EmptyHeader);
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
+		/// Test Print() method with executable name being too long (beyond fixed output width).
+		/// </summary>
+		[Test]
+		public void PrintExecutableNameTooLong()
+		{
+			const string LongExecutableName = "testExecutable1111111111111111111111111111111111111111111111111111111111111111111";
+			const string Name = "s1";
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name);
+
+			HelpPrinter helpPrinter = new HelpPrinter(LongExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine(UsagePrefix + "testExecutable111111111111111111111111111111111111111111111111111111111");
+			expectedOutput.AppendLine("       1111111111 [-s1]");
 
 			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
@@ -347,6 +413,62 @@ namespace CSharpCLI.Tests.Help
 		}
 
 		/// <summary>
+		/// Test Print() method with switch having newline in description.
+		/// </summary>
+		[Test]
+		public void PrintNewLineDescription()
+		{
+			const string DescriptionPrefix = "This switch has ";
+			const string DescriptionSuffix = "a description spanning two lines.";
+			const string LongName = "switch1";
+			const string Name = "s1";
+
+			string description = DescriptionPrefix + Environment.NewLine + DescriptionSuffix;
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(Name, LongName, description, IsRequired);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " -s1");
+			expectedOutput.AppendLine();
+			expectedOutput.AppendLine("-s1, --switch1   " + DescriptionPrefix + DescriptionSuffix);
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
+		/// Test Print() method with switch having newline in name.
+		/// </summary>
+		[Test]
+		public void PrintNewLineName()
+		{
+			const string NamePrefix = "s1";
+			const string NameSuffix = "1s";
+
+			string switchName = NamePrefix + Environment.NewLine + NameSuffix;
+
+			SwitchCollection switches = new SwitchCollection();
+
+			switches.Add(switchName, IsRequired);
+
+			HelpPrinter helpPrinter = new HelpPrinter(ExecutableName, switches);
+
+			helpPrinter.Print();
+
+			StringBuilder expectedOutput = new StringBuilder();
+
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " -" + NamePrefix + NameSuffix);
+
+			Assert.AreEqual(expectedOutput.ToString(), Output);
+		}
+
+		/// <summary>
 		/// Test Print() method with switches having no descriptions.
 		/// </summary>
 		[Test]
@@ -368,7 +490,7 @@ namespace CSharpCLI.Tests.Help
 
 			StringBuilder expectedOutput = new StringBuilder();
 
-			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2");
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine("-s1, --switch1");
 			expectedOutput.AppendLine("-s2, --switch2");
@@ -400,7 +522,7 @@ namespace CSharpCLI.Tests.Help
 
 			StringBuilder expectedOutput = new StringBuilder();
 
-			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2");
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine("-s1, --switch1   " + Description1);
 			expectedOutput.AppendLine("-s2, --switch2   " + Description2);
@@ -430,7 +552,7 @@ namespace CSharpCLI.Tests.Help
 
 			StringBuilder expectedOutput = new StringBuilder();
 
-			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2");
 			expectedOutput.AppendLine();
 			expectedOutput.AppendLine("-s1   " + Description1);
 			expectedOutput.AppendLine("-s2   " + Description2);
@@ -477,7 +599,7 @@ namespace CSharpCLI.Tests.Help
 
 			StringBuilder expectedOutput = new StringBuilder();
 
-			expectedOutput.AppendLine("Usage: " + ExecutableName + " [-s1] -s2");
+			expectedOutput.AppendLine(UsagePrefix + ExecutableName + " [-s1] -s2");
 
 			Assert.AreEqual(expectedOutput.ToString(), Output);
 		}
