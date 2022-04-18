@@ -52,8 +52,7 @@ namespace CSharpCLI.Argument
 		/// </returns>
 		public int Compare(Switch x, Switch y)
 		{
-			return string.Compare(x.Name, y.Name, true,
-				CultureInfo.CurrentCulture);
+			return string.Compare(x.Name, y.Name, true, CultureInfo.CurrentCulture);
 		}
 	}
 }
