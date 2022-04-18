@@ -1,0 +1,30 @@
+name: GitHub Action For .NET
+
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+
+jobs:
+    build-then-test:
+        runs-on: windows-latest
+
+        env:
+            CONFIGURATION: Release
+            SOLUTION_FILE: CSharpCLI.sln
+            TEST_PROJECT: CSharpCLI.Tests
+
+        steps:
+        - uses: actions/checkout@v2
+
+        - name: Setup .NET 5.0
+          uses: actions/setup-dotnet@v1
+          with:
+              dotnet-version: 5.0.x
+
+        - name: Build Solution
+          run: dotnet build --configuration ${env:CONFIGURATION} ${env:SOLUTION_FILE}
+
+        - name: Execute Tests
+          run: dotnet test --no-build --configuration ${env:CONFIGURATION} ${env:TEST_PROJECT}\${env:TEST_PROJECT}.csproj
