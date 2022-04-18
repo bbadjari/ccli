@@ -344,7 +344,7 @@ namespace CSharpCLI.Help
 		}
 
 		/// <summary>
-		/// Get number of characters in given string to append to output, depending on whether it contains a new line character.
+		/// Get number of characters in given string to append to output, depending on whether it contains a newline character.
 		/// </summary>
 		/// <param name="value">
 		/// String representing value to append to output.
